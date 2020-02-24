@@ -386,7 +386,9 @@ run.exp<- function(popsetobj,numperpop,exp.err){
 						  genoP = rep(p.geno.s, each = length(m.geno.s)) ,
 						  popP = rep(p.pop.s,  each = length(m.geno.s)),
 						  genoM = rep(m.geno.s, times = length(p.geno.s)),
-						  popM = rep(m.pop.s,  times = length(p.geno.s)))
+						  popM = rep(m.pop.s,  times = length(p.geno.s)),
+						  IDP = 1:length(p.geno.s),
+						  IDM = 1:length(m.geno.s) )
 
 		sel.finalT.P <- lapply(1:length(popsetobj), function(POP)  popsetobj[[POP]]$Plant[,p.geno.s[p.pop.s==POP],,dimP[4]]  ) # produces a list, each item is each pop. within these are 2 numloci X numind matrices, 1 for first allele and 1 for next
 		sel.finalT.M  <- lapply(1:length(popsetobj), function(POP)  popsetobj[[POP]]$Microbe[,m.geno.s[p.pop.s==POP],dimP[4]]  ) # produces a list, each item is each pop. within these are 1 numloci X numind matrices, (haploid!)
@@ -395,9 +397,8 @@ run.exp<- function(popsetobj,numperpop,exp.err){
 
 		causalgenos <- getalleles(sel.finalT.P,sel.finalT.M)
 		neutralgenos <- getalleles(sel.finalT.Pn,sel.finalT.Mn)
-		ind.datP <- data.frame(
-			ID = 1:length
-		)
+		ind.datP <- data.frame(ID = 1:length(p.geno.s), POP = p.pop.s,	withinPOPgeno = p.geno.s)
+		ind.datM <- data.frame(ID = 1:length(m.geno.s), POP = m.pop.s,	withinPOPgeno = m.geno.s)
 		ind.datPM = list(plant = ind.datP, microbe= ind.datM)
 		return(list(expdat = dat, causalgenos = causalgenos, neutralgenos = neutralgenos, ind.dat = ind.datPM))
 }
@@ -412,6 +413,11 @@ run.exp<- function(popsetobj,numperpop,exp.err){
 ## to convert to biallelic SNPs, needs to be the number of unique values , ceiling.
 ## then need to assign each a SNP value (literally just the quantity assigned by the locus) and location. perfectly linked within locus and unlinked across
 
+
+
+###THERE IS A PROBLEM WHEN THE LOWEST ALLELIC EFFECT IS NEGATIVE AS OPPOSED TO 0, I think. results in some pops appearing to share identical mutations...
+#seems not not make bonus category when effects are negative.
+#because I relied on 0 being first in code. 
 getalleles <- function(sel.finalT.P, sel.finalT.M){ #final timepoint genotypes as produced within function run.exp()
 
 	nLP <- dim(sel.finalT.P[[1]])[1] 
@@ -469,12 +475,12 @@ getalleles <- function(sel.finalT.P, sel.finalT.M){ #final timepoint genotypes a
 	locusdatP <- data.frame(zerostate = unlist(    lapply(uniquevalsP, function(L) c(L[1], if(length(L)>2) rep(0, times = length(L)-2) else NULL  )  )  ), 
 							reststate = unlist(    lapply(uniquevalsP, function(L)   if(length(L)>1) L[-1] else 0 ) )   ,
 							linkage = unlist(    lapply(1:length(uniquevalsP), function(L)   rep(L, times = if(length(uniquevalsP[[L]])>1) length(uniquevalsP[[L]])-1 else 1 ) ) )   )
-							locusdatP$location <-  unlist(sapply(1:length(unique(locusdatP$linkage)), function(z) seq( from = 0, to = 100, length.out = table(locusdatP$linkage)[z]) ))
+							locusdatP$location <-  round(unlist(sapply(1:length(unique(locusdatP$linkage)), function(z) seq( from = 0, to = 100, length.out = table(locusdatP$linkage)[z]) )))
 							###LOCATION IS VERY FORCED AT THIS POINT. 
 	locusdatM <- data.frame(zerostate = unlist(    lapply(uniquevalsM, function(L) c(L[1], if(length(L)>2) rep(0, times = length(L)-2) else NULL  )  )  ), 
 							reststate = unlist(    lapply(uniquevalsM, function(L)   if(length(L)>1) L[-1] else 0 ) )   ,
 							linkage = unlist(    lapply(1:length(uniquevalsM), function(L)   rep(L, times = if(length(uniquevalsM[[L]])>1) length(uniquevalsM[[L]])-1 else 1 ) ) )   )
-							locusdatM$location <-  unlist(sapply(1:length(unique(locusdatM$linkage)), function(z) seq( from = 0, to = 100, length.out = table(locusdatM$linkage)[z]) ))
+							locusdatM$location <-  round(unlist(sapply(1:length(unique(locusdatM$linkage)), function(z) seq( from = 0, to = 100, length.out = table(locusdatM$linkage)[z]) )))
 #add information about 
 #add column to newgenomatP for linkage group; and also one for allele effect, and "all zero" effect -- e.g. because the first locus has 2 values.	
 return(list(genoP = newgenomatP, genoM=newgenomatM, locusdatP = locusdatP, locusdatM = locusdatM) )
