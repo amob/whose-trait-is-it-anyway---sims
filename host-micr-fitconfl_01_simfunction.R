@@ -282,12 +282,12 @@ extractVmVp <- function(simdat,first,last,eachNth){
 	Vm <- sapply(twindows, function(t) var( colSums(simdat$Microbe[,,t]) )  )
 	Vb <- sapply(twindows, function(t) var( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
 	return(list(Vp=Vp, Vm = Vm,Vb=Vb,PVp=Vp / (Vp+Vm), PVm = Vm/(Vp+Vm)))
-}
+}#currently pVx is a ratio of each to the sum, but not to the breeding value variance.
 
 #short-term questions
 #equilibrium?
 extractDyn <- function(simdat,first,last,windowsize){
-	twindows <- seq(from=first, to = last,by=windowsize)
+	twindows <- seq(from=first+1, to = last,by=windowsize)
 	tcoefP <- sapply(twindows, function(tw) 
 			glm(sapply( (tw):(tw+windowsize-1), function(tstp)  mean(rowSums(colSums(simdat$Plant[,,,tstp])) )  )~c(1:windowsize))$coef[2] )
 	 
