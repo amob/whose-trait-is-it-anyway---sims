@@ -86,7 +86,7 @@ simres <- sim.cotrait(NP=pv[1],NM=pv[2],nlP=pv[3],nlM=pv[4],nlnP=pv[5],nlnM=pv[6
 
 
 #write sim with jobbum in the name
-save(simres,file=paste(Sys.getenv("SCRATCH"),'/sensitivity_',jn,'rep',repnum,'.RData',sep=""))
+save(simres,file=paste(Sys.getenv("SCRATCH"),'/sens_rdata/sensitivity_',jn,'rep',repnum,'.RData',sep=""))
 
 #calculate diagnostic stats?
 FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[17],pfM=pv[18])$fitnesscorrelation
@@ -106,4 +106,4 @@ stats <- data.frame( FC=c(rep(0,times=9),FC), pVp=pVp, tVp=tVp, pVm=pVm, tVm=tVm
 			tcoefP=c(0,rep(tcoefP,each=20)), tcoefM=c(0,rep(tcoefM,each=20) ))#a cheater move to make tcoefP the same length....
 #write stats with jobnum in name
 
-write.csv(stats,file=paste(Sys.getenv("SCRATCH"),'/sensitivity_stats',jn,'rep',repnum,'.csv',sep=""),row.names=F)
+write.csv(stats,file=paste(Sys.getenv("SCRATCH"),'/sens_stats/sensitivity_stats',jn,'rep',repnum,'.csv',sep=""),row.names=F)

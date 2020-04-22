@@ -1,19 +1,23 @@
 
-simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/sens_reps_finalparameters.csv",header=T)
+simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_finalparameters.csv",header=T)
 
 pars <- simsens[,1:19]
 resps <- simsens[,20:28]
 #not all pars were modified
 mpars <- c(1,3,9,10,12:18)#which then is manipulated one after the other, all but zoM here.
 
-# 1 thru 550 are part of firs set of sims, then 551-555 are the base rows
-# however, each 5 rows together are the same simulation parameters.
+# 1 thru 1110 are part of firs set of sims, then 1111-2220 are the base rows
+# however, each 10 rows together are the same simulation parameters.
 
-tmp <- lapply( 1:ncol(resps), function(r) sapply( 1:length(mpars), function(p) resps[ c( 1:50+(50*(p-1)) , 556:605+(50*(p-1)) ) , r]) )
+tmp <- lapply( 1:ncol(resps), function(r) sapply( 1:length(mpars), function(p) resps[ c( 1:100+(100*(p-1)) , 1111:1210+(100*(p-1)) ) , r]) )
 #each result of the sapply goes into a column
 
-tmp2<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=5), function(startrow) colMeans(tmp[[r]][startrow:(startrow+4),]))  ) )
+tmp2<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) colMeans(tmp[[r]][startrow:(startrow+9),]))  ) )
 #each resul of the sapply goes into a column, but we want it to go into a row
+
+tmp2var<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) sapply(1:length(mpars), function(clmn)  var(tmp[[r]][startrow:(startrow+9),clmn])  ))  ) )
+#each resul of the sapply goes into a column, but we want it to go into a row
+
 
 tmp3 <- tmp2
 tmp3[[8]] <- abs(tmp2[[8]])
@@ -41,7 +45,7 @@ for(i in 1:9){
 	image(tmp[[i]],main="",xaxt="n",yaxt="n")
 	abline(v=0.5)
 	mtext(colnames(resps)[i],side=3,line=1)
-	if(i%in%c(7:9){axis(side=1,at = c(0.225,0.725),lab=c("zoP>zoM","zoP=zoM"))}
+	if(i%in%c(7:9)){axis(side=1,at = c(0.225,0.725),lab=c("zoP>zoM","zoP=zoM"))}
 	if(i%in%c(1,4,7)){axis(side=2,at = seq(from=0,to=1,length.out=length(mpars)),lab=colnames(pars)[mpars],las=2)}
 }
 
@@ -66,7 +70,7 @@ wg <- colorRampPalette(c( rgb(1,1,1), rgb(0,0.5,0) ))
 pdf("~/Dropbox/host microbe trait evo and gwas/sens_reps_finalparameters.pdf",width=10,height=6)
 par(mfrow=c(3,3))
 par(mar=c(1,3,3,1))
-par(oma=c(2,1,0,24))
+par(oma=c(2,1,0,26))
 for(i in 1:9){
 	if(i == 1){
 				zlims <- c(-1,1)
@@ -75,7 +79,9 @@ for(i in 1:9){
 				zlims <- c(0,1)
 				cols <- wg(50)
 			} else if(i%in%(8:9)){
-				zlims <- c(-0.03,0.03)#artificial range. if change sims this may need to change
+				intend <- max(abs(range(tmp2[8:9])))
+				zlims <- c(-1*intend, intend)#artificial range. if change sims this may need to change
+# 				zlims <- c(-0.03,0.03)#artificial range. if change sims this may need to change
 				cols <- pg(50)
 			} else{
 				zlims <- range(tmp2[[i]])
@@ -87,6 +93,38 @@ for(i in 1:9){
 	if(i%in%c(7:9)){axis(side=1,at = c(0.22,0.73),lab=c(expression("z"[opt][P]>"z"[opt][M]),expression("z"[opt][P]*'='*"z"[opt][M]) ) ) }
 	axis(side=2,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(ylabs),las=2)
 	if(i%in%c(3,6,9)){axis(side=4,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(y2labs),las=2)}
-	mtext(paste(round(zlims,digits=2),collapse="-"),side=3,line=0.2,cex=0.5)
+	mtext(paste(round(zlims,digits=3),collapse=" to "),side=3,line=0.2,cex=0.5)
+}
+dev.off()
+
+
+pdf("~/Dropbox/host microbe trait evo and gwas/sens_reps_finalparameters_vars.pdf",width=10,height=6)
+par(mfrow=c(3,3))
+par(mar=c(1,3,3,1))
+par(oma=c(2,1,0,26))
+for(i in 1:9){
+# 	if(i == 1){
+# 				zlims <- c(-1,1)
+# 				cols <- pg(50)
+# 			} else if(i%in%c(2,4,6,7)){
+# 				zlims <- c(0,1)
+# 				cols <- wg(50)
+# 			} else if(i%in%(8:9)){
+# 				zlims <- c(-0.03,0.03)#artificial range. if change sims this may need to change
+# 				cols <- pg(50)
+# 			} else{
+# 				zlims <- range(tmp2var[[i]])
+# 				cols <- wg(50)
+# 			}
+	zlims <- range(tmp2var[[i]])
+	cols <- wg(50)
+	image(tmp2var[[i]],main="",xaxt="n",yaxt="n",zlim=zlims,col=cols)
+# 	image(tmp2var[[i]],main="",xaxt="n",yaxt="n",col=wg(50))
+	abline(v=0.5)
+	mtext(mains[i],side=3,line=1,cex=0.75)
+	if(i%in%c(7:9)){axis(side=1,at = c(0.22,0.73),lab=c(expression("z"[opt][P]>"z"[opt][M]),expression("z"[opt][P]*'='*"z"[opt][M]) ) ) }
+	axis(side=2,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(ylabs),las=2)
+	if(i%in%c(3,6,9)){axis(side=4,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(y2labs),las=2)}
+	mtext(paste(round(zlims,digits=5),collapse=" to "),side=3,line=0.2,cex=0.5)
 }
 dev.off()
