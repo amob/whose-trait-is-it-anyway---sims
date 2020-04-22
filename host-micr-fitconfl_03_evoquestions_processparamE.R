@@ -82,7 +82,7 @@ parm2[112:222,8] <- 3 #change to fitness agreement; now both have optima at 3
 
 #get last row of each simulation data output and append to matrix
 
-examplefinal <- read.csv(file=paste(Sys.getenv("SCRATCH"),'/sensitivity_stats',1,'rep',1,'.csv',sep=""),header=T)
+examplefinal <- read.csv(file=paste(Sys.getenv("SCRATCH"),'/sens_stats/sensitivity_stats',1,'rep',1,'.csv',sep=""),header=T)
 timecol <- which(formalArgs(sim.cotrait)=="timesteps")
 
 finalstate <-  matrix(NA,nrow=0,ncol=ncol(examplefinal))#ncol in stats file
@@ -100,19 +100,19 @@ finalstate <-  matrix(NA,nrow=0,ncol=ncol(examplefinal))#ncol in stats file
 
 
 for(i in 1:nrow(parm2)){
-	for(r in 1:5){
-		simout <- read.csv(file=paste(Sys.getenv("SCRATCH"),'/sensitivity_stats',i,'rep',r,'.csv',sep=""),header=T)
+	for(r in 1:10){
+		simout <- read.csv(file=paste(Sys.getenv("SCRATCH"),'/sens_stats/sensitivity_stats',i,'rep',r,'.csv',sep=""),header=T)
 		finalstate <- rbind(finalstate, simout[ parm2[i,timecol]+1 ,] )
 	}
 }
 
-finalstate$repl <- rep(1:5,times=nrow(parm2))
+finalstate$repl <- rep(1:10,times=nrow(parm2))
 
 
 numargs <- length(formalArgs(sim.cotrait))
 colnames(parm2)<- formalArgs(sim.cotrait)[-c(numargs-1,numargs)]
 
-parmWfs <- cbind(parm2[rep(1:nrow(parm2),each=5),],finalstate)
+parmWfs <- cbind(parm2[rep(1:nrow(parm2),each=10),],finalstate)
 # parmWfs <- cbind(parm2,finalstate)
 # parmVfs <- cbind(parm2,finalstate)
 # 
