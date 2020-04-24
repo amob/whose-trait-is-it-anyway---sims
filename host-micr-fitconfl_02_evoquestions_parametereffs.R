@@ -17,12 +17,8 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 		wM.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75?
 	#drift and selection within each species; # uhhh. wP and wM vs fiterrP and fiterrM
 		#N and s
-#		fiterrP.v <- c(0.0001, 0.0005, 0.0015, 0.0025, 0.005, 0.0075, 0.01, 0.015, 0.02, 0.05)#base set both low, to 0.001
-#		fiterrM.v <- c(0.0001, 0.0005, 0.0015, 0.0025, 0.005, 0.0075, 0.01, 0.015, 0.02, 0.05)#base set both low, to 0.001
-# 		fiterrP.v <- c(0.0001,0.0005, 0.001, 0.005, 0.01, 0.05, 0.01, 0.05, 0.1,0.5)#base set both low, to 0.001
-# 		fiterrM.v <- c(0.0001,0.0005, 0.001, 0.005, 0.01, 0.05, 0.01, 0.05, 0.1,0.5)#base set both low, to 0.001
-		fiterrP.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001
-		fiterrM.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001, at 0.05, with the other params at baseline, there is no response to sel. but at 0.01 there is.
+# 		fiterrP.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001
+# 		fiterrM.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001, at 0.05, with the other params at baseline, there is no response to sel. but at 0.01 there is.
 		popsz.v <- c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300) #note turning up M without N is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
 		nloc.v <- c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300)# multiply by 2 for microbes, base set to 100
 #		nloc.v <- c(10, 25, 50, 75, 125, 150, 200, 250, 300, 500) # multiply by 2 for microbes, base set to 100
@@ -38,12 +34,12 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
 
-basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       30, 0.0005, 0.001,0.001,      0.2,    0.6,0.6,   0.1)
+basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       30, 0.0005,      0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
-													#timesteps,Lambda,mutprb,fiterrP,fiterrM ,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
+													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 
 
-parm <- data.frame(matrix(rep(basevals,times=111),nrow=111,byrow=T)) #81 is the base case
+parm <- data.frame(matrix(rep(basevals,times=91),nrow=91,byrow=T)) #81 is the base case
 parm[1:10,1] <- popsz.v
 parm[1:10,2] <- popsz.v
 parm[11:20,3] <- nloc.v
@@ -52,14 +48,14 @@ parm[21:30,9] <- wP.v
 parm[31:40,10] <- wM.v
 parm[41:50,12] <- Lambda.v
 parm[51:60,13] <- mutprb.v
-parm[61:70,14] <- fiterrP.v
-parm[71:80,15] <- fiterrM.v
-parm[81:90,16] <- prbHorz.v
-parm[91:100,17] <- pfP.v #repeated 2x! once for plants, once for microbes
-parm[101:110,18] <- pfP.v
-#111th row is the base state
+# parm[61:70,14] <- fiterrP.v
+# parm[71:80,15] <- fiterrM.v
+parm[61:70,14] <- prbHorz.v
+parm[71:80,15] <- pfP.v #repeated 2x! once for plants, once for microbes
+parm[81:90,16] <- pfP.v
+#91st row is the base state
 parm2 <- rbind(parm,parm)
-parm2[112:222,8] <- 3 #change to fitness agreement; now both have optima at 3
+parm2[92:182,8] <- 3 #change to fitness agreement; now both have optima at 3
 
 
 #####THIS SECTION ASSUMES RUNNING AS ARRAY JOB FROM PAIRED BASH SCRIPT
@@ -79,9 +75,9 @@ simres <- sim.cotrait(NP=pv[1],NM=pv[2],nlP=pv[3],nlM=pv[4],nlnP=pv[5],nlnM=pv[6
 #sim.cotrait(         NP,NM,            nlP,nlM,            nlnP,nlnM,
 			zoP=pv[7],zoM=pv[8],wP=pv[9],wM=pv[10],
 #			zoP,zoM,           wP,wM,
-			timesteps = pv[11], Lambda = pv[12],mutprb =pv[13],fiterrP=pv[14],fiterrM =pv[15],
-			#timesteps,Lambda,mutprb,fiterrP,fiterrM
-			prbHorz = pv[16], pfP =pv[17], pfM=pv[18],FLFC=0.1)
+			timesteps = pv[11], Lambda = pv[12],mutprb =pv[13],
+			#timesteps,Lambda,mutprb,
+			prbHorz = pv[14], pfP =pv[15], pfM=pv[16],FLFC=0.1)
 		# ,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 
 
@@ -89,7 +85,7 @@ simres <- sim.cotrait(NP=pv[1],NM=pv[2],nlP=pv[3],nlM=pv[4],nlnP=pv[5],nlnM=pv[6
 save(simres,file=paste(Sys.getenv("SCRATCH"),'/sens_rdata/sensitivity_',jn,'rep',repnum,'.RData',sep=""))
 
 #calculate diagnostic stats?
-FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[17],pfM=pv[18])$fitnesscorrelation
+FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[15],pfM=pv[16])$fitnesscorrelation
 VmVp <- extractVmVp(simres, 1,pv[11]+1,1)
 pVp <- VmVp$PVp
 tVp <- VmVp$Vp#currently pVx is a ratio of each to the sum, but not to the breeding value variance.

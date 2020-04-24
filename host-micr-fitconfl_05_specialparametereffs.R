@@ -18,9 +18,9 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 #full factorial combination for each of these as microbe and plant parameters.	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
 
-basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       30, 0.0005, 0.001,0.001,      0.2,    0.6,0.6,   0.1)
+basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       30, 0.0005,     0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
-													#timesteps,Lambda,mutprb,fiterrP,fiterrM ,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
+													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 
 
 params <- data.frame(	pfp = rep( rep( rep( rep(pf.v, times=3),    times=3 ), times=3), times=4), #pfp
@@ -40,8 +40,8 @@ parm[,7] <- params$zoptP
 parm[,8] <- params$zoptM
 parm[,9] <- params$wP
 parm[,10] <- params$wM
-parm[,17] <- params$pfp
-parm[,18] <- params$pfm
+parm[,15] <- params$pfp
+parm[,16] <- params$pfm
 
 
 #####THIS SECTION ASSUMES RUNNING AS ARRAY JOB FROM PAIRED BASH SCRIPT
@@ -61,9 +61,9 @@ simres <- sim.cotrait(NP=pv[1],NM=pv[2],nlP=pv[3],nlM=pv[4],nlnP=pv[5],nlnM=pv[6
 #sim.cotrait(         NP,NM,            nlP,nlM,            nlnP,nlnM,
 			zoP=pv[7],zoM=pv[8],wP=pv[9],wM=pv[10],
 #			zoP,zoM,           wP,wM,
-			timesteps = pv[11], Lambda = pv[12],mutprb =pv[13],fiterrP=pv[14],fiterrM =pv[15],
-			#timesteps,Lambda,mutprb,fiterrP,fiterrM
-			prbHorz = pv[16], pfP =pv[17], pfM=pv[18],FLFC=0.1)
+			timesteps = pv[11], Lambda = pv[12],mutprb =pv[13],
+			#timesteps,Lambda,mutprb,
+			prbHorz = pv[14], pfP =pv[15], pfM=pv[16],FLFC=0.1)
 		# ,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 
 
@@ -71,7 +71,7 @@ simres <- sim.cotrait(NP=pv[1],NM=pv[2],nlP=pv[3],nlM=pv[4],nlnP=pv[5],nlnM=pv[6
 save(simres,file=paste(Sys.getenv("SCRATCH"),'/feedback_rdata/sensitivity_',jn,'rep',repnum,'.RData',sep=""))
 
 #calculate diagnostic stats?
-FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[17],pfM=pv[18])$fitnesscorrelation
+FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[15],pfM=pv[16])$fitnesscorrelation
 VmVp <- extractVmVp(simres, 1,pv[11]+1,1)
 pVp <- VmVp$PVp
 tVp <- VmVp$Vp#currently pVx is a ratio of each to the sum, but not to the breeding value variance.

@@ -16,9 +16,10 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 		zopt.v <- c(1,3,5)
 #full factorial combination for each of these as microbe and plant parameters.	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
-basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       30, 0.0005, 0.001,0.001,      0.2,    0.6,0.6,   0.1)
+basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       30, 0.0005,     0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
-													#timesteps,Lambda,mutprb,fiterrP,fiterrM ,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
+													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
+
 params <- data.frame(	pfp = rep( rep( rep( rep(pf.v, times=3),    times=3 ), times=3), times=4), #pfp
 						pfm = rep( rep( rep( rep(pf.v, each =3),    times=3 ), times=3), times=4), #pfm
 						zoptP = rep( rep( rep( rep(zopt.v, each=3), each = 3  ), times=3), times=4), #zoptp
@@ -31,12 +32,12 @@ parm[,7] <- params$zoptP
 parm[,8] <- params$zoptM
 parm[,9] <- params$wP
 parm[,10] <- params$wM
-parm[,17] <- params$pfp
-parm[,18] <- params$pfm
+parm[,15] <- params$pfp
+parm[,16] <- params$pfm
 
 
 #they have the following stats output to a file
-# FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[17],pfM=pv[18])$fitnesscorrelation
+# FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[15],pfM=pv[16])$fitnesscorrelation
 # VmVp <- extractVmVp(simres, 1,pv[11]+1,1)
 # pVp <- VmVp$PVp
 # tVp <- VmVp$Vp#currently pVx is a ratio of each to the sum, but not to the breeding value variance.

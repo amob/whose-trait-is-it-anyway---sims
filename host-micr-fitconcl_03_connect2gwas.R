@@ -182,7 +182,7 @@ return(list(genoP = newgenomatP, genoM=newgenomatM, locusdatP = locusdatP, locus
 #list parameters; keep everything the same except optima?
 plant.opt <- rep(c(5:15))
 popset <- lapply(1:length(plant.opt), function(E)
-	 sim.cotrait(NP=100,NM=100,nlP=100,nlM=100,nlnP=100,nlnM=100,zoP=E,zoM=E,wP=1,wM=1,timesteps=200,Lambda=30,mutprb=0.0001,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+	 sim.cotrait(NP=100,NM=100,nlP=100,nlM=100,nlnP=100,nlnM=100,zoP=E,zoM=E,wP=1,wM=1,timesteps=200,Lambda=30,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 )
 expset <- run.exp(popset, numperpop= 1,exp.err=0.05)
 
