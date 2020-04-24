@@ -187,7 +187,7 @@ thetamat <- matrix(c(0.98 , 0.00 , 0    , 0.01 , 0.01 ,
 
 popset <-sim.cotraitV(NP=rep(50,times=5),NM=rep(50,times=5),nlP=10,nlM=20,nlnP=150,nlnM=150,
 					zoP=c(1:5),zoM=c(2:6),wP=rep(1,times=5),wM=rep(1,times=5),timesteps=500,
-					Lambda=10,mutprb=0.001,fiterrP=0.005,fiterrM=0.005,prbHorz=0.1,
+					Lambda=10,mutprb=0.001,prbHorz=0.1,
 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=5,GFmat=thetamat) #note ratemigr doesn't matter if thetamat specified
 #expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
 

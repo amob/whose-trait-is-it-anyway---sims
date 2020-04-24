@@ -1,9 +1,9 @@
 
 simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_feedbackparameters.csv",header=T)
 
-pars <- simsens[,1:19] #
+pars <- simsens[,1:17] #
 resps <- simsens[,20:28]
-mpars <- c(7,8,9,10,18,19)#now its only 7,8,9,10, 18,19 -- ws, zs, and pfs
+mpars <- c(7,8,9,10,15,16)#now its only  -- ws, zs, and pfs
 
 #1 - 3240
 # however, each 10 rows together are the same simulation parameters.

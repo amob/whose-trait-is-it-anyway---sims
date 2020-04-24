@@ -52,13 +52,11 @@ return(newnums)
 
 #fitness function for trait, zopt
 #based on normal distribution, but instead of pdf summing to one, fitness is 1 at the optimum, just remove the 1/sqrt(2*pi*sd) in the normal P.D.F., not sure who to cite for deterministic part of this formula, I feel like I have seen it a lot...
-univar.fit <- function(z, zopt, sd.fit) {    rawfit <- exp( -1* ((z-zopt)^2) / (2 * (sd.fit^2)) )
-											if(sum(rawfit>0)){
-												adjfit <- rawfit /sum(rawfit)
-											} else {
-												adjfit <- rawfit
-											}
-										return(adjfit) }  # + rnorm(length(z), mean=0,sd=fiterr)  ) }
+univar.fit <- function(z, zopt, sd.fit) {   
+										rawfit <-   exp( -1* ((z-zopt)^2) / (2 * (sd.fit^2)) )  
+										adjfit <- rawfit /sum(rawfit)
+										return(adjfit)
+										} 
 #see lecorre and kramer 2012, for example, but this is commonly not cited., looks like is from Haldane 1954
 
 # multivar.fit <- function(z, zopt, sd.fit,fiterr) { 
@@ -87,8 +85,6 @@ univar.fit <- function(z, zopt, sd.fit) {    rawfit <- exp( -1* ((z-zopt)^2) / (
 #
 #so, sdfit controls the strength of the peak in the normal distribution, when higher, peaks are flatter, and genetic differences in fitness can be overwhelmed by random factors, including non-genetic sources of fitness differences: fiterr
 
-## -- not sure what this comment refers to: ##higher sd.fit increases correlation between fitness and trait...BUT reduces variation in fitness.
-
 
 
 #Migration: generate the rate at which, the new generation will draw individuals from another population. 
@@ -106,8 +102,6 @@ univar.fit <- function(z, zopt, sd.fit) {    rawfit <- exp( -1* ((z-zopt)^2) / (
 # 	return(geneflow)
 # }
 
-
-
 migrate <- function(m,npops,sizepopV,gfmat=NULL){
 	geneflow <- list()
 	#this is a migration vector, that would be multiplied by the allele freqs across the j populations to give the frequencies in pop i (repeated each generation, below)
@@ -120,40 +114,23 @@ migrate <- function(m,npops,sizepopV,gfmat=NULL){
 	return(geneflow)
 } #returns a list of individual assignments to origin pops for the next generation, allows unequally sized pops
 
-
 ###pos neg correct in mutations???
-#added abs needs rerun
-mutate <- function(nL,N,sd.eff,mean.eff, prbmut) { sapply( 1:N , function(z)
-			abs(rnorm(nL,mean=mean.eff,sd=sd.eff)) * ifelse(rbinom(nL,size=1,prob=0.5), 1 , -1 ) * rbinom(nL, size=1, prob = prbmut) ) #size = 1 in the last argument implies haploid?
-			  }# DistofAbsValueofTraitEff * ProbofPosvNegMutation * ProbMutOccurs(u*loci) 
-#provides individuals in columns, loci in rows
-#prbmut is the per locus mutation rate
-
-
 mutate.exp <- function(nL,N,lambda, prbmut) { sapply( 1:N , function(z)
 			abs(rexp(nL,rate=lambda)) * ifelse(rbinom(nL,size=1,prob=0.5), 1 , -1 ) * rbinom(nL, size=1, prob = prbmut) ) #size = 1 in the last argument implies haploid?
 			  }# DistofAbsValueofTraitEff * ProbofPosvNegMutation * ProbMutOccurs(u*loci) 
 #high values of lambda give LOWER effect sizes of mutations on average.
 
-mutate.expROUND2 <- function(nL,N,lambda, prbmut) { sapply( 1:N , function(z)
-			round(rexp(nL,rate=lambda),digits=2) * ifelse(rbinom(nL,size=1,prob=0.5), 1 , -1 ) * rbinom(nL, size=1, prob = prbmut) ) #size = 1 in the last argument implies haploid?
-			  }# DistofAbsValueofTraitEff * ProbofPosvNegMutation * ProbMutOccurs(u*loci) 
-##this limits unique alleles a little bit.
-# not the same as geneflow across population
-##why use? might be a way to solve the problem of population structure = causal allele structure.
-#we could apply it only to the neutral matrix?
-
 horizontal <- function(nL,N,prb,genomat) {  #genomat is row are loci, cols are individuals
 			 transfer <- matrix( rbinom(nL*N, size=1, prob = prb) * sample( 1:N , nL*N, replace =T) , ncol=N, nrow=nL)# with probability prb, sample a single locus from another individual, so rate of locus transfer proportional to prevalence in pop 
 			 NewGenomat <- matrix( sapply(1:N, function(ind) sapply(1:nL, function(loc) 
 			  				ifelse(transfer[loc,ind] > 0, genomat[loc, transfer[loc,ind] ] , genomat[loc, ind] ) 
-			  				) ), ncol = ,  , byrow=F )
+			  				) ), ncol = N,  , byrow=F )
 			  return(NewGenomat)
-			  }
+			  }			  
 #requires and provides ind. in colums, loci in rows
 
 
-sim.cotraitV <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,mutprb,fiterrP,fiterrM ,prbHorz, pfP, pfM,ratemigr,npops,GFmat=NULL) {#,FLFC  ,startmats = "n",zoptvects = "n"){  #-- 
+sim.cotraitV <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,mutprb ,prbHorz, pfP, pfM,ratemigr,npops,GFmat=NULL) {#,FLFC  ,startmats = "n",zoptvects = "n"){  #-- 
 #SOME are VECTORS length the number of pops indicated with (V): 
 	#popsize (V, note NP must equal NM currently, see below), number loci: causal then neutral, optimal phenotype (V), shallowness of fitness decline away from trait opt (V), 
 			#timesteps, Lambda describes distribution of effect size of mutations, prb of mutation,  
@@ -176,67 +153,17 @@ sim.cotraitV <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,
 		Pneut.list[[i]] <-  array(0, dim= c(nlnP,NP[i],2,timesteps+1) )
 		Mneut.list[[i]] <-  array(0, dim= c(nlnM,NM[i],timesteps+1) )
 	}
-	# #CURRENTLY NOT INCL in multipop version
-	# 	#allow initialize with previous state
-	# 	if(startmats != "n"){
-	# 		Pa.mat[,,1,1] <- startmat$Pa.mat[,,1]
-	# 		Pa.mat[,,2,1] <- startmat$Pa.mat[,,2]
-	# 		Pneut.mat[,,1,1] <- startmat$Pneut.mat[,,1]
-	# 		Pneut.mat[,,2,1] <- startmat$Pneut.mat[,,2]
-	# 		Ma.mat[,,1] <- startmat$Ma.mat[,]
-	# 		Mneut.mat[,,1] <- startmat$Mneut.mat[,]
-	# 	} else{"assume empty starting matrices"} 
-		
-	#End initialize
 
 # 	
 	for(i in 2:(timesteps+1) ) {
-#		#CURRENTLY NOT INCL in multipop version
-# 		if(length(zoptvects)==1){ #shortcut. there are too many warnings with better logical statement:  & zoptvects=="n"){
-# 				zoP = zoP
-# 				zoM = zoM} else{
-# 				zoP = zoptvects$PlantZ[i-1]
-# 				zoM = zoptvects$MicrZ[i-1]
-# 				}
-# 		if(NP<NM) { 
-# 			symbiotic <- 1:NP # should be no reason to further randomize 
-# 			freeliving <- !((1:NM)%in%symbiotic) #this may not be the easiest solution.
-# 		} else if(NP==NM){
-# 		symbiotic <- 1:NM
-# 			freeliving <- !((1:NM)%in%symbiotic)
-# 		} else{print("pop of microbes, NM, must be >= NP, pop of plants")}	
 		
 		#interact! since Pa.mat[,,i-1] and Ma.mat[,,i-1] are randomly arranged from reproduction the previous time, just pair up columns / symbiotic columns
 		#joint trait value is evaluated with respect to distance from host optima and microbe optima -- then relative fitness is calculated based on the distance to both own trait optima
 		 ### and how well the partner can do based on its optima, with some proportion -- i.e. assumption is that if this is a mutualism, when your partner is unfit it isn't as beneficial
-
-		hostfit <-  lapply( 1:npops, function(pop)  
-				   pfP*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]), zopt = zoP[pop], sd.fit=wP[pop]) + 
-				   (1-pfP)*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]), zopt = zoM[pop], sd.fit=wM[pop])  
-# 				   pfP*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,symbiotic,i-1]), zopt = zoP[pop], sd.fit=wP[pop]) + 
-# 				   (1-pfP)*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,symbiotic,i-1]), zopt = zoM[pop], sd.fit=wM[pop])  
-				   )
-			#ASSUMPTION by using rowSums across the colSums, I assume additivity between alleles at the same site (no dominance)
-#		micrfit[symbiotic] 	<-
-		micrfit 	<-   lapply( 1:npops, function(pop)  
-					(1-pfM)*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]), zopt = zoP[pop], sd.fit=wP[pop]) +  
-					pfM*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]), zopt = zoM[pop], sd.fit=wM[pop])
-# 							(1-pfM)*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,symbiotic,i-1]), zopt = zoP[pop], sd.fit=wP[pop]) +  
-# 					pfM*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,symbiotic,i-1]), zopt = zoM[pop], sd.fit=wM[pop])
-					)
-# 		micrfit[freeliving] <- min(micrfit[symbiotic])*FLFC
-#				 ##VERY ARTIFICIAL FREELIVING FITNESS COST  FLFC.  THE STRONGER IT IS THE STRONGER THE HOST-INDUCED single generation bottleneck.
-#		 #if none are freeliving, this won't change micrfit vector.
-
-#		#trait effects additive across loci and across plant and microbe loci, thus everything just added together for the phenotype
-		wH1.e <- lapply( 1:npops, function(pop)
-			    range01(hostfit[[pop]] +rnorm(length(hostfit[[pop]]),mean=0,sd=fiterrP))
-			    ) ##range01 is required due to the addition of random error. It does not change the relative fitness (used later) of individuals whether you use range01 or add the minimum value (to avoid negative fitness)
-		wH.e <- lapply( 1:npops, function(pop) wH1.e[[pop]]/sum(wH1.e[[pop]]) )
-		wM1.e <- lapply( 1:npops, function(pop)
-				range01(micrfit[[pop]] +rnorm(length(micrfit[[pop]]),mean=0,sd=fiterrM))
-				)
-		wM.e <- lapply( 1:npops, function(pop) wM1.e[[pop]]/sum(wM1.e[[pop]]) )
+		hostfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoP, sd.fit=wP, fiterr=fiterrP) 
+		micrfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoM, sd.fit=wM, fiterr=fiterrM)#, freeliving = freeliving,FLCL=FLCL) 
+		wH.e <-     pfP*hostfit + (1-pfP)*micrfit
+		wM.e <- (1-pfM)*hostfit +     pfM*micrfit
 		#migrate
 		if(is.null(GFmat)){
 			migrP <- migrate(ratemigr, npops,NP)	#each population is a column and shows individuals sampled from each population (home population is the diagonal)	
@@ -314,8 +241,11 @@ sim.cotraitV <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,
 
 
 
-##These are not adjusted for the multipop scenario, and so must be limited to single pop outcomes 
-windowplot <- function(first, last, thinsize, simdat,ylim,main) {
+#######These are not adjusted for the multipop scenario, and so results must be limited to single pop outcomes 
+
+
+
+windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding values",xlabs="generations") {
 	twindows <- seq(from=first, to = last,by=thinsize)
  	m.p <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) )  )
  	m.mp <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
@@ -326,12 +256,13 @@ windowplot <- function(first, last, thinsize, simdat,ylim,main) {
 	yrange <- range(c(as.vector(r.p),as.vector(r.m)))
 	plot(r.p[2,]~twindows,ylim=ylim,pch=NA,,xlab="",ylab="",main=main, cex.main=1)
 	lines(m.p~twindows); lines(m.mp~twindows); lines(m.m~twindows)
-	mtext("breeding values",side = 2, line=2)
-	mtext("generations",side = 1, line=2)
-	polygon( c(twindows,rev(twindows)), c(r.mp[1,],rev(r.mp[2,])),col=rgb(0,0,0,alpha=0.25))
-	polygon( c(twindows,rev(twindows)), c(r.p[1,],rev(r.p[2,])),col=rgb(0,0,1,alpha=0.5))
-	polygon( c(twindows,rev(twindows)), c(r.m[1,],rev(r.m[2,])),col=rgb(1,0,0,alpha=0.5))
+	mtext(ylabs,side = 2, line=2)
+	mtext(xlabs,side = 1, line=2)
+	polygon( c(twindows,rev(twindows)), c(r.mp[1,],rev(r.mp[2,])),col=rgb(0,0,0,alpha=0.25),border=NA)
+	polygon( c(twindows,rev(twindows)), c(r.p[1,],rev(r.p[2,])),col=rgb(0,0.5,0,alpha=0.5),border=NA)
+	polygon( c(twindows,rev(twindows)), c(r.m[1,],rev(r.m[2,])),col=rgb(0.5,0,0.5,alpha=0.5),border=NA)
 }
+
 
 
 #one question: when plant and microbes are unevenly sized in pop, what does this do?
@@ -409,7 +340,7 @@ extractDyn <- function(simdat,first,last,windowsize){
 # 
 # tmpsim <-sim.cotraitV(NP=rep(50,times=5),NM=rep(50,times=5),nlP=10,nlM=20,nlnP=60,nlnM=60,
 # 					zoP=c(1:5),zoM=c(2:6),wP=rep(1,times=5),wM=rep(1,times=5),timesteps=500,
-# 					Lambda=10,mutprb=0.001,fiterrP=0.005,fiterrM=0.005,prbHorz=0.1,
+# 					Lambda=10,mutprb=0.001,prbHorz=0.1,
 # 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=5,GFmat=thetamat) #note ratemigr doesn't matter if thetamat specified
 # #
 # # 50*5*20*2*0.001 = 10 per generation

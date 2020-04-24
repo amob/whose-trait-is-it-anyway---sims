@@ -1,15 +1,16 @@
 
 simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_finalparameters.csv",header=T)
 
-pars <- simsens[,1:19]
-resps <- simsens[,20:28]
+pars <- simsens[,1:17]
+resps <- simsens[,18:26]
 #not all pars were modified
-mpars <- c(1,3,9,10,12:18)#which then is manipulated one after the other, all but zoM here.
+mpars <- c(1,3,9,10,12:16)#which then is manipulated one after the other, all but zoM here.
 
-# 1 thru 1110 are part of firs set of sims, then 1111-2220 are the base rows
+#1:90, 91, 92:181, 182
+# 1 thru 900 are part of first set of sims, then 901-910 are base, 911-1810 are second set and 1811-1820 are second base with matched zopt
 # however, each 10 rows together are the same simulation parameters.
-
-tmp <- lapply( 1:ncol(resps), function(r) sapply( 1:length(mpars), function(p) resps[ c( 1:100+(100*(p-1)) , 1111:1210+(100*(p-1)) ) , r]) )
+91:100; 101:110  1101
+tmp <- lapply( 1:ncol(resps), function(r) sapply( 1:length(mpars), function(p) resps[ c( 1:100+(100*(p-1)) , 911:1010+(100*(p-1)) ) , r]) )
 #each result of the sapply goes into a column
 
 tmp2<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) colMeans(tmp[[r]][startrow:(startrow+9),]))  ) )
@@ -19,16 +20,11 @@ tmp2var<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r
 #each resul of the sapply goes into a column, but we want it to go into a row
 
 
-tmp3 <- tmp2
-tmp3[[8]] <- abs(tmp2[[8]])
-tmp3[[9]] <- abs(tmp2[[9]])
 
 
 #####PASTED FROM 02 series. CHECK ACCURACY
 		wP.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5, 5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 1?  
 		wM.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75?
-		fiterrP.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001
-		fiterrM.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001, at 0.05, with the other params at baseline, there is no response to sel. but at 0.01 there is.
 		popsz.v <- c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300) #note turning up M without N is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
 		nloc.v <- c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300)# multiply by 2 for microbes, base set to 100
 		prbHorz.v <- seq(from =0, to =1, length.out=10)
@@ -57,7 +53,7 @@ ylabs <- c(expression(alpha[M]),expression(alpha[P]),expression(P[hrz]),
 			expression(lambda),expression(omega[M]),expression(omega[P]),
 			expression(L),expression(N))
 y2labs <- c( paste(pfP.v,collapse=","), paste(pfP.v,collapse=","), paste(round(prbHorz.v,digits=2),collapse=","),
-			paste(fiterrM.v,collapse=","), paste(fiterrP.v,collapse=","), paste(mutprb.v,collapse=","),  
+			paste(mutprb.v,collapse=","),  
 			paste(Lambda.v,collapse=","), paste(wM.v,collapse=","), paste(wP.v,collapse=","),
 			paste(nloc.v,collapse=","), paste(popsz.v,collapse=",") )
 
