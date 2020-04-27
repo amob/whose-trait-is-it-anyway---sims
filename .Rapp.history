@@ -1,0 +1,2535 @@
+plot(testb.micr~trait.v,pch=NA); lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0)); lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+sum(testa.all == (testa.all*.05 + testa.all*0.5))
+head(testa.all)
+sum(testa.all == (testa.all*.5 + testa.all*0.5))
+exp(0)
+univar.fit
+trait.v <- seq(from =0,to=10,length.out=1000)#
+# zopt and w identical#
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+trait.v <- seq(from =1,to=4,length.out=1000)#
+# zopt and w identical#
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+2/3
+4/9
+(2/3)^2
+(1/3)^2
+1/9
+(4/6)^2
+16/36
+trait.v <- c(seq(from=0,to=2.5,length.out=700),seq(from=2.5,to=5,length.out=300))
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+trait.v <- seq(from =0,to=10,length.out=1000)
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+trait.v <- c(seq(from=0,to=2.5,length.out=700),seq(from=2.5,to=5,length.out=300))
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+trait.v <- seq(from=0,to=5,length.out=1000)#
+#trait.v <- c(seq(from=0,to=2.5,length.out=700),seq(from=2.5,to=5,length.out=300))#
+# zopt and w identical#
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+trait.v <- c(seq(from=0,to=1,length.out=800),seq(from=1,to=5,length.out=200))#
+# zopt and w identical#
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(trait.v,testa.all,pch=NA)#
+	lines(testa.all~trait.v)#
+	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+# plot(trait.v,testa.all,pch=NA)#
+# 	lines(testa.all~trait.v)#
+# 	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+plot(trait.v~1:1000)
+plot(trait.v~c(1:1000),type=l)
+plot(trait.v~c(1:1000),type="l")
+help(dnorm)
+plot(function(x) dnorm(x))
+plot(function(x) dnorm(x,mean=2.5),0,5)
+dnorm(1,mean=0)
+dnorm(1,mean=2.5)
+dnorm(1,mean=2.5,sd=1)
+dnorm(trait.v,mean=2.5,sd=1)
+plot(dnorm(trait.v,mean=2.5,sd=1))
+plot(dnorm(trait.v,mean=1,sd=1))
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))
+testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, plant almost 0, w/ and w/o ff#
+testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)#
+testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, micr link stronger, w/ and w/o ff#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+#
+par(mfrow=c(2,3))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v))#
+#plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v))#
+# plot(trait.v,testa.all,pch=NA)#
+# 	lines(testa.all~trait.v)#
+# 	abline(v=3,lty=3)#
+plot(testb.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(testd.micr~trait.v,pch=NA)#
+	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=1,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA)#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-3,8))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-3,8))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-3,8))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=1,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-3,8))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-3,8))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-3,8))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=1,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(3,3))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=3.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+par(mar=c(3,3,0,0))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6))#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+help(par)
+par(mfrow=c(2,3))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.003),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.003),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.003),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.003),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=2)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=2)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+	mtext("Trait value",side=1,line=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=2)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=2)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+	mtext("Trait value",side=1,line=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.005),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+par(mar=c(4,3,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency, far from optima",side=2,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.004),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.004),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency, between optima",side=2,line=2)#
+	mtext("Trait value",side=1,line=2)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.004),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+	mtext("Trait value",side=1,line=2, adj = 5)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.004),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+par(mfrow=c(2,3))#
+par(mar=c(3,4,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency, far from optima",side=2,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency, between optima",side=2,line=1)#
+	mtext("Trait value",side=1,line=2)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Relative Fitness",side=2,line=2)#
+	mtext("Trait value",side=1,line=2, adj = 5)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
+layout(matrix(1:6),byrow=F)#
+par(mar=c(3,4,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-1)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=1)#
+	mtext("bewteen optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)
+layout(matrix(1:6, byrow=F))#
+par(mar=c(3,4,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-1)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=1)#
+	mtext("bewteen optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,4,0,0))#
+par(oma=c(0,0,1,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-1)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	mtext("Frequency",side=2,line=1)#
+	mtext("bewteen optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,4,0,0))#
+par(oma=c(0,0,3,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-1)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm = Wp",side=2,line=3,)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	mtext("Frequency",side=2,line=1)#
+	mtext("Bewteen optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,4,0,0))#
+par(oma=c(0,0,3,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-1)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm = Wp",side=2,line=3,)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	mtext("Frequency",side=2,line=1)#
+	mtext("Bewteen optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+legend(-2,0.004,c("Species 1","Species2"),fill=rgb(c(0,0.5),c(0.5,0),c(0,0.5)))#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)#
+legend(-2,0.004,c("Direct effects only","40% mutualistic feedback"),lty=c(1,2))
+help(text)
+expression()
+help(expression)
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-3)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm = Wp",side=2,line=3,)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	mtext("Frequency",side=2,line=1)#
+	mtext("Bewteen optima",side=3,line=1)#
+	text(x=c(2,4),y=c(0.3,0.3) labels =c(expression(Z[opt[M]]~2),expression(Z[opt[P]]~3)))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+legend(-2,0.0035,c("Species 1","Species2"),fill=rgb(c(0,0.5),c(0.5,0),c(0,0.5)),bty="n")#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)#
+legend(-2,0.0035,c("Direct effects only","40% mutualistic feedback"),lty=c(1,2),bty="n")
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-3)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm = Wp",side=2,line=3,)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	mtext("Frequency",side=2,line=1)#
+	mtext("Bewteen optima",side=3,line=1)#
+	text(x=c(2,4),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]~2),expression(Z[opt[2]]~3)))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+legend(-2,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)#
+legend(-2,0.0035,c("Direct effects only","40% mutualistic feedback"),lty=c(1,2),bty="n")
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+trait.v <- sort(rnorm(1000,mean=1.5,sd=1))#
+plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	mtext("Frequency",side=2,line=1)#
+	mtext("Far from optima",side=3,line=1)#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm >> Wp",side=2,line=3,)#
+	mtext("Relative Fitness",side=2,line=2, adj=-3)#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Wm = Wp",side=2,line=3,)#
+trait.v <- sort(rnorm(1000,mean=2.5,sd=1))#
+plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v),max(trait.v),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#	mtext("Frequency",side=2,line=1)#
+	mtext("Bewteen optima",side=3,line=1)#
+	text(x=c(1,4),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]==2),expression(Z[opt[2]]==3)))#
+teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)#
+teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+plot(teste.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+legend(-2,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+#zopt differ, w idential#
+testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)#
+testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)#
+plot(testf.plnt~trait.v,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+	abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))#
+	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)#
+	mtext("Trait value",side=1,line=2,adj=-1)#
+legend(-2,0.0035,c("Direct effects only","40% mutualistic feedback"),lty=c(1,2),bty="n")
+trait.v1 <- sort(rnorm(1000,mean=1.5,sd=1))#
+teste1.micr   <- univar.fit( z=trait.v1, zopt=2, sd.fit=2)#
+teste1.plnt   <- univar.fit( z=trait.v1, zopt=3, sd.fit=0.75)#
+teste1.micrff   <- 0.6*teste1.plnt + (1-0.6)*teste1.micr#
+teste1.plntff   <- (1-0.6)*teste1.plnt + 0.6*teste1.micr#
+testf1.plnt   <- univar.fit( z=trait.v1, zopt=3, sd.fit=0.75)#
+testf1.micr   <- univar.fit( z=trait.v1, zopt=2, sd.fit=0.75)#
+testf1.plntff   <- 0.6*testf1.plnt + (1-0.6)*testf1.micr#
+testf1.micrff   <- (1-0.6)*testf1.plnt + 0.6*testf1.micr#
+trait.v2 <- sort(rnorm(1000,mean=2.5,sd=1))#
+teste2.micr   <- univar.fit( z=trait.v2, zopt=2, sd.fit=2)#
+teste2.plnt   <- univar.fit( z=trait.v2, zopt=3, sd.fit=0.75)#
+teste2.micrff   <- 0.6*teste2.plnt + (1-0.6)*teste2.micr#
+teste2.plntff   <- (1-0.6)*teste2.plnt + 0.6*teste2.micr#
+testf2.plnt   <- univar.fit( z=trait.v2, zopt=3, sd.fit=0.75)#
+testf2.micr   <- univar.fit( z=trait.v2, zopt=2, sd.fit=0.75)#
+testf2.plntff   <- 0.6*testf2.plnt + (1-0.6)*testf2.micr#
+testf2.micrff   <- (1-0.6)*testf2.plnt + 0.6*testf2.micr#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+		mtext("Wm >> Wp",side=2,line=3,)#
+		mtext("Relative Fitness",side=2,line=2, adj=-3)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+		mtext("Wm = Wp",side=2,line=3,)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(1,4),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]==2),expression(Z[opt[2]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-1)#
+		legend(-2,0.0035,c("Direct effects only","40% mutualistic feedback"),lty=c(1,2),bty="n")
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+		mtext("Wm >> Wp",side=2,line=3,)#
+		mtext("Relative Fitness",side=2,line=2, adj=-10)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+		mtext("Wm = Wp",side=2,line=3,)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.5,4.5),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]==2),expression(Z[opt[2]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2,0.0035,c("Direct effects only","40% mutualistic feedback"),lty=c(1,2),bty="n")
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+		mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Relative Fitness",side=2,line=3, adj=-15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+		mtext("Wm = Wp",side=2,line=2)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.5,4.5),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]==2),expression(Z[opt[2]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Plant fitness more affected",side=2,line=2)#
+		mtext("Relative Fitness",side=2,line=3, adj=-15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.5,4.5),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]==2),expression(Z[opt[2]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects plants more",side=2,line=2)#
+		mtext("Relative Fitness",side=2,line=3, adj=-15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.5,4.5),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]==2),expression(Z[opt[2]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects plants more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=-15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[1]]==2),expression(Z[opt[2]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.25,0.0035,c("Species 1","Species 2"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2.25,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=3)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects plants more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=-15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.25,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2.25,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=4)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects plants more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=-15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.25,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2.25,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects plants more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=-15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.25,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2,adj=-0.5)#
+		legend(-2.25,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects plants more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects plants more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects B more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=5); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+which(testf2.plntff == max(testf2.plntff))
+which(testf2.micr == max(testf2.micr))
+trait.v2[which(testf2.micr == max(testf2.micr))]
+trait.v2[which(testf2.plntff == max(testf2.plntff))]
+confl1 <- c(trait.v1[which(testf1.micr == max(testf1.micr))],trait.v1[which(testf1.plntff == max(testf1.plntff))])
+confl2 <- c(trait.v2[which(testf2.micr == max(testf2.micr))],trait.v2[which(testf2.plntff == max(testf2.plntff))])
+confl1
+confl2
+confl1 <- c(trait.v1[which(testf1.micrff == max(testf1.micrff))],trait.v1[which(testf1.plntff == max(testf1.plntff))])
+confl1
+confl2 <- c(trait.v2[which(testf2.micrff == max(testf2.micrff))],trait.v2[which(testf2.plntff == max(testf2.plntff))])
+confl2
+con.e1 <- c(trait.v1[which(teste1.micrff == max(teste1.micrff))],trait.v1[which(teste1.plntff == max(teste1.plntff))])
+con.f1 <- c(trait.v1[which(testf1.micrff == max(testf1.micrff))],trait.v1[which(testf1.plntff == max(testf1.plntff))])
+con.e1
+con.e2 <- c(trait.v2[which(teste2.micrff == max(teste2.micrff))],trait.v2[which(teste2.plntff == max(teste2.plntff))])
+con.e2
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.e1,rev(con.e1)), y = rep(c(0,0.0035),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects B more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f1,rev(con.f1)), y = rep(c(0,0.0035),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.e2,rev(con.e2)), y = rep(c(0,0.0035),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f2,rev(con.f2)), y = rep(c(0,0.0035),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+con.f2 <- c(trait.v2[which(testf2.micrff == max(testf2.micrff))],trait.v2[which(testf2.plntff == max(testf2.plntff))])
+con.f2
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e1,rev(con.e1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects B more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f1,rev(con.f1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e2,rev(con.e2)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f2,rev(con.f2)), y = rep(c(-1,1)),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e1,rev(con.e1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects B more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f1,rev(con.f1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e2,rev(con.e2)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0)),bty="n")#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f2,rev(con.f2)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+help(legend)
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e1,rev(con.e1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects B more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f1,rev(con.f1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.25))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e2,rev(con.e2)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B","Fitness conflict zone"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0),rgb(0,0,0,alpha=0.25)),bty="n",border=NA)#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f2,rev(con.f2)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.25))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)#
+layout(matrix(1:6, ncol=2,byrow=F))#
+par(mar=c(3,3,0,0))#
+par(oma=c(0.5,2,3,1))#
+	plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v1),max(trait.v1),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		mtext("Frequency",side=2,line=1)#
+		mtext("Far from optima",side=3,line=1)#
+	plot(teste1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e1,rev(con.e1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(teste1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(teste1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(teste1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+	#	mtext("Wm >> Wp",side=2,line=2)#
+		mtext("Trait affects B more",side=2,line=2,cex=0.75)#
+		mtext("Relative Fitness",side=2,line=3, adj=15)#
+	plot(testf1.plnt~trait.v1,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f1,rev(con.f1)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.25))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+	#	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)#
+		lines(testf1.micr ~trait.v1,col=rgb(0.5,0,0.5)); lines(testf1.plnt ~trait.v1,col=rgb(0,0.5,0))#
+		lines(testf1.micrff ~trait.v1,col=rgb(0.5,0,0.5),lty=2); lines(testf1.plntff ~trait.v1,col=rgb(0,0.5,0),lty=2)#
+# 		mtext("Wm = Wp",side=2,line=2)#
+		mtext("Equal link to fitness",side=2,line=2,cex=0.75)#
+	######
+	plot(function(x) dnorm(x,mean=2.5,sd=1),min(trait.v2),max(trait.v2),xlim=c(-2,6),yaxt="n",ylab="",xlab="",lty=3)#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+#		mtext("Frequency",side=2,line=1)#
+		mtext("Bewteen optima",side=3,line=1)#
+		text(x=c(0.75,4.25),y=c(0.3,0.3), labels =c(expression(Z[opt[A]]==2),expression(Z[opt[B]]==3)))#
+	plot(teste2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+# 		polygon(c(con.e2,rev(con.e2)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.5))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(teste2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(teste2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(teste2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(teste2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		legend(-2.5,0.0035,c("Species A","Species B","Conflict zone"),fill=c(rgb(0.5,0,0.5),rgb(0,0.5,0),rgb(0,0,0,alpha=0.25)),bty="n",border=NA)#
+	plot(testf2.plnt~trait.v2,pch=NA,xlim=c(-2,6),ylim=c(0,0.0035),ylab="",xlab="")#
+		polygon(c(con.f2,rev(con.f2)), y = rep(c(-1,1),each=2),border=NA,col=rgb(0,0,0,alpha=0.25))#
+		abline(v=3,col=rgb(0,0.5,0,alpha=0.5),lwd=2); abline(v=2,col=rgb(0.5,0,0.5,alpha=0.5),lwd=2)#
+		lines(testf2.micr ~trait.v2,col=rgb(0.5,0,0.5)); lines(testf2.plnt ~trait.v2,col=rgb(0,0.5,0))#
+		lines(testf2.micrff ~trait.v2,col=rgb(0.5,0,0.5),lty=2); lines(testf2.plntff ~trait.v2,col=rgb(0,0.5,0),lty=2)#
+		mtext("Trait value",side=1,line=2.5,adj=-0.5)#
+		legend(-2.5,0.0035,c("Direct only","+ feedback"),lty=c(1,2),bty="n")#
+dev.off()
+sum(teste2.plnt)
+sum(1-teste2.plnt)
+sum(1/teste2.plnt)
+sum(teste2.plnt)
+plot((1/teste2.plnt)/sum(1/teste2.plnt)~trait.v2
+)
+plot((teste2.plnt~trait.v2))
+plot((1-teste2.plnt)/sum(1-teste2.plnt)~trait.v2
+))
+plot((1-teste2.plnt)/sum(1-teste2.plnt)~trait.v2)
+sum((1-teste2.plnt)/sum(1-teste2.plnt))
+FC4b <- getfitcon(10, gens+1, 1, test.4b,zoP=2,zoM=3, wP=5, wM=0.75,pfP=0.6,pfM=0.6)   #
+VmVp4b <- extractVmVp(test.4b, 1,gens+1,1)#
+win4b  <- extractwinning(test.4b,first=1,last=gens+1,1,zoP=2,zoM= 3)#
+dyn4b <- extractDyn(test.4b,first=1,last=gens+1,10)#
+FC4e <- getfitcon(10, gens+1, 1, test.4e,zoP=3,zoM=2, wP=0.75, wM=1,pfP=0.6,pfM=0.6)   #
+VmVp4e <- extractVmVp(test.4e, 1,gens+1,1)#
+win4e  <- extractwinning(test.4e,first=1,last=gens+1,1,zoP=3,zoM= 2)#
+dyn4e <- extractDyn(test.4e,first=1,last=gens+1,10)
+par(mfrow=c(4,2))#
+	par(mar=c(3,5,1,1))#
+	par(oma=c(5,0,1,0))#
+ 	plot(FC4b$fitnesscorrelation~c(10:(gens+1)),main="~0 link to plant fitness",ylab="Fitness correlation",xlab="",ylim=c(-1,1),pch=NA)#
+	       lines(FC4b$fitnesscorrelation~c(10:(gens+1)),lty=2)#
+		abline(h=0)#
+	plot(FC4e$fitnesscorrelation~c(10:(gens+1)),main="plant link > microbe link",ylab="",xlab="",ylim=c(-1,1),pch=NA)#
+		lines(FC4e$fitnesscorrelation~c(10:(gens+1)),lty=2)#
+		abline(h=0)#
+ 	plot(VmVp4b$Vp ~ c(1:length(VmVp4b$Vp)),pch=NA,ylim=c(0,1),ylab="Proportion of variance",xlab="")#
+		lines( 1:length(VmVp4b$PVp),VmVp4b$PVp,col=rgb(0,0.5,0)) #
+		lines(1:length(VmVp4b$PVm),VmVp4b$PVm , col=rgb(0.5,0,0.5)) #
+	plot(VmVp4e$Vp ~ c(1:length(VmVp4e$Vp)),pch=NA,ylim=c(0,1),ylab="",xlab="")#
+		lines( 1:length(VmVp4e$PVp),VmVp4e$PVp,col=rgb(0,0.5,0))#
+		lines(1:length(VmVp4e$PVm),VmVp4e$PVm , col=rgb(0.5,0,0.5))#
+	plot(win4b$dP ~ c(1:length(win4b$dP)),pch=NA,ylim=c(0,max(c(win4b$dP,win4b$dM))),ylab="Distance from optima",xlab="")#
+		lines(win4b$dP~c(1:(gens+1)),col=rgb(0,0.5,0))#
+		lines(win4b$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))#
+	plot(win4e$dP ~ c(1:length(win4e$dP)),pch=NA,ylim=c(0,max(c(win4e$dP,win4e$dM))),ylab="",xlab="")#
+		lines(win4e$dP~c(1:(gens+1)),col=rgb(0,0.5,0))#
+		lines(win4e$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))#
+	plot(dyn4b$tcoefP ~ c(1:length(dyn4b$tcoefP)),pch=NA,ylim=c(min(c(dyn4b$tcoefP,dyn4b$tcoefM)),max(c(dyn4b$tcoefP,dyn4b$tcoefM))),ylab="Local trait change",xlab="generations")#
+		abline(h=0)#
+		lines(dyn4b$tcoefP~c(1:length(dyn4b$tcoefP)),col=rgb(0,0.5,0))#
+		lines(dyn4b$tcoefM~c(1:length(dyn4b$tcoefM)),col=rgb(0.5,0,0.5))	#
+	plot(dyn4e$tcoefP ~ c(1:length(dyn4e$tcoefP)),pch=NA,ylim=c(min(c(dyn4e$tcoefP,dyn4e$tcoefM)),max(c(dyn4e$tcoefP,dyn4e$tcoefM))),ylab="Local trait change",xlab="generations")#
+ 		abline(h=0)#
+		lines(dyn4e$tcoefP~c(1:length(dyn4e$tcoefP)),col=rgb(0,0.5,0))#
+		lines(dyn4e$tcoefM~c(1:length(dyn4e$tcoefM)),col=rgb(0.5,0,0.5))
+holoout <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemma.assoc.txt",header=T,sep="\t")
+head(holoout)
+sapply(holoout$rs, function(z), length(grep("c",z))==1)
+sapply(holoout$rs, function(z) length(grep("c",z))==1)
+holoout$true_pos <- sapply(holoout$rs, function(z) length(grep("c",z))==1)
+head(holoout)
+holoout[1:100,]
+dim(holoout)
+holoout[900:952,]
+help(findInterval)
+dim(holoout)
+0.95*952
+findInterval(904,sort(holoout$beta))
+findInterval(10,sort(holoout$beta))
+findInterval(2,sort(holoout$beta))
+findInterval(holoout$beta,sort(holoout$beta))/nrow(holoout)
+plot(holoout$beta~holoout$true_pos)
+plot(holoout$beta~holout$pos)
+plot(holoout$beta~holoout$pos)
+plot(holoout$beta~holoout$ps)
+plot(holoout$beta~I(holoout$ps+100*holoout$chr))
+table(holoout$chr)
+tapply(holoout$beta,holoout$true_pos,mean)
+tapply(holoout$p_lrt,holoout$true_pos,mean)
+tapply(holoout$beta,holoout$true_pos,var)
+holooutK <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemmaK.assoc.txt",header=T,sep="\t")
+head(holooutK)
+holooutK$true_pos <- sapply(holooutK$rs, function(z) length(grep("c",z))==1)
+head(holoout)
+tapply(holooutK$beta,holooutK$true_pos,mean)
+tapply(holooutK$beta,holooutK$true_pos,var)
+tapply(holooutK$p_score,holooutK$true_pos,mean)
+table(holooutK$p_score < 0.05)
+table(holooutK$p_score < 0.05 & holooutK == T)
+table(holooutK$p_score < 0.05 & holooutK$true_pos == T)
+table(holooutK$true_pos)
+table(holooutK$p_score < 0.05 & holooutK$true_pos == F)
+table(holooutK$p_score < 0.05 & holooutK$true_pos == T)
+head(holooutK$p_score < 0.05 & holooutK$true_pos == T)
+head(holooutK$p_score < 0.05 & holooutK$true_pos == F)
+(holooutK$p_score < 0.05 & holooutK$true_pos == F)[1:20]
+holooutK[1:20,]
+holoout$known_pos <- sapply(holoout$rs, function(z) length(grep("c",z))==1)
+holooutK$known_pos <- sapply(holooutK$rs, function(z) length(grep("c",z))==1)
+holooutK$false_pos<- (holooutK$p_score < 0.05 & holooutK$true_pos == F)
+holooutK$true_pos<- (holooutK$p_score < 0.05 & holooutK$true_pos == T)
+holooutK$true_neg <- (holooutK$p_score > 0.05 & holooutK$true_pos == F)
+holooutK$false_neg <- (holooutK$p_score > 0.05 & holooutK$true_pos == T)
+head(holooutK)
+colSums(holooutK[,17:20])/nrow(holooutK)
+colSums(holooutK[,18:21])/nrow(holooutK)
+colSums(holooutK[,16:20])/nrow(holooutK)
+colSums(holooutK[,16:20])
+image(matrix((colSums(holooutK[,16:20])/nrow(holooutK))[c(2,1,3:5)]  ))
+holoout <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemma.assoc.txt",header=T,sep="\t")#
+holooutK <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemmaK.assoc.txt",header=T,sep="\t")#
+holoout$known_pos <- sapply(holoout$rs, function(z) length(grep("c",z))==1)#
+holoout$known_neg <- !holoout$known_pos#
+#
+holooutK$known_pos <- sapply(holooutK$rs, function(z) length(grep("c",z))==1)#
+holooutK$known_neg <- !holooutK$known_pos#
+holooutK$false_pos<- (holooutK$p_score < 0.05 & holooutK$true_pos == F)#
+holooutK$true_pos<- (holooutK$p_score < 0.05 & holooutK$true_pos == T)#
+holooutK$true_neg <- (holooutK$p_score > 0.05 & holooutK$true_pos == F)#
+holooutK$false_neg <- (holooutK$p_score > 0.05 & holooutK$true_pos == T)#
+holoout$false_pos<- (holoout$p_score < 0.05 & holoout$true_pos == F)#
+holoout$true_pos<- (holoout$p_score < 0.05 & holoout$true_pos == T)#
+holoout$true_neg <- (holoout$p_score > 0.05 & holoout$true_pos == F)#
+holoout$false_neg <- (holoout$p_score > 0.05 & holoout$true_pos == T)#
+startcol <- grep("false_pos",colnames(holoout))#
+startcolK <- grep("false_pos",colnames(holooutK))#
+#
+conttab <- matrix(#
+	colSums(holout[,startcol:(startcol+4)]) /#
+		c(rep(sum(holoout$known_pos),times=2) ,  rep(sum(holoout$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)#
+conttabK <- matrix(#
+	colSums(holoutK[,startcolK:(startcolK+4)]) /#
+		c(rep(sum(holooutK$known_pos),times=2) ,  rep(sum(holooutK$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)
+head(holooutK)
+holoout <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemma.assoc.txt",header=T,sep="\t")#
+holooutK <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemmaK.assoc.txt",header=T,sep="\t")#
+holoout$known_pos <- sapply(holoout$rs, function(z) length(grep("c",z))==1)#
+holoout$known_neg <- !holoout$known_pos#
+#
+holooutK$known_pos <- sapply(holooutK$rs, function(z) length(grep("c",z))==1)#
+holooutK$known_neg <- !holooutK$known_pos#
+holooutK$false_pos<- (holooutK$p_score < 0.05 & holooutK$known_pos == F)#
+holooutK$true_pos<- (holooutK$p_score < 0.05 & holooutK$known_pos == T)#
+holooutK$true_neg <- (holooutK$p_score > 0.05 & holooutK$known_pos == F)#
+holooutK$false_neg <- (holooutK$p_score > 0.05 & holooutK$known_pos == T)#
+holoout$false_pos<- (holoout$p_score < 0.05 & holoout$known_pos == F)#
+holoout$true_pos<- (holoout$p_score < 0.05 & holoout$known_pos == T)#
+holoout$true_neg <- (holoout$p_score > 0.05 & holoout$known_pos == F)#
+holoout$false_neg <- (holoout$p_score > 0.05 & holoout$known_pos == T)#
+startcol <- grep("false_pos",colnames(holoout))#
+startcolK <- grep("false_pos",colnames(holooutK))#
+#
+conttab <- matrix(#
+	colSums(holout[,startcol:(startcol+4)]) /#
+		c(rep(sum(holoout$known_pos),times=2) ,  rep(sum(holoout$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)#
+conttabK <- matrix(#
+	colSums(holoutK[,startcolK:(startcolK+4)]) /#
+		c(rep(sum(holooutK$known_pos),times=2) ,  rep(sum(holooutK$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)
+conttab <- matrix(#
+	colSums(holoout[,startcol:(startcol+4)]) /#
+		c(rep(sum(holoout$known_pos),times=2) ,  rep(sum(holoout$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)#
+conttabK <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+4)]) /#
+		c(rep(sum(holooutK$known_pos),times=2) ,  rep(sum(holooutK$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)
+conttab <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		c(rep(sum(holoout$known_pos),times=2) ,  rep(sum(holoout$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)#
+conttabK <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		c(rep(sum(holooutK$known_pos),times=2) ,  rep(sum(holooutK$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		)
+conttab
+conttabK
+colSums(holoout[,startcol:(startcol+3)])
+colSums(holooutk[,startcol:(startcol+3)])
+dim(holoout)
+dim(holooutK)
+head(holoout)
+sum(holoout$p_score < 0.05)
+conttabK <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) ,	byrow=T,ncol=2#
+		)
+conttabK
+image(conttabK)
+image(conttabKprp)
+conttabKprp <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		c(rep(sum(holooutK$known_pos),times=2) ,  rep(sum(holooutK$known_neg),times=2)),#
+	byrow=T,ncol=2#
+		) # false pos, true pos, true neg, false neg
+image(conttabKprp)
+quartz()
+contabKprp
+conttabKprp
+image(conttabKprp)
+help(image)
+colSums(holooutK[,startcolK:(startcolK+3)])
+conttabprp <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		rep(c(sum(holoout$known_pos),sum(holoout$known_neg)),times=2)),#
+	byrow=T,ncol=2#
+		)#
+conttabKprp <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		rep(c(sum(holooutK$known_pos),sum(holooutK$known_neg)),times=2)),#
+	byrow=T,ncol=2#
+		) # false pos, true pos, true neg, false neg#
+conttabK <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) ,	byrow=T,ncol=2#
+		)
+conttabprp <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		rep(c(sum(holoout$known_pos),sum(holoout$known_neg)),times=2),#
+	byrow=T,ncol=2#
+		)#
+conttabKprp <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		rep(c(sum(holooutK$known_pos),sum(holooutK$known_neg)),times=2),#
+	byrow=T,ncol=2#
+		) # false pos, true pos, true neg, false neg
+conttabKprp
+colSums(holooutK[,startcolK:(startcolK+3)])
+sum(holooutK$known_neg)
+sum(holooutK$known_pos)
+conttabprp <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		)#
+conttabKprp <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		rep(c(sum(holooutK$known_neg),sum(holooutK$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		) # false pos, true pos, true neg, false neg
+conttabKprp
+image(conttabKprp,xaxt="",yaxt="")#
+	axis(2,at=c(0,1),labels=c"")
+image(conttabKprp,xaxt="",yaxt="")
+image(conttabKprp)
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p < 0.05"))
+conttabK
+colSums(holooutK[,startcolK:(startcolK+3)])
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=conttabK )
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,1,0,1),y=c(0,0,1,1),labels=conttabK )
+conttabK
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,1,0,1),y=c(0,0,1,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2), sep="/" )
+)
+conttabprp <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		)
+conttabprp
+conttabprpK
+conttabKprp
+head(findInterval(holoout$p_score,sort(holoout$p_score)))
+head( findInterval(holoout$p_score,sort(holoout$p_score))/nrow(holoout))
+head(holoout)
+head(findInterval(holooutK$p_score,sort(holooutK$p_score))/nrow(holooutK))
+head(holooutK)
+holooutK$false_pos<- (p4K < 0.05 & holooutK$known_pos == F)#
+holooutK$true_pos<- (p4K < 0.05 & holooutK$known_pos == T)#
+holooutK$true_neg <- (p4K > 0.05 & holooutK$known_pos == F)#
+holooutK$false_neg <- (p4K > 0.05 & holooutK$known_pos == T)#
+holoout$false_pos<- (p4noK < 0.05 & holoout$known_pos == F)#
+holoout$true_pos<- (p4noK < 0.05 & holoout$known_pos == T)#
+holoout$true_neg <- (p4noK > 0.05 & holoout$known_pos == F)#
+holoout$false_neg <- (p4noK > 0.05 & holoout$known_pos == T)
+p4noK <- findInterval(holoout$p_score,sort(holoout$p_score))/nrow(holoout)#
+p4K <- findInterval(holooutK$p_score,sort(holooutK$p_score))/nrow(holooutK)#
+holooutK$false_pos<- (p4K < 0.05 & holooutK$known_pos == F)#
+holooutK$true_pos<- (p4K < 0.05 & holooutK$known_pos == T)#
+holooutK$true_neg <- (p4K > 0.05 & holooutK$known_pos == F)#
+holooutK$false_neg <- (p4K > 0.05 & holooutK$known_pos == T)#
+holoout$false_pos<- (p4noK < 0.05 & holoout$known_pos == F)#
+holoout$true_pos<- (p4noK < 0.05 & holoout$known_pos == T)#
+holoout$true_neg <- (p4noK > 0.05 & holoout$known_pos == F)#
+holoout$false_neg <- (p4noK > 0.05 & holoout$known_pos == T)#
+startcol <- grep("false_pos",colnames(holoout))#
+startcolK <- grep("false_pos",colnames(holooutK))#
+#
+conttabprp <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		)#
+conttabKprp <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		rep(c(sum(holooutK$known_neg),sum(holooutK$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		) # false pos, true pos, true neg, false neg#
+conttabK <- 	colSums(holooutK[,startcolK:(startcolK+3)])
+conttabK
+conttabKprp
+conttabprp
+holooutK$false_pos<- (holooutK$p_score < 0.05 & holooutK$known_pos == F)#
+holooutK$true_pos<- (holooutK$p_score < 0.05 & holooutK$known_pos == T)#
+holooutK$true_neg <- (holooutK$p_score > 0.05 & holooutK$known_pos == F)#
+holooutK$false_neg <- (holooutK$p_score > 0.05 & holooutK$known_pos == T)#
+holoout$false_pos<- (p4noK < 0.05 & holoout$known_pos == F)#
+holoout$true_pos<- (p4noK < 0.05 & holoout$known_pos == T)#
+holoout$true_neg <- (p4noK > 0.05 & holoout$known_pos == F)#
+holoout$false_neg <- (p4noK > 0.05 & holoout$known_pos == T)#
+startcol <- grep("false_pos",colnames(holoout))#
+startcolK <- grep("false_pos",colnames(holooutK))#
+#
+conttabprp <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		)#
+conttabKprp <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		rep(c(sum(holooutK$known_neg),sum(holooutK$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		) # false pos, true pos, true neg, false neg#
+conttabK <- 	colSums(holooutK[,startcolK:(startcolK+3)])
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,1,0,1),y=c(0,0,1,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2), sep="/" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),each=2), sep="/" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2), sep="/" ))
+holoout <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemma.assoc.txt",header=T,sep="\t")#
+holooutK <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/tmp_HOLOgemmaK.assoc.txt",header=T,sep="\t")#
+holoout$known_pos <- sapply(holoout$rs, function(z) length(grep("c",z))==1)#
+holoout$known_neg <- !holoout$known_pos#
+#
+holooutK$known_pos <- sapply(holooutK$rs, function(z) length(grep("c",z))==1)#
+holooutK$known_neg <- !holooutK$known_pos#
+#
+p4noK <- findInterval(holoout$p_score,sort(holoout$p_score))/nrow(holoout)#
+p4K <- findInterval(holooutK$p_score,sort(holooutK$p_score))/nrow(holooutK)#
+holooutK$false_pos<- (holooutK$p_score < 0.05 & holooutK$known_pos == F)#
+holooutK$true_pos<- (holooutK$p_score < 0.05 & holooutK$known_pos == T)#
+holooutK$true_neg <- (holooutK$p_score > 0.05 & holooutK$known_pos == F)#
+holooutK$false_neg <- (holooutK$p_score > 0.05 & holooutK$known_pos == T)#
+holoout$false_pos<- (p4noK < 0.05 & holoout$known_pos == F)#
+holoout$true_pos<- (p4noK < 0.05 & holoout$known_pos == T)#
+holoout$true_neg <- (p4noK > 0.05 & holoout$known_pos == F)#
+holoout$false_neg <- (p4noK > 0.05 & holoout$known_pos == T)#
+startcol <- grep("false_pos",colnames(holoout))#
+startcolK <- grep("false_pos",colnames(holooutK))#
+#
+conttabprp <- matrix(#
+	colSums(holoout[,startcol:(startcol+3)]) /#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		)#
+conttabKprp <- matrix(#
+	colSums(holooutK[,startcolK:(startcolK+3)]) /#
+		rep(c(sum(holooutK$known_neg),sum(holooutK$known_pos)),times=2),#
+	byrow=T,ncol=2#
+		) # false pos, true pos, true neg, false neg#
+conttabK <- 	colSums(holooutK[,startcolK:(startcolK+3)])
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),each=2), sep="/" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2), sep="/" ))
+84/868
+conttabKprp
+unlist(conttabKprp)
+as.vecto(conttabKprp)
+as.vector(conttabKprp)
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),"/",sum(holoout$known_pos)),times=2),"=",as.vector(conttabKprp), sep="" ))
+text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(conttabK,rep(c(sum(holoout$known_neg),"/",sum(holoout$known_pos)),times=2),"=",round(as.vector(conttabKprp),digits=3), sep="" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep(c(sum(holoout$known_neg),"/",#
+		sum(holoout$known_pos)),times=2),"=",#
+		round(as.vector(conttabKprp),digits=3), sep="" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep(c(sum(holoout$known_neg),"\/",#
+		sum(holoout$known_pos)),times=2),"=",#
+		round(as.vector(conttabKprp),digits=3), sep="" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep(c(sum(holoout$known_neg),"/",#
+		sum(holoout$known_pos)),times=2),"=",#
+		round(as.vector(conttabKprp),digits=3), sep="" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep(c(sum(holoout$known_neg),rep("/",times=4),#
+		sum(holoout$known_pos)),times=2),rep("=",times=4),#
+		round(as.vector(conttabKprp),digits=3), sep="" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep("/",times=4),#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+		rep("=",times=4),#
+		round(as.vector(conttabKprp),digits=3), sep="" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep("/",times=4),#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+		rep("=",times=4),#
+		round(as.vector(t(conttabKprp)),digits=2), sep="" ))
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep("/",times=4),#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+		rep("=",times=4),#
+		round(as.vector(t(conttabKprp)),digits=3), sep="" ))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest.pdf")#
+image(conttabKprp,xaxt="n",yaxt="n")#
+	axis(2,at=c(0,1),labels=c("neutral","causal"))#
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))#
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(#
+		conttabK,rep("/",times=4),#
+		rep(c(sum(holoout$known_neg),sum(holoout$known_pos)),times=2),#
+		rep("=",times=4),#
+		round(as.vector(t(conttabKprp)),digits=2), sep="" ))#
+dev.off()
+255*0.96
+255*0.01
