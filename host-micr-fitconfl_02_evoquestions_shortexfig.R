@@ -32,7 +32,24 @@ testf2.plntff   <- 0.6*testf2.plnt + (1-0.6)*testf2.micr
 testf2.micrff   <- (1-0.6)*testf2.plnt + 0.6*testf2.micr
 con.f2 <- c(trait.v2[which(testf2.micrff == max(testf2.micrff))],trait.v2[which(testf2.plntff == max(testf2.plntff))])
 
-which(testf2.plntff == max(testf2.plntff))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Fitcor_DirectandFeedbacks.pdf",height=3.5,width=3.5)
+par(mfrow=c(2,2))
+par(mar=c(1,1,1,1))
+par(oma=c(3,3,1,1))
+plot(teste1.plnt~teste1.micr,ylim=c(0,0.004),xlim=c(0,0.0025),pch=1,cex=0.5,col=rgb(0,0,0,alpha=1),ylab="",xlab="",xaxt="n")
+	points(teste1.plntff~teste1.micrff,pch=8,cex=0.5,col=rgb(0.5,0.5,0.5,alpha=1))
+	mtext("Plant relative fitness",side=2,line=2.5,adj=1.75)
+plot(testf1.plnt~testf1.micr,ylim=c(0,0.004),xlim=c(0,0.0025),pch=1,cex=0.5,col=rgb(0,0,0,alpha=1),ylab="",xlab="",xaxt="n") #pch=16,cex=0.5,col=rgb(0,0,0,alpha=0.25),ylab="",xlab="",xaxt="n",yaxt="n")
+	points(testf1.plntff~testf1.micrff,pch=16,cex=0.5,col=rgb(0.5,0.5,0.5,alpha=1))#,col=rgb(1,0,0,alpha=0.25))
+plot(teste2.plnt~teste2.micr,ylim=c(0,0.004),xlim=c(0,0.0025),pch=1,cex=0.5,col=rgb(0,0,0,alpha=1),ylab="",xlab="",xaxt="n")
+	points(teste2.plntff~teste2.micrff,pch=16,cex=0.5,col=rgb(0.5,0.5,0.5,alpha=1))
+plot(testf2.plnt~testf2.micr,ylim=c(0,0.004),xlim=c(0,0.0025),pch=1,cex=0.5,col=rgb(0,0,0,alpha=1),ylab="",xlab="",xaxt="n")
+	points(testf2.plntff~testf2.micrff,pch=16,cex=0.5,col=rgb(0.5,0.5,0.5,alpha=1))
+	mtext("Microbe relative fitness",side=1,line=2.5,adj=1.75)
+# 	abline(lm(testf2.plnt~testf2.micr),col=rgb(0,0,0),lty=2)
+# 	abline(lm(testf2.plntff~testf2.micrff),col=rgb(1,0,0),lty=2)
+legend(-0.00025,y=0.004,c("Direct only","+ feedbacks"),fill=c(rgb(0,0,0),rgb(0.5,0.5,0.5)),bty="n",border=NA )
+dev.off()
 
 
 pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)
@@ -82,34 +99,40 @@ dev.off()
 
 
 
+
+
+
+
 # source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
 
-gens <- 300
+gens <- 200
 #matched optima, no ff
-test.4a <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#at about .1 for fiterr relative to sdfit of 1 is when error in fitness starts to obscure fitness differences, not calculated. just apprx guess.	
+test.4a <-		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#
 #mattched optima, ff
-test.4aff <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)#at about .1 for fiterr relative to sdfit of 1 is when error in fitness starts to obscure fitness differences, not calculated. just apprx guess.	
+test.4aff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 #plant direct very weak
-test.4b <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=10,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+test.4b <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=10,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #plant direct very weak, indirect stronger
-test.4bff <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=10,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+test.4bff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=10,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 #conflict, microbe link stronger,  direct links only
-test.4d <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+test.4d <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #conflict, microbe link stronger,  direct and indirect links
-test.4dff <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+test.4dff <-	 sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=2,zoM=3,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 #conflict, plant link stronger,  direct links only
-test.4e <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+test.4e <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #conflict, plant link stronger,  direct and indirect links
-test.4eff <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+test.4eff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 #conflict, links =,  direct only
-test.4f <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+test.4f <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #conflict, links =,  direct and indirect links
-test.4fff <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+test.4fff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 
 
 ##
-# #fourdemosims <- list(test.4a,test.4b,test.4d,test.4e)
-# #save(fourdemosims,file=paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
+tendemosims <- list(test.4a,test.4aff,test.4b,test.4bff,test.4d,test.4dff,test.4e,test.4eff,test.4f,test.4fff)
+save(tendemosims,file=paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
+
+
 # fourdmosims <- load(paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
 # test.4a <- fourdemosims[[1]]
 # test.4b <- fourdemosims[[2]]
@@ -169,17 +192,17 @@ windowplot(1,gens+1,3,test.4aff,ylim=c(-3,6),titles[2])
 
 
 # pdf(paste(Sys.getenv("SCRATCH"),"/Simulation Results_fourdemos.pdf",sep=""),height=6,width=6)
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Simulation Results_fourdemos_n.pdf",height=5,width=5)
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Simulation_Results_fourdemos_n.pdf",height=5,width=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,0,0))
 windowplot(1,gens+1, 3,test.4b,ylim=c(-3,6),"",xlabs="")#titles[3])
-	abline(h=3,col=rgb(0.5,0,0.5),lty=2); abline(h=2,col=rgb(0,0.5,0),lty=2)#col=rgb(1,0,0),lty=2)
+	abline(h=3,col=rgb(0.5,0,0.5),lty=2); # abline(h=2,col=rgb(0,0.5,0),lty=2)#col=rgb(1,0,0),lty=2)
 	abline(h=0)
 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 	mtext("No link to plant fitness",side=3)
 windowplot(1,gens+1, 3,test.4bff,ylim=c(-3,6),"")#"titles[4]")
-	abline(h=3,col=rgb(0.5,0,0.5),lty=2); abline(h=2,col=rgb(0,0.5,0),lty=2)#col=rgb(1,0,0),lty=2)
+	abline(h=3,col=rgb(0.5,0,0.5),lty=2); #abline(h=2,col=rgb(0,0.5,0),lty=2)#col=rgb(1,0,0),lty=2)
 	abline(h=0)
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
 	legend(gens*-0.05,y=0,c("Plant","Microbe","Expressed"), fill=c(rgb(0,0.5,0,alpha=0.5),rgb(0.5,0,0.5,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
@@ -195,6 +218,62 @@ dev.off()
 
 
 
+
+
+
+
+
+
+
+getrelfitandtrait <- function(simdat,gen,zoP,zoM,wP,wM,pfP,pfM){
+	traitend <- rowSums(colSums(simdat$Plant[,,,gen])) + colSums(simdat$Microbe[,,gen])
+	micrfit   <- univar.fit( z=traitend, zopt=zoM, sd.fit=wM)
+	hostfit   <- univar.fit( z=traitend, zopt=zoP, sd.fit=wP)
+	rHfit <-     pfP*hostfit + (1-pfP)*micrfit
+	rMfit <- (1-pfM)*hostfit +     pfM*micrfit
+	return(data.frame(traitend = traitend,rfitplnt=rHfit,rfitmicr=rMfit))
+}
+
+trait.a 	<- getrelfitandtrait(test.4a  ,gens+1,zoP=3,zoM=3,wP=0.75,wM=0.75,pfP=1,pfM=1)
+trait.aff 	<- getrelfitandtrait(test.4aff,gens+1,zoP=3,zoM=3,wP=0.75,wM=0.75,pfP=0.6,pfM=0.6)
+trait.b 	<- getrelfitandtrait(test.4b  ,gens+1,zoP=2,zoM=3,wP=10  ,wM=0.75,pfP=1,pfM=1)
+trait.bff 	<- getrelfitandtrait(test.4bff,gens+1,zoP=2,zoM=3,wP=10  ,wM=0.75,pfP=0.6,pfM=0.6)
+trait.d 	<- getrelfitandtrait(test.4d  ,gens+1,zoP=2,zoM=3,wP=2   ,wM=0.75,pfP=1,pfM=1)
+trait.dff 	<- getrelfitandtrait(test.4dff,gens+1,zoP=2,zoM=3,wP=2   ,wM=0.75,pfP=0.6,pfM=0.6)
+trait.e 	<- getrelfitandtrait(test.4e  ,gens+1,zoP=3,zoM=2,wP=0.75,wM=2   ,pfP=1,pfM=1)
+trait.eff 	<- getrelfitandtrait(test.4eff,gens+1,zoP=3,zoM=2,wP=0.75,wM=2   ,pfP=0.6,pfM=0.6)
+trait.f 	<- getrelfitandtrait(test.4f  ,gens+1,zoP=3,zoM=2,wP=0.75,wM=0.75,pfP=1,pfM=1)
+trait.fff 	<- getrelfitandtrait(test.4fff,gens+1,zoP=3,zoM=2,wP=0.75,wM=0.75,pfP=0.6,pfM=0.6)
+
+conend.e <- c(trait.eff$traitend[which(trait.eff$rfitmicr == max(trait.eff$rfitmicr))],trait.eff$traitend[which(trait.eff$rfitplnt== max(trait.eff$rfitplnt))])
+conend.f <- c(trait.fff$traitend[which(trait.fff$rfitmicr == max(trait.fff$rfitmicr))],trait.fff$traitend[which(trait.fff$rfitplnt== max(trait.fff$rfitplnt))])
+
+par(mfrow=c(2,2))
+par(mar=c(1,1,1,1))
+par(oma=c(3,5,1,1))
+plot( trait.b$rfitplnt~trait.b$traitend,col=rgb(0,0.5,0), pch=1,xlim=c(1,4),ylim=c(0,0.015),xaxt="n",cex=0.5)
+	points( trait.b$rfitmicr~trait.b$traitend,col=rgb(0.5,0,0.5),pch=1 ,cex=0.5)
+	points( trait.bff$rfitplnt~trait.bff$traitend,col=rgb(0,0.5,0),pch=8 ,cex=0.5)
+	points( trait.bff$rfitmicr~trait.bff$traitend,col=rgb(0.5,0,0.5),pch=8 ,cex=0.5)
+	mtext("Plant relative fitness",side=2,adj=-3,line=2)
+	mtext("No link to plant fitness",side=2,line=3.5)
+plot( trait.b$rfitplnt~trait.b$rfitmicr,col=rgb(0,0,0),pch=1 ,xlim=c(0,0.015) ,ylim=c(0,0.015),xaxt="n",yaxt="n",cex=0.5)
+	points( trait.bff$rfitplnt~trait.bff$rfitmicr,col=rgb(0.5,0.5,0.5) ,cex=0.5)
+plot( trait.f$rfitplnt~trait.f$traitend,col=rgb(0,0.5,0), pch=1,xlim=c(1,4),ylim=c(0,0.015),cex=0.5)
+	points( trait.f$rfitmicr~trait.f$traitend,col=rgb(0.5,0,0.5),pch=1 ,cex=0.5)
+	points( trait.fff$rfitplnt~trait.fff$traitend,col=rgb(0,0.5,0),pch=8 ,cex=0.5)
+	points( trait.fff$rfitmicr~trait.fff$traitend,col=rgb(0.5,0,0.5),pch=8 ,cex=0.5)
+	mtext("Equal links to fitness",side=2,line=3.5)
+	mtext("Trait Value",side=1, line=2,cex=1)
+	legend(-0.05,y=0.04,c("Plant","Microbe"),bty="n",border=NA, fill=c(rgb(0,0.5,0),rgb(0.5,0,0.5)) )
+plot( trait.f$rfitplnt~trait.f$rfitmicr,col=rgb(0,0,0) ,pch=1,xlim=c(0,0.015) ,ylim=c(0,0.015),yaxt="n",cex=0.5)
+	points( trait.fff$rfitplnt~trait.fff$rfitmicr,col=rgb(0.5,0.5,0.5),pch=8 ,cex=0.5)
+	legend(-0.05,y=0.04,c("Direct only","+ feedbacks"),pch=c(1,8),bty="n",border=NA) #fill=c(rgb(0,0,0),rgb(0.5,0.5,0.5)) )
+	mtext("Microbe relative fitness",side=1, line=2,cex=1)
+
+
+
+
 #demo figure for total variance "G", variance G proportions of M and P, distance from optimum, local dynamics?
 #take two simulations from above figure, and plot each below
 FC4b <- getfitcon(10, gens+1, 1, test.4b,zoP=2,zoM=3, wP=5, wM=0.75,pfP=0.6,pfM=0.6)   
@@ -205,37 +284,108 @@ FC4e <- getfitcon(10, gens+1, 1, test.4e,zoP=3,zoM=2, wP=0.75, wM=1,pfP=0.6,pfM=
 VmVp4e <- extractVmVp(test.4e, 1,gens+1,1)
 win4e  <- extractwinning(test.4e,first=1,last=gens+1,1,zoP=3,zoM= 2)
 dyn4e <- extractDyn(test.4e,first=1,last=gens+1,10)
-pdf(paste(Sys.getenv("SCRATCH"),"/Simulation Results_fourdemos_statsovertime.pdf",sep=""),height=12,width=6)
-	par(mfrow=c(4,2))
-	par(mar=c(3,5,1,1))
-	par(oma=c(5,0,1,0))
- 	plot(FC4b$fitnesscorrelation~c(10:(gens+1)),main="~0 link to plant fitness",ylab="Fitness correlation",xlab="",ylim=c(-1,1),pch=NA)
-	       lines(FC4b$fitnesscorrelation~c(10:(gens+1)),lty=2)
-		abline(h=0)
-	plot(FC4e$fitnesscorrelation~c(10:(gens+1)),main="plant link > microbe link",ylab="",xlab="",ylim=c(-1,1),pch=NA)
-		lines(FC4e$fitnesscorrelation~c(10:(gens+1)),lty=2)
-		abline(h=0)
- 	plot(VmVp4b$Vp ~ c(1:length(VmVp4b$Vp)),pch=NA,ylim=c(0,1),ylab="Proportion of variance",xlab="")
-		lines( 1:length(VmVp4b$PVp),VmVp4b$PVp,col=rgb(0,0.5,0)) 
-		lines(1:length(VmVp4b$PVm),VmVp4b$PVm , col=rgb(0.5,0,0.5)) 
-	plot(VmVp4e$Vp ~ c(1:length(VmVp4e$Vp)),pch=NA,ylim=c(0,1),ylab="",xlab="")
-		lines( 1:length(VmVp4e$PVp),VmVp4e$PVp,col=rgb(0,0.5,0))
-		lines(1:length(VmVp4e$PVm),VmVp4e$PVm , col=rgb(0.5,0,0.5))
-	plot(win4b$dP ~ c(1:length(win4b$dP)),pch=NA,ylim=c(0,max(c(win4b$dP,win4b$dM))),ylab="Distance from optima",xlab="")
-		lines(win4b$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
-		lines(win4b$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
-	plot(win4e$dP ~ c(1:length(win4e$dP)),pch=NA,ylim=c(0,max(c(win4e$dP,win4e$dM))),ylab="",xlab="")
-		lines(win4e$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
-		lines(win4e$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
-	plot(dyn4b$tcoefP ~ c(1:length(dyn4b$tcoefP)),pch=NA,ylim=c(min(c(dyn4b$tcoefP,dyn4b$tcoefM)),max(c(dyn4b$tcoefP,dyn4b$tcoefM))),ylab="Local trait change",xlab="generations")
-		abline(h=0)
-		lines(dyn4b$tcoefP~c(1:length(dyn4b$tcoefP)),col=rgb(0,0.5,0))
-		lines(dyn4b$tcoefM~c(1:length(dyn4b$tcoefM)),col=rgb(0.5,0,0.5))	
-	plot(dyn4e$tcoefP ~ c(1:length(dyn4e$tcoefP)),pch=NA,ylim=c(min(c(dyn4e$tcoefP,dyn4e$tcoefM)),max(c(dyn4e$tcoefP,dyn4e$tcoefM))),ylab="Local trait change",xlab="generations")
- 		abline(h=0)
-		lines(dyn4e$tcoefP~c(1:length(dyn4e$tcoefP)),col=rgb(0,0.5,0))
-		lines(dyn4e$tcoefM~c(1:length(dyn4e$tcoefM)),col=rgb(0.5,0,0.5))
+
+VmVp4bff <- extractVmVp(test.4bff, 1,gens+1,1)
+VmVp4f <- extractVmVp(test.4f, 1,gens+1,1)
+VmVp4fff <- extractVmVp(test.4fff, 1,gens+1,1)
+
+win4bff  <- extractwinning(test.4bff,first=1,last=gens+1,1,zoP=2,zoM= 3)
+win4f  <- extractwinning(test.4f,first=1,last=gens+1,1,zoP=3,zoM= 2)
+win4fff  <- extractwinning(test.4fff,first=1,last=gens+1,1,zoP=3,zoM= 2)
+which(win4f$dM<0.01)
+
+rangepheno.4b <- sapply(2:(gens+2), function(t) range( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
+rangepheno.4bff <- sapply(2:(gens+2), function(t) range( rowSums(colSums(test.4bff$Plant[,,,t])) + colSums(test.4bff$Microbe[,,t]) )  )
+meanpheno.4b <- sapply(2:(gens+2), function(t) mean( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
+meanpheno.4bff <- sapply(2:(gens+2), function(t) mean( rowSums(colSums(test.4bff$Plant[,,,t])) + colSums(test.4bff$Microbe[,,t]) )  )
+
+min(which(rangepheno.4b[2,]>=3))
+
+min(which(meanpheno.4b>=3))
+
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Variance_Results_fourdemos_n.pdf",height=4.5,width=5.5)
+layout(matrix(1:4,ncol=2,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,1,0))
+	plot(VmVp4b$Vp ~ c(1:length(VmVp4b$Vp)),pch=NA,ylim=c(0,0.12),ylab="",xlab="")
+		lines( 1:length(VmVp4b$Vp),VmVp4b$Vp,col=rgb(0,0.5,0)) 
+		lines(1:length(VmVp4b$Vm),VmVp4b$Vm , col=rgb(0.5,0,0.5)) 
+		lines(1:length(VmVp4b$Vb),VmVp4b$Vb , col=rgb(0.5,0.5,0.5)) 
+#		abline(v=min(which(win4b$dM < 0.1)))# first generation where the expressed value is pretty close to the microbe optima
+# 		abline(v=min(which(rangepheno.4b[2,]>=3)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=3)# first generation does any individual in the pop express the microbe optima or beyond i
+	 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+		mtext("No link to plant fitness",side=3,line=0.5)
+		mtext("genetic variance",side=2,line=2,adj=-1.75)
+	plot(VmVp4bff$Vp ~ c(1:length(VmVp4bff$Vp)),pch=NA,ylim=c(0,0.12),ylab="",xlab="")
+		lines( 1:length(VmVp4bff$Vp),VmVp4bff$Vp,col=rgb(0,0.5,0)) 
+		lines(1:length(VmVp4bff$Vm),VmVp4bff$Vm , col=rgb(0.5,0,0.5)) 
+		lines(1:length(VmVp4bff$Vb),VmVp4bff$Vb , col=rgb(0.5,0.5,0.5)) 
+		abline(v=min(which(meanpheno.4bff>=3)), col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)# first generation does microbe mean reach its optima or beyond
+		mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+	plot(VmVp4f$Vp ~ c(1:length(VmVp4f$Vp)),pch=NA,ylim=c(0,0.12),ylab="",xlab="")
+		lines( 1:length(VmVp4f$Vp),VmVp4f$Vp,col=rgb(0,0.5,0))
+		lines(1:length(VmVp4f$Vm),VmVp4f$Vm , col=rgb(0.5,0,0.5))
+		lines(1:length(VmVp4f$Vb),VmVp4f$Vb , col=rgb(0.5,0.5,0.5))
+		abline(v=which(win4f$dM==min(win4f$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
+		text(x=85,y=0.11, labels =expression(Z[opt[M]]~reached))
+		mtext("Equal links to fitness",side=3,line=0.5)
+	plot(VmVp4fff$Vp ~ c(1:length(VmVp4fff$Vp)),pch=NA,ylim=c(0,0.12),ylab="",xlab="")
+		lines( 1:length(VmVp4f$Vp),VmVp4fff$Vp,col=rgb(0,0.5,0))
+		lines(1:length(VmVp4f$Vm),VmVp4fff$Vm , col=rgb(0.5,0,0.5))
+		lines(1:length(VmVp4fff$Vb),VmVp4fff$Vb , col=rgb(0.5,0.5,0.5))
+		abline(v=which(win4fff$dM==min(win4fff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
+		mtext("generations",side=1,line=2,adj=-0.75)
+		legend(gens*0.2,y=0.11,c("Plant portion","Microbe portion","Interacting"),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
 dev.off()
+# 	plot(win4b$dP ~ c(1:length(win4b$dP)),pch=NA,ylim=c(0,max(c(win4b$dP,win4b$dM))),ylab="Distance from optima",xlab="")
+# 		lines(win4b$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
+# 		lines(win4b$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
+# 	plot(win4bff$dP ~ c(1:length(win4bff$dP)),pch=NA,ylim=c(0,max(c(win4bff$dP,win4bff$dM))),ylab="Distance from optima",xlab="")
+# 		lines(win4bff$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
+# 		lines(win4bff$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
+# 	plot(win4f$dP ~ c(1:length(win4f$dP)),pch=NA,ylim=c(0,max(c(win4f$dP,win4f$dM))),ylab="",xlab="")
+# 		lines(win4f$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
+# 		lines(win4f$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
+# 	plot(win4fff$dP ~ c(1:length(win4fff$dP)),pch=NA,ylim=c(0,max(c(win4fff$dP,win4fff$dM))),ylab="Distance from optima",xlab="")
+# 		lines(win4fff$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
+# 		lines(win4fff$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
+
+
+# 
+# pdf(paste(Sys.getenv("SCRATCH"),"/Simulation Results_fourdemos_statsovertime.pdf",sep=""),height=12,width=6)
+# 	par(mfrow=c(4,2))
+# 	par(mar=c(3,5,1,1))
+# 	par(oma=c(5,0,1,0))
+#  	plot(FC4b$fitnesscorrelation~c(10:(gens+1)),main="~0 link to plant fitness",ylab="Fitness correlation",xlab="",ylim=c(-1,1),pch=NA)
+# 	       lines(FC4b$fitnesscorrelation~c(10:(gens+1)),lty=2)
+# 		abline(h=0)
+# 	plot(FC4e$fitnesscorrelation~c(10:(gens+1)),main="plant link > microbe link",ylab="",xlab="",ylim=c(-1,1),pch=NA)
+# 		lines(FC4e$fitnesscorrelation~c(10:(gens+1)),lty=2)
+# 		abline(h=0)
+#  	plot(VmVp4b$Vp ~ c(1:length(VmVp4b$Vp)),pch=NA,ylim=c(0,1),ylab="Proportion of variance",xlab="")
+# 		lines( 1:length(VmVp4b$PVp),VmVp4b$PVp,col=rgb(0,0.5,0)) 
+# 		lines(1:length(VmVp4b$PVm),VmVp4b$PVm , col=rgb(0.5,0,0.5)) 
+# 	plot(VmVp4e$Vp ~ c(1:length(VmVp4e$Vp)),pch=NA,ylim=c(0,1),ylab="",xlab="")
+# 		lines( 1:length(VmVp4e$PVp),VmVp4e$PVp,col=rgb(0,0.5,0))
+# 		lines(1:length(VmVp4e$PVm),VmVp4e$PVm , col=rgb(0.5,0,0.5))
+# 	plot(win4b$dP ~ c(1:length(win4b$dP)),pch=NA,ylim=c(0,max(c(win4b$dP,win4b$dM))),ylab="Distance from optima",xlab="")
+# 		lines(win4b$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
+# 		lines(win4b$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
+# 	plot(win4e$dP ~ c(1:length(win4e$dP)),pch=NA,ylim=c(0,max(c(win4e$dP,win4e$dM))),ylab="",xlab="")
+# 		lines(win4e$dP~c(1:(gens+1)),col=rgb(0,0.5,0))
+# 		lines(win4e$dM~c(1:(gens+1)),col=rgb(0.5,0,0.5))
+# 	plot(dyn4b$tcoefP ~ c(1:length(dyn4b$tcoefP)),pch=NA,ylim=c(min(c(dyn4b$tcoefP,dyn4b$tcoefM)),max(c(dyn4b$tcoefP,dyn4b$tcoefM))),ylab="Local trait change",xlab="generations")
+# 		abline(h=0)
+# 		lines(dyn4b$tcoefP~c(1:length(dyn4b$tcoefP)),col=rgb(0,0.5,0))
+# 		lines(dyn4b$tcoefM~c(1:length(dyn4b$tcoefM)),col=rgb(0.5,0,0.5))	
+# 	plot(dyn4e$tcoefP ~ c(1:length(dyn4e$tcoefP)),pch=NA,ylim=c(min(c(dyn4e$tcoefP,dyn4e$tcoefM)),max(c(dyn4e$tcoefP,dyn4e$tcoefM))),ylab="Local trait change",xlab="generations")
+#  		abline(h=0)
+# 		lines(dyn4e$tcoefP~c(1:length(dyn4e$tcoefP)),col=rgb(0,0.5,0))
+# 		lines(dyn4e$tcoefM~c(1:length(dyn4e$tcoefM)),col=rgb(0.5,0,0.5))
+# dev.off()
+# 
+# 
+# 
 
 #also run at least one shifting optima simulation
 
@@ -244,7 +394,7 @@ zoptM <- c(rep(0,times=100),rep(2,times=200),rep(2,times=100),rep(3,times=100))
 zvecs <- list(PlantZ = zoptP, MicrZ = zoptM)
 testvarE <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,
 		zoP=3,zoM=2,wP=0.75,wM=1,timesteps=gens,Lambda=30,mutprb=0.0005,
-		fiterrP=0.001,fiterrM=0.001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,
+		prbHorz = 0.2,pfP = 0.6, pfM=0.6,
 		FLFC=0.1,zoptvects =zvecs)
 
 save(testvarE,file=paste(Sys.getenv("SCRATCH"),"/Simulation Results_testvarE.R",sep=""))
@@ -332,54 +482,4 @@ pdf(paste(Sys.getenv("SCRATCH"),"/Simulation Results_manymicrobes_statsovertime.
 dev.off()
 
 
-
-
- #for each scenario, show fitness-trait relationship for plants and microbes (not exactly relative fitness)
-# trait.v <- seq(from=0,to=5,length.out=1000)
-# trait.v <- c(seq(from=0,to=1,length.out=800),seq(from=1,to=5,length.out=200))
-# trait.v <- sort(rnorm(1000,mean=1,sd=1))
-# # zopt and w identical
-# testa.all   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# #zopt differ, plant almost 0, w/ and w/o ff
-# testb.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=10)
-# testb.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# testb.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=10) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# testb.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=10) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# #zopt differ, micr link stronger, w/ and w/o ff
-# testd.plnt   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)
-# testd.micr   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# testd.plntff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# testd.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# #zopt differ, micr link stronger, w/ and w/o ff
-# teste.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=2)
-# teste.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# teste.micrff   <- 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=2) + (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# teste.plntff   <- (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=2) + 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# #zopt differ, w idential
-# testf.plnt   <- univar.fit( z=trait.v, zopt=3, sd.fit=0.75)
-# testf.micr   <- univar.fit( z=trait.v, zopt=2, sd.fit=0.75)
-# testf.plntff   <- 0.6*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + (1-0.6)*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)
-# testf.micrff   <- (1-0.6)*univar.fit( z=trait.v, zopt=3, sd.fit=0.75) + 0.6*univar.fit( z=trait.v, zopt=2, sd.fit=0.75)
-# 
-# #plot(function(x) dnorm(x,mean=1,sd=1),min(trait.v),max(trait.v))
-# # plot(trait.v,testa.all,pch=NA)
-# # 	lines(testa.all~trait.v)
-# # 	abline(v=3,lty=3)
-# plot(testb.micr~trait.v,pch=NA)
-# 	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)
-# 	lines(testb.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testb.plnt ~trait.v,col=rgb(0,0.5,0))
-# 	lines(testb.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testb.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
-# plot(testd.micr~trait.v,pch=NA)
-# 	abline(v=2,col=rgb(0,0.5,0),lty=3); abline(v=3,col=rgb(0.5,0,0.5),lty=3)
-# 	lines(testd.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testd.plnt ~trait.v,col=rgb(0,0.5,0))
-# 	lines(testd.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testd.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
-# plot(teste.plnt~trait.v,pch=NA)
-# 	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)
-# 	lines(teste.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(teste.plnt ~trait.v,col=rgb(0,0.5,0))
-# 	lines(teste.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(teste.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
-# plot(testf.plnt~trait.v,pch=NA)
-# 	abline(v=3,col=rgb(0,0.5,0),lty=3); abline(v=2,col=rgb(0.5,0,0.5),lty=3)
-# 	lines(testf.micr ~trait.v,col=rgb(0.5,0,0.5)); lines(testf.plnt ~trait.v,col=rgb(0,0.5,0))
-# 	lines(testf.micrff ~trait.v,col=rgb(0.5,0,0.5),lty=2); lines(testf.plntff ~trait.v,col=rgb(0,0.5,0),lty=2)
-# 
 
