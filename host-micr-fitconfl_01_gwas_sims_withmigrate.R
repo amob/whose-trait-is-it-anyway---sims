@@ -360,6 +360,7 @@ makegwasfiles <- function(expset,name_append){
 ##PASS .ped and .map to PLINK to get binary formats .bim .fam .bed
 ##PASS to GEMMA to run models.
 
+makegwasfiles(expsetabO,"ABO") #<- function(expset,name_append){
 
-
+makegwasfiles(expsetaba,"ABA") #<- function(expset,name_append){
 
