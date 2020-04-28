@@ -160,10 +160,19 @@ sim.cotraitV <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,
 		#interact! since Pa.mat[,,i-1] and Ma.mat[,,i-1] are randomly arranged from reproduction the previous time, just pair up columns / symbiotic columns
 		#joint trait value is evaluated with respect to distance from host optima and microbe optima -- then relative fitness is calculated based on the distance to both own trait optima
 		 ### and how well the partner can do based on its optima, with some proportion -- i.e. assumption is that if this is a mutualism, when your partner is unfit it isn't as beneficial
-		hostfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoP, sd.fit=wP)#, fiterr=fiterrP) 
-		micrfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoM, sd.fit=wM)#, fiterr=fiterrM)#, freeliving = freeliving,FLCL=FLCL) 
-		wH.e <-     pfP*hostfit + (1-pfP)*micrfit
-		wM.e <- (1-pfM)*hostfit +     pfM*micrfit
+		hostfit <-   lapply(1:npops, function(pop)  
+								univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]),
+									 zopt = zoP[pop], sd.fit=wP[pop]))
+# 		hostfit <-  lapply( 1:npops, function(pop)  
+# 				   			pfP*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]), 
+# 				   					zopt = zoP[pop], sd.fit=wP[pop]) + 
+# 				   (1-pfP)*univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]), zopt = zoM[pop], sd.fit=wM[pop])  
+# 		
+		micrfit <-   lapply(1:npops, function(pop)  
+								univar.fit(rowSums(colSums(Pa.list[[pop]][,,,i-1])) + colSums(Ma.list[[pop]][,,i-1]), 
+									zopt = zoM[pop], sd.fit=wM[pop]))#, fiterr=fiterrM)#, freeliving = freeliving,FLCL=FLCL) 
+		wH.e <-     lapply(1:npops, function(pop)     pfP*hostfit[[pop]] + (1-pfP)*micrfit[[pop]])
+		wM.e <-     lapply(1:npops, function(pop) (1-pfM)*hostfit[[pop]] +     pfM*micrfit[[pop]])
 	##NOTE: if wanted to do antagonistic interactions, do pfP*hostfit + (1-pfP)*((1-micrfit)/sum(1-micrfit))  #e.g. direct impact of trait on fitness, and impact passed through the inverse (e.g. perfectly negatively correlated) of impact on antagonists fitness
 		#migrate
 		if(is.null(GFmat)){
