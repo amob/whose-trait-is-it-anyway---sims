@@ -19,12 +19,12 @@ module load plink
 
 ##PASS .ped and .map to PLINK to get binary formats .bim .fam .bed
 #plink --file mydata --out mydata --make-bed 
-plink --file $SCRATCH/HOLOevosimsABA --out HOLOevosimsABA --make-bed
-plink --file $SCRATCH/PLANTevosimsABA --out PLANTevosimsABA --make-bed
-plink --file $SCRATCH/MICRevosimsABA --out MICRevosimsABA --make-bed
-plink --file $SCRATCH/HOLOevosimsABO --out HOLOevosimsABO --make-bed
-plink --file $SCRATCH/PLANTevosimsABO --out PLANTevosimsABO --make-bed
-plink --file $SCRATCH/MICRevosimsABO --out MICRevosimsABO --make-bed
+plink --file $SCRATCH/HOLOevosims_ABA --out HOLOevosimsABA --make-bed
+plink --file $SCRATCH/PLANTevosims_ABA --out PLANTevosimsABA --make-bed
+plink --file $SCRATCH/MICRevosims_ABA --out MICRevosimsABA --make-bed
+plink --file $SCRATCH/HOLOevosims_ABO --out HOLOevosimsABO --make-bed
+plink --file $SCRATCH/PLANTevosims_ABO --out PLANTevosimsABO --make-bed
+plink --file $SCRATCH/MICRevosims_ABO --out MICRevosimsABO --make-bed
 #note that if split up from R script, the input file location may need to be changed
 
 ##PASS to GEMMA to run models.
@@ -55,8 +55,8 @@ $HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA -k $SCRATCH/output/holokin
 $HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA -k $SCRATCH/ouput/micrkinABA.cXX.txt -lmm 4 -o MICRgemmaKABA
 $HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA -k $SCRATCH/ouput/plantkinABA.cXX.txt -lmm 4 -o PLANTgemmaKABA
 #
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosims -k $SCRATCH/output/holokinABO.cXX.txt -lmm 4 -o HOLOgemmaKABO
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosims -k $SCRATCH/ouput/micrkinABO.cXX.txt -lmm 4 -o MICRgemmaKABO
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosims -k $SCRATCH/ouput/plantkinABO.cXX.txt -lmm 4 -o PLANTgemmaKABO
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO -k $SCRATCH/output/holokinABO.cXX.txt -lmm 4 -o HOLOgemmaKABO
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -k $SCRATCH/ouput/micrkinABO.cXX.txt -lmm 4 -o MICRgemmaKABO
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO -k $SCRATCH/ouput/plantkinABO.cXX.txt -lmm 4 -o PLANTgemmaKABO
 #mixed models currently fail for plant and microbes 
 

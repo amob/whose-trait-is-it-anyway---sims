@@ -271,32 +271,42 @@ dev.off()
 
 #demo figure for total variance "G", variance G proportions of M and P, distance from optimum, local dynamics?
 #take two simulations from above figure, and plot each below
-FC4b <- getfitcon(10, gens+1, 1, test.4b,zoP=2,zoM=3, wP=5, wM=0.75,pfP=0.6,pfM=0.6)   
-VmVp4b <- extractVmVp(test.4b, 1,gens+1,1)
-win4b  <- extractwinning(test.4b,first=1,last=gens+1,1,zoP=2,zoM= 3)
-dyn4b <- extractDyn(test.4b,first=1,last=gens+1,10)
-FC4e <- getfitcon(10, gens+1, 1, test.4e,zoP=3,zoM=2, wP=0.75, wM=1,pfP=0.6,pfM=0.6)   
-VmVp4e <- extractVmVp(test.4e, 1,gens+1,1)
-win4e  <- extractwinning(test.4e,first=1,last=gens+1,1,zoP=3,zoM= 2)
-dyn4e <- extractDyn(test.4e,first=1,last=gens+1,10)
 
+VmVp4b <- extractVmVp(test.4b, 1,gens+1,1)
+VmVp4e <- extractVmVp(test.4e, 1,gens+1,1)
 VmVp4bff <- extractVmVp(test.4bff, 1,gens+1,1)
 VmVp4f <- extractVmVp(test.4f, 1,gens+1,1)
 VmVp4fff <- extractVmVp(test.4fff, 1,gens+1,1)
 
+#weaker variance correlations with fitness feedbacks. interesting. but the plots make it look like this could depend on timing of events, which change between sims/scenarios
+cor(VmVp4fff$Vp,VmVp4fff$Vm) #[1] 0.2660599
+cor(VmVp4fff$Vp,VmVp4fff$Vb,use="complete.obs") #[1] 0.8572949
+cor(VmVp4fff$Vm,VmVp4fff$Vb,use="complete.obs") #[1] 0.6107672
+cor(VmVp4fff$cVp,VmVp4fff$cVm,use="complete.obs") #[1] 0.9656252
+cor(VmVp4fff$cVm,VmVp4fff$cVb,use="complete.obs") #[1] 0.9980781
+cor(VmVp4fff$cVp,VmVp4fff$cVb,use="complete.obs")#[1] 0.9791138
+cor(VmVp4f$Vp,VmVp4f$Vm) #[1] 0.3198037
+cor(VmVp4f$Vp,VmVp4f$Vb) #[1] 0.9296124
+cor(VmVp4f$Vm,VmVp4f$Vb) #[1] 0.5733526
+cor(VmVp4f$cVp,VmVp4f$cVm,use="complete.obs")#[1] 0.998429
+cor(VmVp4f$cVp,VmVp4f$cVb,use="complete.obs")#[1] 0.9997046
+cor(VmVp4f$cVm,VmVp4f$cVb,use="complete.obs") #[1] 0.9994929
+
 win4bff  <- extractwinning(test.4bff,first=1,last=gens+1,1,zoP=2,zoM= 3)
 win4f  <- extractwinning(test.4f,first=1,last=gens+1,1,zoP=3,zoM= 2)
 win4fff  <- extractwinning(test.4fff,first=1,last=gens+1,1,zoP=3,zoM= 2)
+win4e  <- extractwinning(test.4e,first=1,last=gens+1,1,zoP=3,zoM= 2)
+win4b  <- extractwinning(test.4b,first=1,last=gens+1,1,zoP=2,zoM= 3)
+
 which(win4f$dM<0.01)
 
 rangepheno.4b <- sapply(2:(gens+2), function(t) range( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
 rangepheno.4bff <- sapply(2:(gens+2), function(t) range( rowSums(colSums(test.4bff$Plant[,,,t])) + colSums(test.4bff$Microbe[,,t]) )  )
 meanpheno.4b <- sapply(2:(gens+2), function(t) mean( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
 meanpheno.4bff <- sapply(2:(gens+2), function(t) mean( rowSums(colSums(test.4bff$Plant[,,,t])) + colSums(test.4bff$Microbe[,,t]) )  )
+meanpheno.4f <- sapply(2:(gens+2), function(t) mean( rowSums(colSums(test.4f$Plant[,,,t])) + colSums(test.4f$Microbe[,,t]) )  )
+meanpheno.4fff <- sapply(2:(gens+2), function(t) mean( rowSums(colSums(test.4fff$Plant[,,,t])) + colSums(test.4fff$Microbe[,,t]) )  )
 
-min(which(rangepheno.4b[2,]>=3))
-
-min(which(meanpheno.4b>=3))
 
 pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Variance_Results_fourdemos_n.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
@@ -332,6 +342,43 @@ par(oma=c(2,2,1,0))
 		mtext("generations",side=1,line=2,adj=-0.75)
 		legend(gens*0.2,y=0.11,c("Plant portion","Microbe portion","Interacting"),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
 dev.off()
+
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/coefV_Results_fourdemos_n.pdf",height=4.5,width=5.5)
+layout(matrix(1:4,ncol=2,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,1,0))
+	plot(VmVp4b$cVp ~ c(1:length(VmVp4b$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
+		lines( 1:length(VmVp4b$cVp),VmVp4b$cVp,col=rgb(0,0.5,0)) 
+		lines(1:length(VmVp4b$cVm),VmVp4b$cVm , col=rgb(0.5,0,0.5)) 
+		lines(1:length(VmVp4b$cVb),VmVp4b$cVb , col=rgb(0.5,0.5,0.5)) 
+#		abline(v=min(which(win4b$dM < 0.1)))# first generation where the expressed value is pretty close to the microbe optima
+# 		abline(v=min(which(rangepheno.4b[2,]>=3)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=3)# first generation does any individual in the pop express the microbe optima or beyond i
+	 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+		mtext("No link to plant fitness",side=3,line=0.5)
+		mtext("genetic variance scaled by expressed mean",side=2,line=2,adj=1.08)
+	plot(VmVp4bff$cVp ~ c(1:length(VmVp4bff$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
+		lines( 1:length(VmVp4bff$cVp),VmVp4bff$cVp,col=rgb(0,0.5,0)) 
+		lines(1:length(VmVp4bff$cVm),VmVp4bff$cVm , col=rgb(0.5,0,0.5)) 
+		lines(1:length(VmVp4bff$cVb),VmVp4bff$cVb , col=rgb(0.5,0.5,0.5)) 
+		abline(v=min(which(meanpheno.4bff>=3)), col=rgb(0.5,0,0.5,alpha=0.5),lwd=5)# first generation does microbe mean reach its optima or beyond
+		mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+	plot(VmVp4f$cVp ~ c(1:length(VmVp4f$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
+		lines( 1:length(VmVp4f$cVp),VmVp4f$cVp,col=rgb(0,0.5,0))
+		lines(1:length(VmVp4f$cVm),VmVp4f$cVm , col=rgb(0.5,0,0.5))
+		lines(1:length(VmVp4f$cVb),VmVp4f$cVb , col=rgb(0.5,0.5,0.5))
+		abline(v=which(win4f$dM==min(win4f$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
+		text(x=85,y=0.12, labels =expression(Z[opt[M]]~reached))
+		mtext("Equal links to fitness",side=3,line=0.5)
+	plot(VmVp4fff$cVp ~ c(1:length(VmVp4fff$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
+		lines( 1:length(VmVp4f$cVp),VmVp4fff$cVp,col=rgb(0,0.5,0))
+		lines(1:length(VmVp4f$cVm),VmVp4fff$cVm , col=rgb(0.5,0,0.5))
+		lines(1:length(VmVp4fff$cVb),VmVp4fff$cVb , col=rgb(0.5,0.5,0.5))
+		abline(v=which(win4fff$dM==min(win4fff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
+		mtext("generations",side=1,line=2,adj=-0.75)
+		legend(gens*0.2,y=0.15,c("Plant portion","Microbe portion","Interacting"),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
+dev.off()
+
+
 
 
 

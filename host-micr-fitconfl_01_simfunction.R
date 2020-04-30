@@ -205,6 +205,12 @@ windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding v
 	r.p <- sapply(twindows, function(t) range( rowSums(colSums(simdat$Plant[,,,t]))  )  )
 	r.mp <- sapply(twindows, function(t) range( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
 	r.m <- sapply(twindows, function(t) range( colSums(simdat$Microbe[,,t]) )  )
+	sd.p <- sapply(twindows, function(t) sd( rowSums(colSums(simdat$Plant[,,,t]))  )  )
+	sd.mp <- sapply(twindows, function(t) sd( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
+	sd.m <- sapply(twindows, function(t) sd( colSums(simdat$Microbe[,,t]) )  )
+	sdw.p <- sapply(1:length(twindows), function(t) c( m.p[t] + sd.p[t], m.p[t] - sd.p[t] )  )
+	sdw.mp <- sapply(1:length(twindows), function(t) c( m.mp[t] + sd.mp[t], m.mp[t] - sd.mp[t] )  )
+	sdw.m <- sapply(1:length(twindows), function(t) c( m.m[t] + sd.m[t], m.m[t] - sd.m[t] )  )
 	yrange <- range(c(as.vector(r.p),as.vector(r.m)))
 	plot(r.p[2,]~twindows,ylim=ylim,pch=NA,,xlab="",ylab="",main=main, cex.main=1)
 	lines(m.p~twindows); lines(m.mp~twindows); lines(m.m~twindows)
@@ -213,6 +219,9 @@ windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding v
 	polygon( c(twindows,rev(twindows)), c(r.mp[1,],rev(r.mp[2,])),col=rgb(0,0,0,alpha=0.25),border=NA)
 	polygon( c(twindows,rev(twindows)), c(r.p[1,],rev(r.p[2,])),col=rgb(0,0.5,0,alpha=0.5),border=NA)
 	polygon( c(twindows,rev(twindows)), c(r.m[1,],rev(r.m[2,])),col=rgb(0.5,0,0.5,alpha=0.5),border=NA)
+# 	polygon( c(twindows,rev(twindows)), c(sdw.mp[1,],rev(sdw.mp[2,])),col=rgb(0,0,0,alpha=0.25),border=NA)
+# 	polygon( c(twindows,rev(twindows)), c(sdw.p[1,],rev(sdw.p[2,])),col=rgb(0,0.5,0,alpha=0.5),border=NA)
+# 	polygon( c(twindows,rev(twindows)), c(sdw.m[1,],rev(sdw.m[2,])),col=rgb(0.5,0,0.5,alpha=0.5),border=NA)
 }
 
 
@@ -264,10 +273,21 @@ extractwinning <- function(simdat,first,last,eachNth,zoM,zoP,zoptvects="n"){ #sa
 extractVmVp <- function(simdat,first,last,eachNth){
 	twindows <- seq(from=first, to = last,by=eachNth)
 	Vp <- sapply(twindows, function(t) var( rowSums(colSums(simdat$Plant[,,,t])) )  )
+	mup <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) )  )
+#	sVp <- sapply(twindows, function(t)  var( rowSums(colSums(simdat$Plant[,,,t]))/ mean( rowSums(colSums(simdat$Plant[,,,t])) ) ) )
 	Vm <- sapply(twindows, function(t) var( colSums(simdat$Microbe[,,t]) )  )
+	mum <- sapply(twindows, function(t) mean( colSums(simdat$Microbe[,,t]) )  )
+#	sVm <- sapply(twindows, function(t)   var(colSums(simdat$Microbe[,,t])/mean( colSums(simdat$Microbe[,,t])) )  )
 	Vb <- sapply(twindows, function(t) var( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
-	return(list(Vp=Vp, Vm = Vm,Vb=Vb,PVp=Vp / (Vp+Vm), PVm = Vm/(Vp+Vm)))
-}#currently pVx is a ratio of each to the sum, but not to the breeding value variance.
+	mub <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
+#	sVb <- sapply(twindows, function(t) var(   (rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t])) / mean( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  ) )
+	return(list(Vp=Vp, Vm = Vm,Vb=Vb,mup = mup, mum=mum, mub=mub,
+				cVp = abs(sqrt(Vp)/mub), cVm = abs(sqrt(Vm)/mub), cVb = abs(sqrt(Vb)/mub), 
+#				cVp = abs(sqrt(Vp)/mup), cVm = abs(sqrt(Vm)/mum), cVb = abs(sqrt(Vb)/mub), 
+	#			sVp = abs((Vp)/mup), sVm = abs((Vm)/mum), sVb = abs((Vb)/mub), 
+		#		sVp = sVp, sVm = sVm, sVb = sVb, 
+				PVp=Vp / (Vp+Vm), PVm = Vm/(Vp+Vm)))
+}#currently pVx is a ratio of each to the sum, but not to the breeding value variance. sum var and bv var should be apprx equal in theory, but smaller sample sizes make them deviate
 
 #short-term questions
 #equilibrium?

@@ -322,10 +322,21 @@ extractwinning <- function(simdat,first,last,eachNth,zoM,zoP,zoptvects="n"){ #sa
 extractVmVp <- function(simdat,first,last,eachNth){
 	twindows <- seq(from=first, to = last,by=eachNth)
 	Vp <- sapply(twindows, function(t) var( rowSums(colSums(simdat$Plant[,,,t])) )  )
+	mup <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) )  )
+#	sVp <- sapply(twindows, function(t)  var( rowSums(colSums(simdat$Plant[,,,t]))/ mean( rowSums(colSums(simdat$Plant[,,,t])) ) ) )
 	Vm <- sapply(twindows, function(t) var( colSums(simdat$Microbe[,,t]) )  )
+	mum <- sapply(twindows, function(t) mean( colSums(simdat$Microbe[,,t]) )  )
+#	sVm <- sapply(twindows, function(t)   var(colSums(simdat$Microbe[,,t])/mean( colSums(simdat$Microbe[,,t])) )  )
 	Vb <- sapply(twindows, function(t) var( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
-	return(list(Vp=Vp, Vm = Vm,Vb=Vb,PVp=Vp / (Vp+Vm), PVm = Vm/(Vp+Vm)))
-}#currently pVx is a ratio of each to the sum, but not to the breeding value variance.
+	mub <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
+#	sVb <- sapply(twindows, function(t) var(   (rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t])) / mean( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  ) )
+	return(list(Vp=Vp, Vm = Vm,Vb=Vb,mup = mup, mum=mum, mub=mub,
+				cVp = abs(sqrt(Vp)/mub), cVm = abs(sqrt(Vm)/mub), cVb = abs(sqrt(Vb)/mub), 
+#				cVp = abs(sqrt(Vp)/mup), cVm = abs(sqrt(Vm)/mum), cVb = abs(sqrt(Vb)/mub), 
+	#			sVp = abs((Vp)/mup), sVm = abs((Vm)/mum), sVb = abs((Vb)/mub), 
+	#			sVp = sVp, sVm = sVm, sVb = sVb, 
+				PVp=Vp / (Vp+Vm), PVm = Vm/(Vp+Vm)))
+}#currently pVx is a ratio of each to the sum, but not to the breeding value variance. sum var and bv var should be apprx equal in theory, but smaller sample sizes make them deviate
 
 #short-term questions
 #equilibrium?
