@@ -24,7 +24,7 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 #		nloc.v <- c(10, 25, 50, 75, 125, 150, 200, 250, 300, 500) # multiply by 2 for microbes, base set to 100
 		prbHorz.v <- seq(from =0, to =1, length.out=10)
 	# mutational inputs;  Lambda
-		Lambda.v <- seq(from = 41, to = 23, by =-2) #base 30
+		Lambda.v <- seq(from = 41, to = 23, by =-2) #base 25
 #		mutprb.v <- c(0.00001, 0.000025, 0.00005, 0.000075, 0.0001, 0.00025, 0.00075, 0.001 ,0.0015, 0.002)
 		mutprb.v <- seq( from = 0.0001,to= 0.001 , length.out=10) #base 0.0005
 	#symmetries in conflict between partners (are these poss? I think just change pff for one only)
@@ -34,7 +34,7 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
 
-basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       30, 0.0005,      0.2,    0.6,0.6,   0.1)
+basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       25, 0.0005,      0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
 													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 

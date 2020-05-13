@@ -6,7 +6,7 @@
 #SBATCH --output=outandlog/%x_%j.txt
 #SBATCH --mail-type=END
 #SBATCH --mail-user=anna.obrien@utoronto.ca
-#SBATCH --array=1-222
+#SBATCH --array=1-182
 
 export REP=10
 
