@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=20:00:00
+#SBATCH --time=10:00:00
 #SBATCH --job-name=simandgwastest
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=40
@@ -8,6 +8,7 @@
 #SBATCH --mail-user=anna.obrien@utoronto.ca
 
 
+#temporarily comment out next two lines if no need to rerun
 module load r/3.4.3-anaconda5.1.0
 R CMD BATCH --no-restore --no-save $HOME/whosetrait/host-micr-fitconfl_01_gwas_sims_withmigrate.R
 #outputs .ped and .map for holo, plant, and microbe genomes
@@ -44,9 +45,9 @@ $HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO  -gk 1 -o micrkinABO
 $HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA -lm 4 -o HOLOgemmaABA
 $HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA -lm 4 -o PLANTgemmaABA
 $HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA -lm 4 -o MICRgemmaABA
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO -lm 4 -o HOLOgemmaABA
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO -lm 4 -o PLANTgemmaABA
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -lm 4 -o MICRgemmaABA
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO -lm 4 -o HOLOgemmaABO
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO -lm 4 -o PLANTgemmaABO
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -lm 4 -o MICRgemmaABO
 
 #mixed models
 

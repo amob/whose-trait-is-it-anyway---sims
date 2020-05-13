@@ -54,10 +54,9 @@ run.exp.allbyall<- function(popsetobj,numperpop,exp.err,nreps=1){
 		ind.datPM = list(plant = ind.datP, microbe= ind.datM)
 		return(list(expdat = dat, 
 				causalgenos = causalgenos, neutralgenos = neutralgenos,
-				origcasualgenos = list(genoP=sel.finalT.P, genoM=sel.finalT.M), origneutralgenos = list(genoP=sel.finalT.Pn,genoM=sel.finalT.Mn),
+				origcausalgenos = list(genoP=sel.finalT.P, genoM=sel.finalT.M), origneutralgenos = list(genoP=sel.finalT.Pn,genoM=sel.finalT.Mn),
 				 ind.dat = ind.datPM))
 }
-
 
 run.exp.allbyone<- function(popsetobj,numperpop,exp.err,nreps=1) {
 		#SELECT INDIVIDUALS
@@ -84,8 +83,8 @@ run.exp.allbyone<- function(popsetobj,numperpop,exp.err,nreps=1) {
 						  popP = c(p.pop.s, rep(p.pop.s[whichP], times = length(m.pop.s))) ,
 						  genoM = c( rep(m.geno.s[whichM], times = length(p.geno.s)) , m.geno.s) ,
 						  popM = c(rep(m.pop.s[whichM], times = length(p.pop.s)), m.pop.s) ,
-						  IDPG = c( rep(whichP, times = length(m.geno.s)), 1:length(p.geno.s)),
-						  IDMG = c(1:length(m.geno.s), rep(whichM, times = length(p.geno.s)) ) )
+						  IDPG = c(  1:length(p.geno.s), rep(whichP, times = length(m.geno.s))),
+						  IDMG = c( rep(whichM, times = length(p.geno.s)), 1:length(m.geno.s)) )
 
 		sel.finalT.P   <- lapply(1:numsites, function(POP)  popsetobj$Plant[[POP]] [,p.geno.s[p.pop.s==POP],,finaltime]  ) # produces a list, each item is each pop. within these are 2 numloci X numind matrices, 1 for first allele and 1 for next
 		sel.finalT.M   <- lapply(1:numsites, function(POP)  popsetobj$Microbe[[POP]] [,m.geno.s[p.pop.s==POP],finaltime]  ) # produces a list, each item is each pop. within these are 1 numloci X numind matrices, (haploid!)
@@ -99,7 +98,7 @@ run.exp.allbyone<- function(popsetobj,numperpop,exp.err,nreps=1) {
 		ind.datPM = list(plant = ind.datP, microbe= ind.datM)
 		return(list(expdat = dat, expdatPexp = dat[1:(numsites*numperpop),],expdatMexp = dat[(numsites*numperpop+1):(numperpop*numsites*2),],  #this line also assumes a particular all by one and one by all design
 				causalgenos = causalgenos, 	neutralgenos = neutralgenos,
-				origcasualgenos = list(genoP=sel.finalT.P, genoM=sel.finalT.M), origneutralgenos = list(genoP=sel.finalT.Pn,genoM=sel.finalT.Mn),
+				origcausalgenos = list(genoP=sel.finalT.P, genoM=sel.finalT.M), origneutralgenos = list(genoP=sel.finalT.Pn,genoM=sel.finalT.Mn),
 				 ind.dat = ind.datPM))
 
 }
@@ -161,7 +160,7 @@ getalleles <- function(sel.finalT.P, sel.finalT.M,numperpop){ #final timepoint g
 #	#	
 	newgenomatP <- matrix(0,nrow=sum(fixedincludedP),ncol=NP*length(sel.finalT.P)*2) 	#I think it makes sense to make the default 0, each individual can have at most 2 non-zero loci in one linkage block
 	colsallele1 <- seq(from=1, to = NP*length(sel.finalT.P)*2, by =2)
-	colsallele2 <- seq(from=2, to = NP*length(sel.finalT.P)*2, by =2)
+	colsallele2 <- seq(from=2, to = NP*length(sel.finalT.P)*2, by =2) #vectors of indices to set sequential columns as alleles for the same locus
 #	#
 	for(l in 1:nLP){
 		if(numperpop>1){
@@ -273,7 +272,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 	   			## duplicating rows for pretend diploid microbe genotype matrix (lociin2rowsxindividuals), 
 	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expdat$IDMG,]  
 	 	   		   #concatenating neutral loci treated the same way, transposing to ind x loci(2 cols per), adding 1 so bt 1 and 2, 
-	 	   		   #and then grabbing individuals in rows as they are used in the experiment.
+	 	   		   #and then grabbing individuals in rows as they are used in the experiment. 
 	 	   )
 	 map <- rbind( cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,expset$neutralgenos$locusdatP$linkage),sep=""),  #      chromosome (1-22, X, Y or 0 if unplaced)
 	#linkage group must be alphanumeric not numeric if > 22 chromosomes. so paste "scaffold" first "--allow-extra-chr" flag to make plink accept them.
@@ -307,7 +306,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) ,
 			expdat$traitvalue,
 		 	t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
-	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expset$expdat$IDMG,]  
+	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expdat$IDMG,]  
 	 	   )
 	 map <- cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,expset$neutralgenos$locusdatM$linkage),sep=""), #and separately for microbes
 		 	c(paste("cM",1:nrow(expset$causalgenos$locusdatM),sep=""),paste("nM",1:nrow(expset$neutralgenos$locusdatM),sep="") ),
@@ -355,7 +354,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) ,
 			expdat$traitvalue,
 		 	t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
-	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expset$expdat$IDMG,]  
+	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expdat$IDMG,]  
 	 	   )
 	 MICRmap <- cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,expset$neutralgenos$locusdatM$linkage),sep=""), #and separately for microbes
 		 	c(paste("cM",1:nrow(expset$causalgenos$locusdatM),sep=""),paste("nM",1:nrow(expset$neutralgenos$locusdatM),sep="") ),
@@ -407,28 +406,36 @@ while(any(colSums(sign(randtheta)) < (npopsource+1) ) ) {
 }
 
 
-
+#temporary sim for testing code
 # thetamat <- matrix(c(0.98 , 0.00 , 0    , 0.01 , 0.01 ,
 # 					 0    , 0.98 , 0.01 , 0    , 0.01 , 
 # 					 0    , 0.01 , 0.98 , 0.01 , 0    ,
 # 					 0.01 , 0    , 0.01 , 0.98 , 0    ,
 # 					 0.01 , 0.01 , 0    , 0    , 0.98 ), ncol=5,byrow=T)
-# 
-popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
-					zoP=seq(from=1,to=5,length.out=npops),zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
-					Lambda=10,mutprb=0.001,prbHorz=0.1,
-					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=npops,GFmat=randtheta) #note ratemigr doesn't matter if thetamat specified
-#expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
-save(popset,file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
+# 	npops <- 5
+# popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
+# 					zoP=seq(from=1,to=5,length.out=npops),zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=5,
+# 					Lambda=10,mutprb=0.1,prbHorz=0.1,
+# 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=npops,GFmat=thetamat) #note ratemigr doesn't matter if thetamat specified
 
-reduceset <- sort(sample(1:npops, 60, repl=F)) #for below, needs to be a subsample of 60 pops
+#sim for running code and testing hypotheses
+# popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
+# 					zoP=seq(from=1,to=5,length.out=npops),zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
+# 					Lambda=10,mutprb=0.001,prbHorz=0.1,
+# 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=npops,GFmat=randtheta) #note ratemigr doesn't matter if thetamat specified
+#temporary commnt out
+#expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
+#save(popset,file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
+load(file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
+
+reduceset <- sort(sample(1:npops, 40, repl=F)) #for below, needs to be a subsample of 60 pops
 red_popset <- list( Plant = lapply(reduceset, function(pop) popset$Plant[[pop]]),       Microbe = lapply(reduceset, function(pop) popset$Microbe[[pop]]),
 			    P_neutral = lapply(reduceset, function(pop) popset$P_neutral[[pop]]), M_neutral = lapply(reduceset, function(pop) popset$M_neutral[[pop]])) 
 
 save(red_popset,file=paste(Sys.getenv("SCRATCH"),'/red_popset.RData',sep=""))
 
 
-expsetabo <- run.exp.allbyone(popset, numperpop= 2,exp.err=0.05) #2 plant and 2  micr from 200 pops , 6*(400*1 + 1*400) , = 2400 exp
+expsetabo <- run.exp.allbyone(popset, numperpop= 4,exp.err=0.05,nreps=4) #2 plant and 2  micr from 200 pops , 4*(800*1 + 1*800) , = 6400 exp; 3200 ea gwas
 save(expsetabo,file=paste(Sys.getenv("SCRATCH"),'/expset_abo.RData',sep=""))
 plinkabo <- makegwasfiles(expsetabo,expsetabo$expdat,type="HOLO") #<- function(expset,name_append){
 	write.table(plinkabo$geno, file=paste(Sys.getenv("SCRATCH"), "/HOLOevosims_ABO.ped",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
@@ -443,7 +450,7 @@ plinkaboM <- makegwasfiles(expsetabo,expdat=expsetabo$expdatMexp,type="MICR") #<
 
 
 
-expsetaba <- run.exp.allbyall(red_popset,numperpop= 1,exp.err=0.05,nreps=6) #1 from 60 pops, 20x20x6 = 2400 exp
+expsetaba <- run.exp.allbyall(red_popset,numperpop= 1,exp.err=0.05,nreps=4) #1 from 40 pops, 40x40x4 = 6400 exp
 save(expsetaba,file=paste(Sys.getenv("SCRATCH"),'/expset_aba.RData',sep=""))
 plinkaba <- makegwasfiles(expsetaba,expsetaba$expdat,type="ALL") #<- function(expset,name_append){
  	write.table(plinkaba$HOLOgeno, file=paste(Sys.getenv("SCRATCH"), "/HOLOevosims_ABA.ped",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
