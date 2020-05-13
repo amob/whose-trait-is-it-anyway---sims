@@ -62,7 +62,7 @@ wb <- colorRampPalette(c( rgb(1,1,1), rgb(0,0,1) ))
 indices <- c(1,3,5,6) #parts of tmp2 or responses that we are including.
 
 pdf("~/Dropbox/host microbe trait evo and gwas/sens_reps_finalparameters.pdf",width=9,height=2)
-layout(matrix(c(1:5),ncol=5,byrow=T))
+layout(matrix(c(1:5),ncol=5,byrow=T),widths=c(2,2,2,2,1.1))
 par(mar=c(1,0,3,1))
 par(oma=c(2,3,0,6))
 for(i in indices){
@@ -96,7 +96,7 @@ dev.off()
 
 
 pdf("~/Dropbox/host microbe trait evo and gwas/sens_reps_finalparameters_vars.pdf",width=9,height=2)
-layout(matrix(c(1:5),ncol=5,byrow=T))
+layout(matrix(c(1:5),ncol=5,byrow=T),widths=c(2,2,2,2,1.1))
 par(mar=c(1,0,3,1))
 par(oma=c(2,3,0,6))
 for(i in indices){
