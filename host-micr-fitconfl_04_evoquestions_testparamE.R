@@ -45,7 +45,7 @@ mains <- c("Fitness correlation","Vp/(Vp+Vm)",expression(Plant~V[A]~(V[P])),"Vm/
 ylabs <- c(expression(alpha[M]),expression(alpha[P]),expression(P[hrz]),
 			expression(P[mu]),
 			expression(lambda),expression(omega[M]),expression(omega[P]),
-			expression(L),expression(N))
+			expression(L[P]),expression(N))
 # y2labs <- c( paste(pfP.v,collapse=","), paste(pfP.v,collapse=","), paste(round(prbHorz.v,digits=2),collapse=","),
 # 			paste(mutprb.v,collapse=","),  
 # 			paste(Lambda.v,collapse=","), paste(wM.v,collapse=","), paste(wP.v,collapse=","),
@@ -61,8 +61,8 @@ wb <- colorRampPalette(c( rgb(1,1,1), rgb(0,0,1) ))
 
 indices <- c(1,3,5,6) #parts of tmp2 or responses that we are including.
 
-pdf("~/Dropbox/host microbe trait evo and gwas/sens_reps_finalparameters.pdf",width=9,height=2)
-layout(matrix(c(1:5),ncol=5,byrow=T))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_finalparameters.pdf",width=9,height=2)
+layout(matrix(c(1:5),ncol=5,byrow=T),widths=c(2,2,2,2,1.1))
 par(mar=c(1,0,3,1))
 par(oma=c(2,3,0,6))
 for(i in indices){
@@ -95,8 +95,8 @@ dev.off()
 
 
 
-pdf("~/Dropbox/host microbe trait evo and gwas/sens_reps_finalparameters_vars.pdf",width=9,height=2)
-layout(matrix(c(1:5),ncol=5,byrow=T))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_finalparameters_vars.pdf",width=9,height=2)
+layout(matrix(c(1:5),ncol=5,byrow=T),widths=c(2,2,2,2,1.1))
 par(mar=c(1,0,3,1))
 par(oma=c(2,3,0,6))
 for(i in indices){
