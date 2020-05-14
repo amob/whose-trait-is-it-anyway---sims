@@ -2,7 +2,7 @@
 simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_feedbackparameters.csv",header=T)
 
 pars <- simsens[,1:17] #
-resps <- simsens[,20:28]
+resps <- simsens[,18:26]
 mpars <- c(7,8,9,10,15,16)#now its only  -- ws, zs, and pfs
 
 #1 - 3240
@@ -70,17 +70,17 @@ par(oma=c(5,3,2,5))
 for(i in c(1:3,6,8)){
 		if(i == 1){
 				zlims <- c(-1,1)
-				cols <- pg(50)
+				cols <- rb(50)
 			} else if(i%in%c(2,4)){
 				zlims <- c(0,1)
-				cols <- wg(50)
+				cols <- wb(50)
 			} else if(i%in%(8:9)){
 				intend <- max(abs(range(res10pm[,8:9])))
 				zlims <- c(-1*intend, intend)#artificial range. if change sims this may need to change
-				cols <- pg(50)
+				cols <- rb(50)
 			} else{
 				zlims <- range(res10pm[,i])
-				cols <- wg(50)
+				cols <- wb(50)
 			}
 	tmp <- cbind(res10pm[which(par10pm$wP==1 & par10pm$wM==1),i],
 		res10pm[which(par10pm$wP==1 & par10pm$wM==0.25),i],
@@ -120,17 +120,17 @@ par(oma=c(5,3,2,5))
 for(i in c(1:3,6,8)){
 		if(i == 1){
 				zlims <- c(-1,1)
-				cols <- pg(50)
+				cols <- rb(50)
 			} else if(i%in%c(2,4)){
 				zlims <- c(0,1)
-				cols <- wg(50)
+				cols <- wb(50)
 			} else if(i%in%(8:9)){
 				intend <- max(abs(range(res10noconf[,8:9])))
 				zlims <- c(-1*intend, intend)#artificial range. if change sims this may need to change
-				cols <- pg(50)
+				cols <- rb(50)
 			} else{
 				zlims <- range(res10noconf[,i])
-				cols <- wg(50)
+				cols <- wb(50)
 			}
 	tmp <- cbind(res10noconf[which(par10noconf$wP==1 & par10noconf$wM==1),i],
 		res10noconf[which(par10noconf$wP==1 & par10noconf$wM==0.25),i],
@@ -163,17 +163,17 @@ par(oma=c(5,3,2,5))
 for(i in c(1:3,6,8)){
 		if(i == 1){
 				zlims <- c(-1,1)
-				cols <- pg(50)
+				cols <- rb(50)
 			} else if(i%in%c(2,4)){
 				zlims <- c(0,1)
-				cols <- wg(50)
+				cols <- wb(50)
 			} else if(i%in%(8:9)){
 				intend <- max(abs(range(rbind(res10pm[,8:9],res10noconf[,8:9]))))
 				zlims <- c(-1*intend, intend)#artificial range. if change sims this may need to change
-				cols <- pg(50)
+				cols <- rb(50)
 			} else{
 				zlims <- range(c(res10pm[,i],res10noconf[,i]))
-				cols <- wg(50)
+				cols <- wb(50)
 			}
 	tmp <- cbind(res10pm[which(par10pm$wP==1 & par10pm$wM==1),i],
 		res10pm[which(par10pm$wP==1 & par10pm$wM==0.25),i],
