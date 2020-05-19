@@ -80,7 +80,7 @@ for(i in indices){
 	image(tmp2[[i]],main="",xaxt="n",yaxt="n",zlim=zlims,col=cols)
 	abline(v=0.5)
 	mtext(mains[i],side=3,line=1,cex=0.75)
-	axis(side=1,at = c(0.22,0.73),lab=c(expression("z"[opt][P]>"z"[opt][M]),expression("z"[opt][P]*'='*"z"[opt][M]) ) ) 
+	axis(side=1,at = c(0.22,0.73),lab=c(expression("Z"[opt][P]>"Z"[opt][M]),expression("Z"[opt][P]*'='*"Z"[opt][M]) ) ) 
 #	if(i%in%c(7:9)){axis(side=1,at = c(0.22,0.73),lab=c(expression("z"[opt][P]>"z"[opt][M]),expression("z"[opt][P]*'='*"z"[opt][M]) ) ) }
 	if(i==1){axis(side=2,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(ylabs),las=2)}
 #	if(i%in%c(6,9)){axis(side=4,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(y2labs),las=2)}
@@ -105,7 +105,7 @@ for(i in indices){
 	image(tmp2var[[i]],main="",xaxt="n",yaxt="n",zlim=zlims,col=cols)
 	abline(v=0.5)
 	mtext(mains[i],side=3,line=1,cex=0.75)
-	axis(side=1,at = c(0.22,0.73),lab=c(expression("z"[opt][P]>"z"[opt][M]),expression("z"[opt][P]*'='*"z"[opt][M]) ) ) 
+	axis(side=1,at = c(0.22,0.73),lab=c(expression("Z"[opt][P]>"Z"[opt][M]),expression("Z"[opt][P]*'='*"Z"[opt][M]) ) ) 
 #	if(i%in%c(7:9)){axis(side=1,at = c(0.22,0.73),lab=c(expression("z"[opt][P]>"z"[opt][M]),expression("z"[opt][P]*'='*"z"[opt][M]) ) ) }
 	if(i==1){axis(side=2,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(ylabs),las=2)}
 #	if(i%in%c(6,9)){axis(side=4,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(y2labs),las=2)}
