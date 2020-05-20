@@ -274,13 +274,13 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 	   		   #concatenating neutral loci treated the same way, transposing to ind x loci(2 cols per), adding 1 so bt 1 and 2, 
 	 	   		   #and then grabbing individuals in rows as they are used in the experiment. 
 	 	   )
-	 map <- rbind( cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,expset$neutralgenos$locusdatP$linkage),sep=""),  #      chromosome (1-22, X, Y or 0 if unplaced)
+	 map <- rbind( cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,max(expset$causalgenos$locusdatP$linkage) + expset$neutralgenos$locusdatP$linkage),sep=""),  #      chromosome (1-22, X, Y or 0 if unplaced)
 	#linkage group must be alphanumeric not numeric if > 22 chromosomes. so paste "scaffold" first "--allow-extra-chr" flag to make plink accept them.
 			c(paste("cP",1:nrow(expset$causalgenos$locusdatP),sep=""),paste("nP",1:nrow(expset$neutralgenos$locusdatP),sep="") ),#      rs# or snp identifier
 	 		rep(0,times=nrow(expset$causalgenos$locusdatP)+ nrow(expset$neutralgenos$locusdatP)), #      Genetic distance (morgans) # For basic association testing, the genetic distance column can be set at 0. 
 	 		c(expset$causalgenos$locusdatP$location,expset$neutralgenos$locusdatP$location) ), #      Base-pair position (bp units)
 	 		#
-	   		cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,expset$neutralgenos$locusdatM$linkage),sep=""),  #same for microbe
+	   		cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,max(expset$causalgenos$locusdatM$linkage) + expset$neutralgenos$locusdatM$linkage),sep=""),  #same for microbe
 		 	c(paste("cM",1:nrow(expset$causalgenos$locusdatM),sep=""),paste("nM",1:nrow(expset$neutralgenos$locusdatM),sep="") ),
 		 	rep(0,times=nrow(expset$causalgenos$locusdatM)+ nrow(expset$neutralgenos$locusdatM)), 
 		 	c(expset$causalgenos$locusdatM$location,expset$neutralgenos$locusdatM$location) ) 
@@ -295,7 +295,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 			expdat$traitvalue,
 		    (RGP+1) [expdat$IDPG,]  # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
 	  	   )
-	 map <-  cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,expset$neutralgenos$locusdatP$linkage),sep=""),  #  now separately for plants
+	 map <-  cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,max(expset$causalgenos$locusdatP$linkage) +expset$neutralgenos$locusdatP$linkage),sep=""),  #  now separately for plants
 			c(paste("cP",1:nrow(expset$causalgenos$locusdatP),sep=""),paste("nP",1:nrow(expset$neutralgenos$locusdatP),sep="") ),
 	 		rep(0,times=nrow(expset$causalgenos$locusdatP)+ nrow(expset$neutralgenos$locusdatP)),
 	 		c(expset$causalgenos$locusdatP$location,expset$neutralgenos$locusdatP$location) ) 
@@ -308,7 +308,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 		 	t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
 	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expdat$IDMG,]  
 	 	   )
-	 map <- cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,expset$neutralgenos$locusdatM$linkage),sep=""), #and separately for microbes
+	 map <- cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,max(expset$causalgenos$locusdatM$linkage) + expset$neutralgenos$locusdatM$linkage),sep=""), #and separately for microbes
 		 	c(paste("cM",1:nrow(expset$causalgenos$locusdatM),sep=""),paste("nM",1:nrow(expset$neutralgenos$locusdatM),sep="") ),
 		 	rep(0,times=nrow(expset$causalgenos$locusdatM)+ nrow(expset$neutralgenos$locusdatM)), 
 		 	c(expset$causalgenos$locusdatM$location,expset$neutralgenos$locusdatM$location) ) 
@@ -328,13 +328,13 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 	   		   #concatenating neutral loci treated the same way, transposing to ind x loci(2 cols per), adding 1 so bt 1 and 2, 
 	 	   		   #and then grabbing individuals in rows as they are used in the experiment.
 	 	   )
-	 HOLOmap <- rbind( cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,expset$neutralgenos$locusdatP$linkage),sep=""),  #      chromosome (1-22, X, Y or 0 if unplaced)
+	 HOLOmap <- rbind( cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,max(expset$causalgenos$locusdatP$linkage) +expset$neutralgenos$locusdatP$linkage),sep=""),  #      chromosome (1-22, X, Y or 0 if unplaced)
 	#linkage group must be alphanumeric not numeric if > 22 chromosomes. so paste "scaffold" first "--allow-extra-chr" flag to make plink accept them.
 			c(paste("cP",1:nrow(expset$causalgenos$locusdatP),sep=""),paste("nP",1:nrow(expset$neutralgenos$locusdatP),sep="") ),#      rs# or snp identifier
 	 		rep(0,times=nrow(expset$causalgenos$locusdatP)+ nrow(expset$neutralgenos$locusdatP)), #      Genetic distance (morgans) # For basic association testing, the genetic distance column can be set at 0. 
 	 		c(expset$causalgenos$locusdatP$location,expset$neutralgenos$locusdatP$location) ), #      Base-pair position (bp units)
 	 		#
-	   		cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,expset$neutralgenos$locusdatM$linkage),sep=""),  #same for microbe
+	   		cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,max(expset$causalgenos$locusdatM$linkage)+expset$neutralgenos$locusdatM$linkage),sep=""),  #same for microbe
 		 	c(paste("cM",1:nrow(expset$causalgenos$locusdatM),sep=""),paste("nM",1:nrow(expset$neutralgenos$locusdatM),sep="") ),
 		 	rep(0,times=nrow(expset$causalgenos$locusdatM)+ nrow(expset$neutralgenos$locusdatM)), 
 		 	c(expset$causalgenos$locusdatM$location,expset$neutralgenos$locusdatM$location) ) 
@@ -345,7 +345,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 			expdat$traitvalue,
 		    (RGP+1) [expdat$IDPG,]  # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
 	  	   )
-	 PLANTmap <-  cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,expset$neutralgenos$locusdatP$linkage),sep=""),  #  now separately for plants
+	 PLANTmap <-  cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,max(expset$causalgenos$locusdatP$linkage) + expset$neutralgenos$locusdatP$linkage),sep=""),  #  now separately for plants
 			c(paste("cP",1:nrow(expset$causalgenos$locusdatP),sep=""),paste("nP",1:nrow(expset$neutralgenos$locusdatP),sep="") ),
 	 		rep(0,times=nrow(expset$causalgenos$locusdatP)+ nrow(expset$neutralgenos$locusdatP)),
 	 		c(expset$causalgenos$locusdatP$location,expset$neutralgenos$locusdatP$location) ) 
@@ -356,7 +356,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 		 	t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
 	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expdat$IDMG,]  
 	 	   )
-	 MICRmap <- cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,expset$neutralgenos$locusdatM$linkage),sep=""), #and separately for microbes
+	 MICRmap <- cbind( paste("scaffold_",c(expset$causalgenos$locusdatM$linkage,max(expset$causalgenos$locusdatM$linkage)+expset$neutralgenos$locusdatM$linkage),sep=""), #and separately for microbes
 		 	c(paste("cM",1:nrow(expset$causalgenos$locusdatM),sep=""),paste("nM",1:nrow(expset$neutralgenos$locusdatM),sep="") ),
 		 	rep(0,times=nrow(expset$causalgenos$locusdatM)+ nrow(expset$neutralgenos$locusdatM)), 
 		 	c(expset$causalgenos$locusdatM$location,expset$neutralgenos$locusdatM$location) ) 
@@ -398,12 +398,12 @@ filltheta <- function(npopsource, geneflowrate,npops){
 #list parameters; keep everything the same except optima?
 
 npopsource <- 4
-geneflowrate <- 0.02
+geneflowrate <- 0.1
 npops <- 200
-randtheta <- 	thetamat <- diag(1-npopsource*geneflowrate,nrow=npops)
-while(any(colSums(sign(randtheta)) < (npopsource+1) ) ) {
-	randtheta <- filltheta(npopsource =npopsource, geneflowrate = geneflowrate, npops = npops)
-}
+# randtheta <- 	thetamat <- diag(1-npopsource*geneflowrate,nrow=npops)
+# while(any(colSums(sign(randtheta)) < (npopsource+1) ) ) {
+# 	randtheta <- filltheta(npopsource =npopsource, geneflowrate = geneflowrate, npops = npops)
+# }
 
 
 #temporary sim for testing code
@@ -420,12 +420,12 @@ while(any(colSums(sign(randtheta)) < (npopsource+1) ) ) {
 
 #sim for running code and testing hypotheses
 # popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
-# 					zoP=seq(from=1,to=5,length.out=npops),zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
+# 					zoP=seq(from=4,to=8,length.out=npops),zoM=seq(from=1,to=5,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
 # 					Lambda=10,mutprb=0.001,prbHorz=0.1,
-# 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=npops,GFmat=randtheta) #note ratemigr doesn't matter if thetamat specified
-#temporary commnt out
-#expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
-#save(popset,file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
+# 					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=randtheta) #note ratemigr doesn't matter if thetamat specified
+# temporary commnt out
+# expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
+# save(popset,file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
 load(file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
 
 reduceset <- sort(sample(1:npops, 40, repl=F)) #for below, needs to be a subsample of 60 pops

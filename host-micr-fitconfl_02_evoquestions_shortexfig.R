@@ -106,14 +106,20 @@ dev.off()
 # source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
 
 gens <- 200
-#matched optima, no ff
-test.4a <-		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#
-#mattched optima, ff
-test.4aff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+#4 scenarios
 #micr direct very weak
 test.4b <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #micr direct very weak, indirect stronger
 test.4bff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+#conflict, links =,  direct only
+test.4f <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+#conflict, links =,  direct and indirect links
+test.4fff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+#other scenarios
+#matched optima, no ff
+test.4a <-		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#
+#mattched optima, ff
+test.4aff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 #conflict, microbe link stronger,  direct links only
 test.4d <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #conflict, microbe link stronger,  direct and indirect links
@@ -122,10 +128,6 @@ test.4dff <-	 sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=
 test.4e <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #conflict, plant link stronger,  direct and indirect links
 test.4eff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
-#conflict, links =,  direct only
-test.4f <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
-#conflict, links =,  direct and indirect links
-test.4fff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 
 
 ##
@@ -330,6 +332,19 @@ par(oma=c(2,2,1,0))
 dev.off()
 
 
+getsegcounts <- function(finaltime,type="plant",nloci=100){
+	if(type=="plant"){
+		unlistall <- t(sapply(1:nloci, function(l) as.vector(finaltime[l,,])  ))
+		whichsegallele <- which(sapply(1:nloci, function(l) length(unique(unlistall[l,]))) > 1)
+		unlistallseg <- unlistall[whichsegallele,]
+	}
+	if(type=="microbe"){
+		unlistall <- t(sapply(1:nloci, function(l) as.vector(finaltime[l,])  ))
+		whichsegallele <- which(sapply(1:nloci, function(l) length(unique(unlistall[l,]))) > 1)
+		unlistallseg <- unlistall[whichsegallele,]
+	}
+	return(unlistallseg)
+} #type can be microbe
 
 
 #characterize segregating variants
@@ -343,14 +358,17 @@ finalmicr4fff<- test.4fff$Microbe[,,gens+1]
 finalmicr4b<- test.4b$Microbe[,,gens+1]
 finalmicr4bff<- test.4bff$Microbe[,,gens+1]
 #
-unlistallP4f <- t(sapply(1:100, function(l) as.vector(finalplant4f[l,,])  ))
-unlistallP4fff <- t(sapply(1:100, function(l) as.vector(finalplant4fff[l,,])  ))
-unlistallP4bff <- t(sapply(1:100, function(l) as.vector(finalplant4bff[l,,])  ))
-unlistallP4b <- t(sapply(1:100, function(l) as.vector(finalplant4b[l,,])  ))
-unlistallM4f <- t(sapply(1:100, function(l) as.vector(finalmicr4f[l,])  ))
-unlistallM4fff <- t(sapply(1:100, function(l) as.vector(finalmicr4fff[l,])  ))
-unlistallM4bff <- t(sapply(1:100, function(l) as.vector(finalmicr4bff[l,])  ))
-unlistallM4b <- t(sapply(1:100, function(l) as.vector(finalmicr4b[l,])  ))
+
+
+unlistallP4f <- getsegcounts(finalplant4f,type="plant")
+unlistallP4fff <- getsegcounts(finalplant4fff,type="plant")
+unlistallP4bff <- getsegcounts(finalplant4bff,type="plant")
+unlistallP4b <- getsegcounts(finalplant4b,type="plant")
+unlistallM4f <- getsegcounts(finalmicr4f,type="microbe")
+unlistallM4fff <- getsegcounts(finalmicr4fff,type="microbe")
+unlistallM4bff <- getsegcounts(finalmicr4bff,type="microbe")
+unlistallM4b <- getsegcounts(finalmicr4b,type="microbe")
+
 
 pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PooledLociAndAlleles_effectsizedistr.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
@@ -381,7 +399,67 @@ hist(abs(as.vector(unlistallP4fff))[as.vector(unlistallP4fff)!=0],breaks=seq(fro
 dev.off()
  #include all frequencies when non biallelic? or?
 
+###trajectories
+#getting allele specific information
 
+))
+
+plottraj <- function(genotimemat,type="plant",maxpos,maxneg){
+	nloci <- dim(genotimemat)[1]
+	nind <- dim(genotimemat)[2]
+	if(type=="plant"){
+		ntime <- dim(genotimemat)[4]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
+		plot(1~c(1),pch=NA,ylim=c(0,nind*2),xlim=c(0,ntime-1),ylab="Freq",xlab="gens")
+	}
+	if(type=="micr"){
+		ntime <- dim(genotimemat)[3]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
+		plot(1~c(1),pch=NA,ylim=c(0,nind),xlim=c(0,ntime-1),ylab="Freq",xlab="gens")
+	}
+	maxall <- max(abs(c(maxpos,maxneg)))
+	for(l in 1:length(locusbytime)){
+		freqs <- locusbytime[[l]]
+		sapply(1:nrow(freqs), function(a) lines(1:(ntime-1),freqs[a,], 
+			col= ifelse(fullunique[[l]][a]>=0,
+			rgb(0,0,1,alpha=abs(fullunique[[l]][a])/maxall),
+			rgb(1,0,0,alpha=abs(fullunique[[l]][a])/maxall) )  ) )
+	# 		rgb(0,0,fullunique[[l]][a]/maxpos,alpha=abs(fullunique[[l]][a])/maxall),
+# 			rgb(fullunique[[l]][a]/maxneg,0,0,alpha=abs(fullunique[[l]][a])/maxall) )  ) )
+	}
+}
+
+rangep <- range(c(as.vector(test.4b$Plant),as.vector(test.4bff$Plant),as.vector(test.4f$Plant),as.vector(test.4fff$Plant)))
+rangem <- range(c(as.vector(test.4b$Microbe),as.vector(test.4bff$Microbe),as.vector(test.4f$Microbe),as.vector(test.4fff$Microbe)))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_plant.pdf",width=8,height=4)
+par(mfrow=c(2,2))
+par(mar=c(4,4,1,1))
+par(oma=c(0,2,2,0))
+plottraj(test.4b$Plant,maxpos=rangep[2],maxneg=rangep[1])
+mtext("No fitness feedback",line=4,side=2)
+mtext("No direct link to microbe fitness",line=0.5,side=3)
+plottraj(test.4f$Plant,maxpos=rangep[2],maxneg=rangep[1])
+mtext("Equal links to fitness",line=0.5,side=3)
+plottraj(test.4bff$Plant,maxpos=rangep[2],maxneg=rangep[1])
+mtext("+ fitness feedback",line=4,side=2)
+plottraj(test.4fff$Plant,maxpos=rangep[2],maxneg=rangep[1])
+dev.off()
+
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_micr.pdf",width=8,height=4)
+par(mfrow=c(2,2))
+par(mar=c(4,4,1,1))
+par(oma=c(0,2,2,0))
+plottraj(test.4b$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
+mtext("No fitness feedback",line=4,side=2)
+mtext("No direct link to microbe fitness",line=0.5,side=3)
+plottraj(test.4f$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
+mtext("Equal links to fitness",line=0.5,side=3)
+plottraj(test.4bff$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
+mtext("+ fitness feedback",line=4,side=2)
+plottraj(test.4fff$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
+dev.off()
 #extract final timestep of trait causal and neutral for plants and microbes
 # finalplant<- test.4fff$Plant[,,,gens+1]
 # finalmicr<- test.4fff$Microbe[,,gens+1]
