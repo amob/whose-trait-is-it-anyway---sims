@@ -31,33 +31,39 @@ plink --file $SCRATCH/MICRevosims_ABO --out MICRevosimsABO --make-bed
 ##PASS to GEMMA to run models.
 
 #get kinship
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA  -gk 1 -o holokinABA
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO  -gk 1 -o holokinABO
-#given manual text, might actually prefer -gk 2, since the larger effect alleles will be low frequency.
-#because of different optima across pops...etc
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA  -gk 1 -o plantkinABA
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA  -gk 1 -o micrkinABA
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO  -gk 1 -o plantkinABO
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO  -gk 1 -o micrkinABO
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA  -gk 2 -o holokinABA
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA  -gk 2 -o plantkinABA
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA  -gk 2 -o micrkinABA
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO  -gk 2 -o holokinABO
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO  -gk 2 -o plantkinABO
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO  -gk 2 -o micrkinABO
+#given manual text, might actually prefer -gk 2, since the larger effect alleles will be low frequency (depends somewhat on simulation parameters)
+#however, they say -gk 1 usually performs better.
+
+
 
 #run models
 #without K
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA -lm 4 -o HOLOgemmaABA
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA -lm 4 -o PLANTgemmaABA
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA -lm 4 -o MICRgemmaABA
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO -lm 4 -o HOLOgemmaABO
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO -lm 4 -o PLANTgemmaABO
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -lm 4 -o MICRgemmaABO
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA -lm 4 -o HOLOgemmaABA -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA -lm 4 -o PLANTgemmaABA -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA -lm 4 -o MICRgemmaABA -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO -lm 4 -o HOLOgemmaABO -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO -lm 4 -o PLANTgemmaABO -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -lm 4 -o MICRgemmaABO -maf 0.0125
+
+#when ABA experiment is 6400 big as 4 reps of 1600 unique p-m combos, 
+	#then there are 40 of each p and m in a sq design and the min af possible is 0.0125
+# the identical maf in the abo experiment is when 10 of the 800 plant (or micr in other half) have an allele
 
 #mixed models
 
 
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA -k $SCRATCH/output/holokinABA.cXX.txt -lmm 4 -o HOLOgemmaKABA
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA -k $SCRATCH/ouput/micrkinABA.cXX.txt -lmm 4 -o MICRgemmaKABA
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA -k $SCRATCH/ouput/plantkinABA.cXX.txt -lmm 4 -o PLANTgemmaKABA
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABA -k $SCRATCH/output/holokinABA.cXX.txt -lmm 4 -o HOLOgemmaKABA  -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABA -k $SCRATCH/ouput/micrkinABA.cXX.txt -lmm 4 -o MICRgemmaKABA -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABA -k $SCRATCH/ouput/plantkinABA.cXX.txt -lmm 4 -o PLANTgemmaKABA -maf 0.0125
 #
-$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO -k $SCRATCH/output/holokinABO.cXX.txt -lmm 4 -o HOLOgemmaKABO
-$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -k $SCRATCH/ouput/micrkinABO.cXX.txt -lmm 4 -o MICRgemmaKABO
-$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO -k $SCRATCH/ouput/plantkinABO.cXX.txt -lmm 4 -o PLANTgemmaKABO
+$HOME/gemma-0.98.1-linux-static -bfile HOLOevosimsABO -k $SCRATCH/output/holokinABO.cXX.txt -lmm 4 -o HOLOgemmaKABO -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -k $SCRATCH/ouput/micrkinABO.cXX.txt -lmm 4 -o MICRgemmaKABO -maf 0.0125
+$HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO -k $SCRATCH/ouput/plantkinABO.cXX.txt -lmm 4 -o PLANTgemmaKABO -maf 0.0125
 #mixed models currently fail for plant and microbes 
 

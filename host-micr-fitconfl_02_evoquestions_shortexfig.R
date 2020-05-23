@@ -402,7 +402,7 @@ dev.off()
 ###trajectories
 #getting allele specific information
 
-))
+
 
 plottraj <- function(genotimemat,type="plant",maxpos,maxneg){
 	nloci <- dim(genotimemat)[1]
@@ -411,13 +411,13 @@ plottraj <- function(genotimemat,type="plant",maxpos,maxneg){
 		ntime <- dim(genotimemat)[4]
 		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
 		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
-		plot(1~c(1),pch=NA,ylim=c(0,nind*2),xlim=c(0,ntime-1),ylab="Freq",xlab="gens")
+		plot(1~c(1),pch=NA,ylim=c(0,nind*2),xlim=c(0,ntime-1),ylab="",xlab="")
 	}
 	if(type=="micr"){
 		ntime <- dim(genotimemat)[3]
 		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
 		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
-		plot(1~c(1),pch=NA,ylim=c(0,nind),xlim=c(0,ntime-1),ylab="Freq",xlab="gens")
+		plot(1~c(1),pch=NA,ylim=c(0,nind),xlim=c(0,ntime-1),ylab="",xlab="")
 	}
 	maxall <- max(abs(c(maxpos,maxneg)))
 	for(l in 1:length(locusbytime)){
@@ -431,81 +431,157 @@ plottraj <- function(genotimemat,type="plant",maxpos,maxneg){
 	}
 }
 
+
+
 rangep <- range(c(as.vector(test.4b$Plant),as.vector(test.4bff$Plant),as.vector(test.4f$Plant),as.vector(test.4fff$Plant)))
 rangem <- range(c(as.vector(test.4b$Microbe),as.vector(test.4bff$Microbe),as.vector(test.4f$Microbe),as.vector(test.4fff$Microbe)))
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_plant.pdf",width=8,height=4)
-par(mfrow=c(2,2))
-par(mar=c(4,4,1,1))
-par(oma=c(0,2,2,0))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_plant.pdf",width=8,height=5)
+layout(matrix(1:4,ncol=2,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,1,0))
+# par(mar=c(4,4,1,1))
+# par(oma=c(0,2,2,0))
 plottraj(test.4b$Plant,maxpos=rangep[2],maxneg=rangep[1])
-mtext("No fitness feedback",line=4,side=2)
-mtext("No direct link to microbe fitness",line=0.5,side=3)
-plottraj(test.4f$Plant,maxpos=rangep[2],maxneg=rangep[1])
-mtext("Equal links to fitness",line=0.5,side=3)
+ 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+	mtext("No direct link to microbe fitness",side=3,line=0.5)
+	mtext("Frequency",side=2,line=2,adj=-0.6)
 plottraj(test.4bff$Plant,maxpos=rangep[2],maxneg=rangep[1])
-mtext("+ fitness feedback",line=4,side=2)
+	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+plottraj(test.4f$Plant,maxpos=rangep[2],maxneg=rangep[1])
+	mtext("Equal links to fitness",side=3,line=0.5)
+# mtext("No fitness feedback",line=4,side=2)
+# mtext("No direct link to microbe fitness",line=0.5,side=3)
+# plottraj(test.4f$Plant,maxpos=rangep[2],maxneg=rangep[1])
+# mtext("Equal links to fitness",line=0.5,side=3)
+# plottraj(test.4bff$Plant,maxpos=rangep[2],maxneg=rangep[1])
+# mtext("+ fitness feedback",line=4,side=2)
 plottraj(test.4fff$Plant,maxpos=rangep[2],maxneg=rangep[1])
+	mtext("Generations",side=1,line=2,adj=-0.375)
 dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_micr.pdf",width=8,height=4)
-par(mfrow=c(2,2))
-par(mar=c(4,4,1,1))
-par(oma=c(0,2,2,0))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_micr.pdf",width=8,height=5)
+layout(matrix(1:4,ncol=2,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,1,0))
 plottraj(test.4b$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
-mtext("No fitness feedback",line=4,side=2)
-mtext("No direct link to microbe fitness",line=0.5,side=3)
-plottraj(test.4f$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
-mtext("Equal links to fitness",line=0.5,side=3)
+ 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+	mtext("No direct link to microbe fitness",side=3,line=0.5)
+	mtext("Frequency",side=2,line=2,adj=-0.6)
 plottraj(test.4bff$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
-mtext("+ fitness feedback",line=4,side=2)
+	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+plottraj(test.4f$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
+	mtext("Equal links to fitness",side=3,line=0.5)
 plottraj(test.4fff$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
+	mtext("Generations",side=1,line=2,adj=-0.375)
 dev.off()
-#extract final timestep of trait causal and neutral for plants and microbes
-# finalplant<- test.4fff$Plant[,,,gens+1]
-# finalmicr<- test.4fff$Microbe[,,gens+1]
-# finalplantN<- test.4fff$P_neutral[,,,gens+1]
-# finalmicrN<- test.4fff$M_neutral[,,gens+1]
-# #get number of segregating alleles per locus and frequency at each
-# unlistallP <- t(sapply(1:100, function(l) as.vector(finalplant[l,,])  ))
-# freqsP <- unlist(sapply(1:100, function(l) (table(unlistallP[l,]))))
-# efszP <- as.numeric(names(freqsP))
-# 
-# 
-# whichsegallele <- which(sapply(1:100, function(l) length(unique(unlistallP[l,]))) > 1)
-# unlistallPseg <- unlistallP[whichsegallele,]
-# freqsPseg <- unlist(sapply(1:nrow(unlistallPseg), function(l) (table(unlistallPseg[l,]) )) )
-# efzsPseg <- as.numeric(names(freqsPseg))
-# 
-# 
-# whichbiallele <- which(sapply(1:100, function(l) length(unique(unlistallP[l,]))) == 2)
-# unlistallPbi <- unlistallP[whichbiallele,]
-# freqsPbi <- sapply(1:nrow(unlistallPbi), function(l) sort(table(unlistallPbi[l,]))[1] /200 ) 
-# efzsPbi <- as.numeric(names(freqsPbi))
-# 
-# 
-# par(mfrow=c(3,2))
-# hist(abs(as.vector(unlistallP)))
-# plot(freqsP~efszP)
-# hist(abs(as.vector(unlistallPseg)))
-# plot(freqsPseg~efzsPseg)
-# hist(abs(as.vector(unlistallPbi)))
-# plot(freqsPbi/200~efzsPbi)
-# 
-# 
-# unlistallPN <- t(sapply(1:3, function(l) as.vector(finalplantN[l,,])  ))
-# freqsPN <- unlist(sapply(1:3, function(l) (table(unlistallPN[l,]))))
-# efszPN <- as.numeric(names(freqsPN))
-# par(mfrow=c(1,2))
-# hist(abs(as.vector(unlistallPN)))
-# plot(freqsPN~efszPN)
-# 
-# par(mfrow=c(1,2))
-# par(mar=c(4,4,2,2))
-# hist(abs(as.vector(unlistallP))[as.vector(unlistallP)!=0])
-# plot(freqsP[efszP!=0]~abs(efszP[efszP!=0]))
 
-#
 
+
+sojT <- function(genotimemat,type="plant"){
+	nloci <- dim(genotimemat)[1]
+	nind <- dim(genotimemat)[2]
+	copies <- ifelse(type=="plant",nind*2,nind)
+	if(type=="plant"){
+		ntime <- dim(genotimemat)[4]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
+	}
+	if(type=="micr"){
+		ntime <- dim(genotimemat)[3]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
+	}
+	soj <- list()
+	fstate <- list()
+	for(l in 1:length(locusbytime)){
+		freqs <- locusbytime[[l]]
+		soj[[l]] <- c(rep(NA, times=nrow(freqs)))
+		fstate[[l]] <- c(rep(NA, times=nrow(freqs)))
+		for(a in 1:nrow(freqs)){
+			first<- which(freqs[a,]>0)[1]  
+			iffix1 <- which(freqs[a,first:ncol(freqs)]==copies)[1] 
+			iffix0 <- which(freqs[a,first:ncol(freqs)]==0)[1]  
+			last <- ifelse(any(c(iffix1,iffix0)>0), min(c(first+iffix1,first+iffix0),na.rm=T),NA) #individually can be NA if segregating or 
+			soj[[l]][a] <- last-first #returns NA when segregating at final time
+			seg <- is.na(soj[[l]][a] )
+			if(seg==T){
+				fstate[[l]][a] <- "seg"
+			} else if(!is.na(iffix1) & last == (iffix1+first)) {
+				fstate[[l]][a] <- "fixed" #at least at one point
+			} else{fstate[[l]][a] <- "lost"} 
+		}
+		#get first > 0, get first == 1 or next ==0  and then diff bt 2
+	}
+	return(list(soj=soj, effs = fullunique, fstate = fstate))
+}
+
+
+soj4bP <- sojT(test.4b$Plant)
+soj4bM <- sojT(test.4b$Micr,type="micr")
+soj4bffP <- sojT(test.4bff$Plant)
+soj4bffM <- sojT(test.4bff$Micr,type="micr")
+soj4fP <- sojT(test.4f$Plant)
+soj4fM <- sojT(test.4f$Micr,type="micr")
+soj4fffP <- sojT(test.4fff$Plant)
+soj4fffM <- sojT(test.4fff$Micr,type="micr")
+
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_plant.pdf",width=5,height=5)
+layout(matrix(1:4,ncol=2,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,1,0))
+plot((unlist(soj4bP$soj))[unlist(soj4bP$effs)!=0]~unlist(soj4bP$effs)[unlist(soj4bP$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0] == "fixed") +1 ])
+	abline(v=0)
+ 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+	mtext("No direct link to microbe fitness",side=3,line=0.5)
+	mtext("Sojourn (gens)",side=2,line=2,adj=-1.08)
+plot((unlist(soj4bffP$soj))[unlist(soj4bffP$effs)!=0]~unlist(soj4bffP$effs)[unlist(soj4bffP$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bffP$fstate)[unlist(soj4bffP$effs)!=0] == "fixed") +1 ])
+	abline(v=0)
+	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+plot((unlist(soj4fP$soj))[unlist(soj4fP$effs)!=0]~unlist(soj4fP$effs)[unlist(soj4fP$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4fP$fstate)[unlist(soj4fP$effs)!=0] == "fixed") +1 ])
+	abline(v=0)
+	mtext("Equal links to fitness",side=3,line=0.5)
+plot((unlist(soj4fffP$soj))[unlist(soj4fffP$effs)!=0]~unlist(soj4fffP$effs)[unlist(soj4fffP$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4fffP$fstate)[unlist(soj4fffP$effs)!=0] == "fixed") +1 ])
+	abline(v=0) 
+ 	mtext("Effect size",side=1,line=2,adj=-0.75)
+dev.off()
+
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_micr.pdf",width=5,height=5)
+layout(matrix(1:4,ncol=2,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,1,0))
+plot((unlist(soj4bM$soj))[unlist(soj4bM$effs)!=0]~unlist(soj4bM$effs)[unlist(soj4bM$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4bM$fstate)[unlist(soj4bM$effs)!=0] == "fixed") +1 ])
+	abline(v=0)
+	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+	mtext("No direct link to microbe fitness",side=3,line=0.5)
+	mtext("Sojourn (gens)",side=2,line=2,adj=-1.08)
+plot((unlist(soj4bffM$soj))[unlist(soj4bffM$effs)!=0]~unlist(soj4bffM$effs)[unlist(soj4bffM$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4bffM$fstate)[unlist(soj4bffM$effs)!=0] == "fixed") +1 ])
+	abline(v=0)
+	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+plot((unlist(soj4fM$soj))[unlist(soj4fM$effs)!=0]~unlist(soj4fM$effs)[unlist(soj4fM$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4fM$fstate)[unlist(soj4fM$effs)!=0] == "fixed") +1 ])
+	abline(v=0)
+	mtext("Equal links to fitness",side=3,line=0.5)
+plot((unlist(soj4fffM$soj))[unlist(soj4fffM$effs)!=0]~unlist(soj4fffM$effs)[unlist(soj4fffM$effs)!=0],
+	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4fffM$fstate)[unlist(soj4fffM$effs)!=0] == "fixed") +1 ])
+	abline(v=0)
+ 	mtext("Effect size",side=1,line=2,adj=-0.75)
+dev.off()
+ 
+ 
 getrelfitandtrait <- function(simdat,gen,zoP,zoM,wP,wM,pfP,pfM){
 	traitend <- rowSums(colSums(simdat$Plant[,,,gen])) + colSums(simdat$Microbe[,,gen])
 	micrfit   <- univar.fit( z=traitend, zopt=zoM, sd.fit=wM)

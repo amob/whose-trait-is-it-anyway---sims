@@ -265,7 +265,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 geno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),  #Family ID when missing, plink wants this= to individual ID
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""), # Individual ID
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) , # 
-			expdat$traitvalue,
+			scale(expdat$traitvalue), ##SCALED version
 		    (RGP+1) [expdat$IDPG,] , # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
  			#then
 	 	   t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
@@ -292,7 +292,8 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 geno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""), #
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) ,
-			expdat$traitvalue,
+# 			expdat$traitvalue,
+			scale(expdat$traitvalue), ##SCALED version
 		    (RGP+1) [expdat$IDPG,]  # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
 	  	   )
 	 map <-  cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,max(expset$causalgenos$locusdatP$linkage) +expset$neutralgenos$locusdatP$linkage),sep=""),  #  now separately for plants
@@ -304,7 +305,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 geno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),  #microbes again, but alone
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) ,
-			expdat$traitvalue,
+			scale(expdat$traitvalue), ##SCALED version
 		 	t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
 	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expdat$IDMG,]  
 	 	   )
@@ -319,7 +320,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 HOLOgeno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),  #Family ID when missing, plink wants this= to individual ID
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""), # Individual ID
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) , # 
-			expdat$traitvalue,
+			scale(expdat$traitvalue), ##SCALED version
 		    (RGP+1) [expdat$IDPG,] , # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
  			#then
 	 	   t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
@@ -342,7 +343,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 PLANTgeno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""), #plants again but alone
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) ,
-			expdat$traitvalue,
+			scale(expdat$traitvalue), ##SCALED version
 		    (RGP+1) [expdat$IDPG,]  # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
 	  	   )
 	 PLANTmap <-  cbind( paste("scaffold_",c(expset$causalgenos$locusdatP$linkage,max(expset$causalgenos$locusdatP$linkage) + expset$neutralgenos$locusdatP$linkage),sep=""),  #  now separately for plants
@@ -352,7 +353,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 MICRgeno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),  #microbes again, but alone
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) ,
-			expdat$traitvalue,
+			scale(expdat$traitvalue), ##SCALED version
 		 	t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
 	 	   		   expset$neutralgenos$genoM[rep(1:nrow(expset$neutralgenos$genoM) ,each=2), ])+1) [expdat$IDMG,]  
 	 	   )
@@ -372,40 +373,33 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 
 
 
-
-#make a matrix for geneflow, function. 
-#this one currently breaks, when the conditions are less easy to fill -- more pops, more pops per pop involved in genflow
-filltheta <- function(npopsource, geneflowrate,npops){
-	popinbredrate <- 1 - geneflowrate*npopsource
-	thetamat <- diag(popinbredrate,nrow=npops)
-	for(i in 1:(ncol(thetamat)-1)){
-		if(sum(sign(thetamat[,i])) < (npopsource+1)  ){
-				whichcanbesampled <-  (1:nrow(thetamat)) [  (rowSums(sign(thetamat)) < (npopsource+1) ) & thetamat[(1:nrow(thetamat)),i] == 0 ]  
-				if(length(whichcanbesampled)>1){
-					sourcepops <- sample(whichcanbesampled ,1 + npopsource - sum(sign(thetamat[,i])) ,repl=F)
-					} else{ sourcepops <- whichcanbesampled }
-				thetamat[sourcepops,i] <- geneflowrate #populate the column
-				thetamat[i,(i+1):ncol(thetamat)]  <- thetamat[(i+1):ncol(thetamat),i]
-			} else{}
-	}
-	return(thetamat)
-}
-
-
-
- ####GENERATE OUTPUT FILES FOR SIMULATIONS WITH GWAS
-###simulate multiple populations; run experiment on result; create genotypes. 
-#list parameters; keep everything the same except optima?
-
-npopsource <- 4
-geneflowrate <- 0.1
+# 
+# #make a matrix for geneflow, function. 
+# #this one currently breaks, when the conditions are less easy to fill -- more pops, more pops per pop involved in genflow
+# filltheta <- function(npopsource, geneflowrate,npops){
+# 	popinbredrate <- 1 - geneflowrate*npopsource
+# 	thetamat <- diag(popinbredrate,nrow=npops)
+# 	for(i in 1:(ncol(thetamat)-1)){
+# 		if(sum(sign(thetamat[,i])) < (npopsource+1)  ){
+# 				whichcanbesampled <-  (1:nrow(thetamat)) [  (rowSums(sign(thetamat)) < (npopsource+1) ) & thetamat[(1:nrow(thetamat)),i] == 0 ]  
+# 				if(length(whichcanbesampled)>1){
+# 					sourcepops <- sample(whichcanbesampled ,1 + npopsource - sum(sign(thetamat[,i])) ,repl=F)
+# 					} else{ sourcepops <- whichcanbesampled }
+# 				thetamat[sourcepops,i] <- geneflowrate #populate the column
+# 				thetamat[i,(i+1):ncol(thetamat)]  <- thetamat[(i+1):ncol(thetamat),i]
+# 			} else{}
+# 	}
+# 	return(thetamat)
+# }
+# 
+# 
+# npopsource <- 4
+# geneflowrate <- 0.1
 npops <- 200
 # randtheta <- 	thetamat <- diag(1-npopsource*geneflowrate,nrow=npops)
 # while(any(colSums(sign(randtheta)) < (npopsource+1) ) ) {
 # 	randtheta <- filltheta(npopsource =npopsource, geneflowrate = geneflowrate, npops = npops)
 # }
-
-
 #temporary sim for testing code
 # thetamat <- matrix(c(0.98 , 0.00 , 0    , 0.01 , 0.01 ,
 # 					 0    , 0.98 , 0.01 , 0    , 0.01 , 
@@ -413,29 +407,51 @@ npops <- 200
 # 					 0.01 , 0    , 0.01 , 0.98 , 0    ,
 # 					 0.01 , 0.01 , 0    , 0    , 0.98 ), ncol=5,byrow=T)
 # 	npops <- 5
+#how about doing this the reverse way! theta mat is organized with "ibd" but environment is randomized!
+
+ ####GENERATE OUTPUT FILES FOR SIMULATIONS WITH GWAS
+###simulate multiple populations; run experiment on result; create genotypes. 
+#list parameters; keep everything the same except optima?
+
+EnvPV <- sample(seq(from=1,to=5,length.out=npops),npops,replace=F)
+
+write.csv(EnvPV,file=paste(Sys.getenv("SCRATCH"),'/EnvPVfromSimwithMigrate.RData',sep=""),row.names=F)
+popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
+					zoP=seq(from=4,to=8,length.out=npops),zoM=seq(from=1,to=5,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
+					Lambda=10,mutprb=0.0001,prbHorz=0.1,
+					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=NULL) #note ratemigr doesn't matter if thetamat specified
+# # temporary comment out  I changed mutation rate on may 23 but did not re-run
+# # expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
+save(popset,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD.RData',sep=""))
+load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD.RData',sep=""))
+
+
+#random geneflow matrix sims.
 # popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
-# 					zoP=seq(from=1,to=5,length.out=npops),zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=5,
+# 					zoP=EnvPV,zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=5,
 # 					Lambda=10,mutprb=0.1,prbHorz=0.1,
 # 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=npops,GFmat=thetamat) #note ratemigr doesn't matter if thetamat specified
 
 #sim for running code and testing hypotheses
 # popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
-# 					zoP=seq(from=4,to=8,length.out=npops),zoM=seq(from=1,to=5,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
-# 					Lambda=10,mutprb=0.001,prbHorz=0.1,
-# 					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=randtheta) #note ratemigr doesn't matter if thetamat specified
-# temporary commnt out
-# expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
-# save(popset,file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
-load(file=paste(Sys.getenv("SCRATCH"),'/popset.RData',sep=""))
+# 					zoP=seq(from=1,to=5,length.out=npops),zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=5,
+# 					Lambda=10,mutprb=0.1,prbHorz=0.1,
+# 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=npops,GFmat=thetamat) #note ratemigr doesn't matter if thetamat specified
+
+#with rand env, but not
+
+
 
 reduceset <- sort(sample(1:npops, 40, repl=F)) #for below, needs to be a subsample of 60 pops
 red_popset <- list( Plant = lapply(reduceset, function(pop) popset$Plant[[pop]]),       Microbe = lapply(reduceset, function(pop) popset$Microbe[[pop]]),
 			    P_neutral = lapply(reduceset, function(pop) popset$P_neutral[[pop]]), M_neutral = lapply(reduceset, function(pop) popset$M_neutral[[pop]])) 
 
-save(red_popset,file=paste(Sys.getenv("SCRATCH"),'/red_popset.RData',sep=""))
+save(red_popset,file=paste(Sys.getenv("SCRATCH"),'/red_popsetIBD.RData',sep=""))
 
 
-expsetabo <- run.exp.allbyone(popset, numperpop= 4,exp.err=0.05,nreps=4) #2 plant and 2  micr from 200 pops , 4*(800*1 + 1*800) , = 6400 exp; 3200 ea gwas
+
+#.005 seems very low for experimental error, but there for now so that the range of effects is less than larger allele effect sizes
+expsetabo <- run.exp.allbyone(popset, numperpop= 4,exp.err=0.005,nreps=4) #2 plant and 2  micr from 200 pops , 4*(800*1 + 1*800) , = 6400 exp; 3200 (800 w/o dupl) ea gwas
 save(expsetabo,file=paste(Sys.getenv("SCRATCH"),'/expset_abo.RData',sep=""))
 plinkabo <- makegwasfiles(expsetabo,expsetabo$expdat,type="HOLO") #<- function(expset,name_append){
 	write.table(plinkabo$geno, file=paste(Sys.getenv("SCRATCH"), "/HOLOevosims_ABO.ped",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
@@ -448,9 +464,8 @@ plinkaboM <- makegwasfiles(expsetabo,expdat=expsetabo$expdatMexp,type="MICR") #<
 	write.table(plinkaboM$map,  file=paste(Sys.getenv("SCRATCH"), "/MICRevosims_ABO.map",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
 
 
-
-
-expsetaba <- run.exp.allbyall(red_popset,numperpop= 1,exp.err=0.05,nreps=4) #1 from 40 pops, 40x40x4 = 6400 exp
+#.005 seems very low for experimental error, but there for now so that the range of effects is less than larger allele effect sizes
+expsetaba <- run.exp.allbyall(red_popset,numperpop= 1,exp.err=0.005,nreps=4) #1 from 40 pops, 40x40x4 = 6400 exp
 save(expsetaba,file=paste(Sys.getenv("SCRATCH"),'/expset_aba.RData',sep=""))
 plinkaba <- makegwasfiles(expsetaba,expsetaba$expdat,type="ALL") #<- function(expset,name_append){
  	write.table(plinkaba$HOLOgeno, file=paste(Sys.getenv("SCRATCH"), "/HOLOevosims_ABA.ped",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
@@ -460,4 +475,21 @@ plinkaba <- makegwasfiles(expsetaba,expsetaba$expdat,type="ALL") #<- function(ex
 	write.table(plinkaba$PLANTmap, file=paste(Sys.getenv("SCRATCH"),"/PLANTevosims_ABA.map",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
 	write.table(plinkaba$MICRmap,  file=paste(Sys.getenv("SCRATCH"), "/MICRevosims_ABA.map",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
 
- 
+
+load(file=paste(Sys.getenv("SCRATCH"),'/expset_abo.RData',sep=""))
+ #store allele affect size information for causal genos
+plantlociABO <- expsetabo$causalgenos$locusdatP #alleles 1:
+plantlociABO$locusname <- paste("cP",1:nrow(plantlociABO),sep="") #names as in gwas
+micrlociABO <- expsetabo$causalgenos$locusdatM #alleles 1:
+micrlociABO$locusname <- paste("cM",1:nrow(micrlociABO),sep="") #names as in gwas
+write.csv(plantlociABO,file=paste(Sys.getenv("SCRATCH"),'/plantlociABO.csv',sep=""),row.names=F)
+write.csv(micrlociABO,file=paste(Sys.getenv("SCRATCH"),'/micrlociABO.csv',sep=""),row.names=F)
+
+
+load(file=paste(Sys.getenv("SCRATCH"),'/expset_aba.RData',sep=""))#store allele affect size information for causal genos
+plantlociABA <- expsetaba$causalgenos$locusdatP #alleles 1:
+plantlociABA$locusname <- paste("cP",1:nrow(plantlociABA),sep="") #names as in gwas
+micrlociABA <- expsetaba$causalgenos$locusdatM #alleles 1:
+micrlociABA$locusname <- paste("cM",1:nrow(micrlociABA),sep="") #names as in gwas
+write.csv(plantlociABA,file=paste(Sys.getenv("SCRATCH"),'/plantlociABA.csv',sep=""),row.names=F)
+write.csv(micrlociABA,file=paste(Sys.getenv("SCRATCH"),'/micrlociABA.csv',sep=""),row.names=F)
