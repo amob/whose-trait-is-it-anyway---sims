@@ -116,28 +116,28 @@ CIGh_abo$is.plant <- sapply(1:nrow(CIGh_abo), function(z) length(grep("P",as.cha
 # hist((CIGp_abo$beta),freq=F)
 # hist(plantLinfoabo$reststate,freq=T,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,200))#ylim=c(0,2.5))
 # hist(plantLinfoabo$reststate[!is.na(CIGp_abo$beta)],freq=T,breaks=seq(from=-2,to=2,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/dens_loci_tossed.pdf",height=4,width=6)
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/dens_loci_tossed_scale_smmu_maf.pdf",height=4,width=6)
 par(mfrow=c(2,3))
 par(oma=c(3,3,2,0))
 par(mar=c(2,2,1,1))
-hist(holoLinfoabo$reststate,freq=T,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,400),main="") #ylim=c(0,200))#
+hist(holoLinfoabo$reststate,freq=T,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
 	hist(holoLinfoabo$reststate[!is.na(CIGh_abo$beta)],freq=T,breaks=seq(from=-2,to=2,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 	mtext("Holo-estimated",side=3, line=0.5)
 	mtext("Frequency",side=2, line=3)
 	mtext("ABO",side=2, line=2,adj = -0.5)
-hist(plantLinfoabo$reststate,freq=T,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,400),main="") #ylim=c(0,200))#
+hist(plantLinfoabo$reststate,freq=T,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
 	hist(plantLinfoabo$reststate[!is.na(CIGp_abo$beta)],freq=T,breaks=seq(from=-2,to=2,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 	mtext("Plant-estimated",side=3, line=0.5)
-hist(micrLinfoabo$reststate,freq=T,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,400),main="") #ylim=c(0,200))#
+hist(micrLinfoabo$reststate,freq=T,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
 	hist(micrLinfoabo$reststate[!is.na(CIGm_abo$beta)],freq=T,breaks=seq(from=-2,to=2,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 	mtext("Microbe-estimated",side=3, line=0.5)
-hist(holoLinfoabo$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,3.5),main="") #ylim=c(0,200))#
+hist(holoLinfoabo$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,5),main="") #ylim=c(0,200))#
 	hist(holoLinfoabo$reststate[!is.na(CIGh_abo$beta)],freq=F,breaks=seq(from=-2,to=2,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 	mtext("Density",side=2, line=3)
-hist(plantLinfoabo$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,3.5),main="") #ylim=c(0,200))#
+hist(plantLinfoabo$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,5),main="") #ylim=c(0,200))#
 	hist(plantLinfoabo$reststate[!is.na(CIGp_abo$beta)],freq=F,breaks=seq(from=-2,to=2,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 	mtext("Known effect",side=1, line=2)
-hist(micrLinfoabo$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,3.5),main="") #ylim=c(0,200))#
+hist(micrLinfoabo$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,5),main="") #ylim=c(0,200))#
 	hist(micrLinfoabo$reststate[!is.na(CIGm_abo$beta)],freq=F,breaks=seq(from=-2,to=2,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 #both distributions are biased positive, and  more are thrown out in the smaller effect size range.
 # hist(holoLinfoaba$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,3.5),main="") #ylim=c(0,200))#
@@ -151,7 +151,7 @@ hist(micrLinfoabo$reststate,freq=F,breaks=seq(from=-2,to=2,by=0.1),col=rgb(0.9,0
 #nothing gets tossed
 dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/betas_maf_sig.pdf",height=4,width=6)
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/betas_maf_sig_scale_smmu_maf.pdf",height=4,width=6)
 par(mfrow=c(2,3))
 par(oma=c(3,3,2,0))
 par(mar=c(2,2,1,1))
@@ -172,7 +172,7 @@ plot(CIGp_aba$beta~(CIGp_aba$af), cex = ifelse(CIGp_aba$p_used < 0.05,1,0.1), xl
 plot(CIGm_aba$beta~(CIGm_aba$af), cex = ifelse(CIGm_aba$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-4,4)) 
 dev.off()
 #
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_maf_sig.pdf",height=4,width=6)
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_maf_sig_scale_smmu_maf.pdf",height=4,width=6)
 par(mfrow=c(2,3))
 par(oma=c(3,3,2,0))
 par(mar=c(2,2,1,1))
@@ -193,7 +193,7 @@ plot(plantLinfoaba$reststate~(CIGp_aba$af), cex = ifelse(CIGp_aba$p_used < 0.05,
 plot(micrLinfoaba$reststate~(CIGm_aba$af), cex = ifelse(CIGm_aba$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-1.5,2)) 
 dev.off()
 #
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_beta_sig.pdf",height=4,width=6)
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_beta_sig_scale_smmu_maf.pdf",height=4,width=6)
 par(mfrow=c(2,3))
 par(oma=c(3,3,2,0))
 par(mar=c(2,2,1,1))
@@ -220,8 +220,35 @@ plot(CIGm_aba$beta~(micrLinfoaba$reststate), cex = ifelse(CIGm_aba$p_used < 0.05
 	 xlim=c(-1.5,2),ylim=c(-4,4)) 
 dev.off()
 
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffsabs_beta_sig_scale_smmu_maf.pdf",height=4,width=6)
+par(mfrow=c(2,3))
+par(oma=c(3,3,2,0))
+par(mar=c(2,2,1,1))
+plot(abs(CIGh_abo$beta)~abs(holoLinfoabo$reststate), cex = ifelse(CIGh_abo$p_used < 0.05,1,0.1), 
+	col = c(rgb(0.5,0,0.5),rgb(0,0.5,0))[CIGh_abo$is.plant+1], xlim=c(0,2),ylim=c(0,2.5)) #limits might need to change
+	mtext("Holo-estimated",side=3, line=0.5)
+	mtext("Estimated Beta",side=2, line=2,adj = -1)
+	mtext("ABO",side=2, line=3)
+plot(abs(CIGp_abo$beta)~abs(plantLinfoabo$reststate), cex = ifelse(CIGp_abo$p_used < 0.05,1,0.1), 
+	 xlim=c(0,2),ylim=c(0,2.5)) #limits might need to change
+	mtext("Plant-estimated",side=3, line=0.5)
+plot(abs(CIGm_abo$beta)~abs(micrLinfoabo$reststate), cex = ifelse(CIGm_abo$p_used < 0.05,1,0.1), 
+	 xlim=c(0,2),ylim=c(0,2.5)) 
+	mtext("Microbe-estimated",side=3, line=0.5)
+plot(abs(CIGh_aba$beta)~abs(holoLinfoaba$reststate), cex = ifelse(CIGh_aba$p_used < 0.05,1,0.1), 
+	col = c(rgb(0.5,0,0.5),rgb(0,0.5,0))[CIGh_aba$is.plant+1], xlim=c(0,2),ylim=c(0,2.5)) 
+# 	mtext("Holo-estimated",side=3, line=0.5)
+	mtext("ABA",side=2, line=3)
+plot(abs(CIGp_aba$beta)~abs(plantLinfoaba$reststate), cex = ifelse(CIGp_aba$p_used < 0.05,1,0.1), 
+	 xlim=c(0,2),ylim=c(0,2.5)) 
+	mtext("Known effect",side=1, line=2)
+# 	mtext("Plant-estimated",side=3, line=0.5)
+plot(abs(CIGm_aba$beta)~abs(micrLinfoaba$reststate), cex = ifelse(CIGm_aba$p_used < 0.05,1,0.1), 
+	 xlim=c(0,2),ylim=c(0,2.5)) 
+dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin.pdf",height=8,width=8)
+
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin_scale_smmu_maf.pdf",height=8,width=8)
 par(mfrow=c(2,3))
 
 image(summarizehabo$conttabprp,xaxt="n",yaxt="n",main="Together")
@@ -291,55 +318,3 @@ image(t(matrix( (summarizepaba$cattots/summarizepaba$catshouldbesums)[5:8],nrow=
 
 dev.off()
 
-
-# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_ABA.pdf",height=8,width=8)
-# par(mfrow=c(2,3))
-# 
-# image(summarizehaba$conttabprp,xaxt="n",yaxt="n",main="Together")
-# 	mtext("w/o Kinship, interval p",side=2,line=2)
-# 	axis(2,at=c(0,1),labels=c("neutral","causal"))
-# 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-# 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-# 		summarizehaba$conttab,rep("/",times=4),
-# 		rep(c(sum(holooutaba$known_neg),sum(holooutaba$known_pos)),times=2),
-# 		rep("=",times=4),
-# 		round(as.vector(t(summarizehaba$conttabprp)),digits=2), sep="" ))
-# image(t(matrix( (summarizehaba$cattots/summarizehaba$catshouldbesums)[1:4],nrow=2,byrow=F)),xaxt="n",yaxt="n",main="Microbe loci")
-# 	axis(2,at=c(0,1),labels=c("neutral","causal"))
-# 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-# 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-# 		summarizehaba$cattots[1:4],rep("/",times=4), summarizehaba$catshouldbesums[1:4], rep("=",times=4),
-# 		round(  (summarizehaba$cattots/summarizehaba$catshouldbesums)[1:4],digits=2), sep="" ))
-# image(t(matrix( (summarizehaba$cattots/summarizehaba$catshouldbesums)[5:8],nrow=2,byrow=F)),xaxt="n",yaxt="n",main="Plant loci")
-# 	axis(2,at=c(0,1),labels=c("neutral","causal"))
-# 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-# 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-# 		summarizehaba$cattots[5:8],rep("/",times=4), summarizehaba$catshouldbesums[5:8], rep("=",times=4),
-# 		round(  (summarizehaba$cattots/summarizehaba$catshouldbesums)[5:8],digits=2), sep="" ))
-# 
-# 
-# image(summarizehKaba$conttabprp,xaxt="n",yaxt="n",main="Together")
-# 	mtext("w/o Kinship, interval p",side=2,line=2)
-# 	axis(2,at=c(0,1),labels=c("neutral","causal"))
-# 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-# 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-# 		summarizehKaba$conttab,rep("/",times=4),
-# 		rep(c(sum(holooutKaba$known_neg),sum(holooutKaba$known_pos)),times=2),
-# 		rep("=",times=4),
-# 		round(as.vector(t(summarizehKaba$conttabprp)),digits=2), sep="" ))
-# image(t(matrix( (summarizehKaba$cattots/summarizehKaba$catshouldbesums)[1:4],nrow=2,byrow=F)),xaxt="n",yaxt="n",main="Microbe loci")
-# 	axis(2,at=c(0,1),labels=c("neutral","causal"))
-# 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-# 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-# 		summarizehKaba$cattots[1:4],rep("/",times=4), summarizehKaba$catshouldbesums[1:4], rep("=",times=4),
-# 		round(  (summarizehKaba$cattots/summarizehKaba$catshouldbesums)[1:4],digits=2), sep="" ))
-# image(t(matrix( (summarizehKaba$cattots/summarizehKaba$catshouldbesums)[5:8],nrow=2,byrow=F)),xaxt="n",yaxt="n",main="Plant loci")
-# 	axis(2,at=c(0,1),labels=c("neutral","causal"))
-# 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-# 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-# 		summarizehKaba$cattots[5:8],rep("/",times=4), summarizehKaba$catshouldbesums[5:8], rep("=",times=4),
-# 		round(  (summarizehKaba$cattots/summarizehKaba$catshouldbesums)[5:8],digits=2), sep="" ))
-# 
-# dev.off()
-# 
-# 
