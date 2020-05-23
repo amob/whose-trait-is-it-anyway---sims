@@ -415,15 +415,15 @@ npops <- 200
 
 EnvPV <- sample(seq(from=1,to=5,length.out=npops),npops,replace=F)
 
-write.csv(EnvPV,file=paste(Sys.getenv("SCRATCH"),'/EnvPVfromSimwithMigrate.RData',sep=""),row.names=F)
-popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
+write.csv(EnvPV,file=paste(Sys.getenv("SCRATCH"),'/EnvPVfromSimwithMigrate_vsmmu_bnl.RData',sep=""),row.names=F) #when i changed to smmu I wrote over preve env
+popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=200,nlnM=400,
 					zoP=seq(from=4,to=8,length.out=npops),zoM=seq(from=1,to=5,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
-					Lambda=10,mutprb=0.0001,prbHorz=0.1,
+					Lambda=5,mutprb=0.0001,prbHorz=0.1,
 					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=NULL) #note ratemigr doesn't matter if thetamat specified
-# # temporary comment out  I changed mutation rate on may 23 but did not re-run
+# # temporary comment out 
 # # expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
-save(popset,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD.RData',sep=""))
-load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD.RData',sep=""))
+save(popset,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_vsmmu_bnl.RData',sep=""))
+load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_vsmmu_bnl.RData',sep=""))
 
 
 #random geneflow matrix sims.

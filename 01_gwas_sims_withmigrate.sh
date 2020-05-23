@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=10:00:00
+#SBATCH --time=13:00:00
 #SBATCH --job-name=simandgwastest
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=40
@@ -53,7 +53,7 @@ $HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO -lm 4 -o MICRgemmaABO -maf
 
 #when ABA experiment is 6400 big as 4 reps of 1600 unique p-m combos, 
 	#then there are 40 of each p and m in a sq design and the min af possible is 0.0125
-# the identical maf in the abo experiment is when 10 of the 800 plant (or micr in other half) have an allele
+# the identical maf in the abo experiment is when there are 20 copies of the 800 (1600 chrm.) plant (or 10 micr in other half) have an allele
 
 #mixed models
 
