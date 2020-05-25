@@ -413,24 +413,45 @@ npops <- 200
 ###simulate multiple populations; run experiment on result; create genotypes. 
 #list parameters; keep everything the same except optima?
 
-EnvPV <- sample(seq(from=1,to=5,length.out=npops),npops,replace=F)
+# EnvPV <- sample(seq(from=1,to=5,length.out=npops),npops,replace=F)
+# 
+# write.csv(EnvPV,file=paste(Sys.getenv("SCRATCH"),'/EnvPVfromSimwithMigrate.RData',sep=""),row.names=F) #when i changed to smmu I wrote over preve env
+###these aren't good for any file before 8 pm saturday may 23
 
-write.csv(EnvPV,file=paste(Sys.getenv("SCRATCH"),'/EnvPVfromSimwithMigrate_vsmmu_bnl.RData',sep=""),row.names=F) #when i changed to smmu I wrote over preve env
-popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=200,nlnM=400,
-					zoP=seq(from=4,to=8,length.out=npops),zoM=seq(from=1,to=5,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
-					Lambda=5,mutprb=0.0001,prbHorz=0.1,
-					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=NULL) #note ratemigr doesn't matter if thetamat specified
+
+### SHOOT, I ran this one...kinship = env? I THINK IT IS OK BECAUSE WE DON"T CORRECT FOR KINSHIP. probably doesn't change anything.
+# popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=200,nlnM=400,
+# 					zoP=seq(from=4,to=8,length.out=npops),zoM=seq(from=1,to=5,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
+# 					Lambda=5,mutprb=0.0001,prbHorz=0.1,
+# 					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=NULL) #note ratemigr doesn't matter if thetamat specified
+
+# popset.smmu_confl_randflo <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
+# 					zoP=EnvPV,zoM=EnvPV+3,wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
+# 					Lambda=5,mutprb=0.0001,prbHorz=0.1,
+# 					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=NULL) #note ratemigr doesn't matter if thetamat specified
+# save(popset.smmu_confl_randflo,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_smmu_confl_randflo.RData',sep=""))
+load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_smmu_confl_randflo.RData',sep=""))
+
+# popset.smmu_loconfl_randflo <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
+# 					zoP=EnvPV,zoM=EnvPV+1,wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
+# 					Lambda=5,mutprb=0.0001,prbHorz=0.1,
+# 					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=NULL) #note ratemigr doesn't matter if thetamat specified
+# save(popset.smmu_loconfl_randflo,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_smmu_loconfl_randflo.RData',sep=""))
+# load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_smmu_loconfl_randflo.RData',sep=""))
+# 
+# popset.smmu_noconfl_randflo <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
+# 					zoP=EnvPV,zoM=EnvPV,wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=500,
+# 					Lambda=5,mutprb=0.0001,prbHorz=0.1,
+# 					pfP=0.6,pfM=0.6,ratemigr= 0.5,npops=npops,GFmat=NULL) #note ratemigr doesn't matter if thetamat specified
+# save(popset.smmu_noconfl_randflo,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_smmu_noconfl_randflo.RData',sep=""))
+# load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_smmu_noconfl_randflo.RData',sep=""))
+popset <- popset.smmu_confl_randflo
+
 # # temporary comment out 
 # # expecting about 70 causal alleles ea per plnt and microbe, and maybe 150 each neutral ones.
-save(popset,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_vsmmu_bnl.RData',sep=""))
-load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_vsmmu_bnl.RData',sep=""))
+# save(popset,file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_vsmmu_bnl.RData',sep="") )
+#  load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_vsmmu_bnl.RData',sep=""))
 
-
-#random geneflow matrix sims.
-# popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
-# 					zoP=EnvPV,zoM=seq(from=2,to=6,length.out=npops),wP=rep(1,times=npops),wM=rep(1,times=npops),timesteps=5,
-# 					Lambda=10,mutprb=0.1,prbHorz=0.1,
-# 					pfP=0.7,pfM=0.7,ratemigr= 0.5,npops=npops,GFmat=thetamat) #note ratemigr doesn't matter if thetamat specified
 
 #sim for running code and testing hypotheses
 # popset <-sim.cotraitV(NP=rep(50,times=npops),NM=rep(50,times=npops),nlP=10,nlM=20,nlnP=100,nlnM=200,
@@ -441,12 +462,12 @@ load(file=paste(Sys.getenv("SCRATCH"),'/popsetIBD_vsmmu_bnl.RData',sep=""))
 #with rand env, but not
 
 
-
+# 
 reduceset <- sort(sample(1:npops, 40, repl=F)) #for below, needs to be a subsample of 60 pops
 red_popset <- list( Plant = lapply(reduceset, function(pop) popset$Plant[[pop]]),       Microbe = lapply(reduceset, function(pop) popset$Microbe[[pop]]),
 			    P_neutral = lapply(reduceset, function(pop) popset$P_neutral[[pop]]), M_neutral = lapply(reduceset, function(pop) popset$M_neutral[[pop]])) 
 
-save(red_popset,file=paste(Sys.getenv("SCRATCH"),'/red_popsetIBD.RData',sep=""))
+save(red_popset,file=paste(Sys.getenv("SCRATCH"),'/red_popsetIBD_noconfl.RData',sep=""))
 
 
 
