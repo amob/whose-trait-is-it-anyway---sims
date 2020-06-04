@@ -301,6 +301,102 @@ extractDyn <- function(simdat,first,last,windowsize){
 	return(list(tcoefP = tcoefP, tcoefM=tcoefM ))
 }
 
-#unanswered q?
-#e.g. super conserved important traits  will  have  very  little  variation.   Also  those  under  strong  (recent) directional selection
+
+#get counts of alleles segregating in the population, takes simulation output matrices subset to a particular point in time.
+getsegcounts <- function(finaltime,type="plant"){
+	nloci <- dim(finaltime)[[1]]
+	if(type=="plant"){
+		unlistall <- t(sapply(1:nloci, function(l) as.vector(finaltime[l,,])  ))
+		whichsegallele <- which(sapply(1:nloci, function(l) length(unique(unlistall[l,]))) > 1)
+		unlistallseg <- unlistall[whichsegallele,]
+	}
+	if(type=="microbe"){
+		unlistall <- t(sapply(1:nloci, function(l) as.vector(finaltime[l,])  ))
+		whichsegallele <- which(sapply(1:nloci, function(l) length(unique(unlistall[l,]))) > 1)
+		unlistallseg <- unlistall[whichsegallele,]
+	}
+	return(unlistallseg)
+} #type can be microbe
+
+
+
+#plot trajectories of alleles through time; takes input subset to a particular organism -- here either host (plant) or microbe
+plottraj <- function(genotimemat,type="plant",maxpos,maxneg){
+	nloci <- dim(genotimemat)[1]
+	nind <- dim(genotimemat)[2]
+	if(type=="plant"){
+		ntime <- dim(genotimemat)[4]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
+		plot(1~c(1),pch=NA,ylim=c(0,nind*2),xlim=c(0,ntime-1),ylab="",xlab="")
+	}
+	if(type=="micr"){
+		ntime <- dim(genotimemat)[3]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
+		plot(1~c(1),pch=NA,ylim=c(0,nind),xlim=c(0,ntime-1),ylab="",xlab="")
+	}
+	maxall <- max(abs(c(maxpos,maxneg)))
+	for(l in 1:length(locusbytime)){
+		freqs <- locusbytime[[l]]
+		sapply(1:nrow(freqs), function(a) lines(1:(ntime-1),freqs[a,], 
+			col= ifelse(fullunique[[l]][a]>=0,
+			rgb(0,0,1,alpha=abs(fullunique[[l]][a])/maxall),
+			rgb(1,0,0,alpha=abs(fullunique[[l]][a])/maxall) )  ) )
+	}
+}
+
+
+
+#get sojurn time for fixed alleles
+sojT <- function(genotimemat,type="plant"){
+	nloci <- dim(genotimemat)[1]
+	nind <- dim(genotimemat)[2]
+	copies <- ifelse(type=="plant",nind*2,nind)
+	if(type=="plant"){
+		ntime <- dim(genotimemat)[4]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
+	}
+	if(type=="micr"){
+		ntime <- dim(genotimemat)[3]
+		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
+		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
+	}
+	soj <- list()
+	fstate <- list()
+	origingen <- list()
+	for(l in 1:length(locusbytime)){
+		freqs <- locusbytime[[l]]
+		soj[[l]] <- c(rep(NA, times=nrow(freqs)))
+		fstate[[l]] <- c(rep(NA, times=nrow(freqs)))
+		origingen[[l]] <- c(rep(NA, times=nrow(freqs)))
+		for(a in 1:nrow(freqs)){
+			first <- which(freqs[a,]>0)[1]  
+			iffix1 <- which(freqs[a,first:ncol(freqs)]==copies)[1] 
+			iffix0 <- which(freqs[a,first:ncol(freqs)]==0)[1]  
+			last <- ifelse(any(c(iffix1,iffix0)>0), min(c(first+iffix1,first+iffix0),na.rm=T),NA) #individually can be NA if segregating or 
+			origingen[[l]][[a]]<- first # NOTE gives first generation EVEN for alleles segregating at the final timestep
+			soj[[l]][a] <- last-first #returns NA when segregating at final time
+			seg <- is.na(soj[[l]][a] )
+			if(seg==T){
+				fstate[[l]][a] <- "seg"
+			} else if(!is.na(iffix1) & last == (iffix1+first)) {
+				fstate[[l]][a] <- "fixed" #at least at one point
+			} else{fstate[[l]][a] <- "lost"} 
+		}
+		#get first > 0, get first == 1 or next ==0  and then diff bt 2
+	}
+	return(list(soj=soj, effs = fullunique, fstate = fstate, origingen = origingen))
+}
+
+
+getrelfitandtrait <- function(simdat,gen,zoP,zoM,wP,wM,pfP,pfM){
+	traitend <- rowSums(colSums(simdat$Plant[,,,gen])) + colSums(simdat$Microbe[,,gen])
+	micrfit   <- univar.fit( z=traitend, zopt=zoM, sd.fit=wM)
+	hostfit   <- univar.fit( z=traitend, zopt=zoP, sd.fit=wP)
+	rHfit <-     pfP*hostfit + (1-pfP)*micrfit
+	rMfit <- (1-pfM)*hostfit +     pfM*micrfit
+	return(data.frame(traitend = traitend,rfitplnt=rHfit,rfitmicr=rMfit))
+}
 

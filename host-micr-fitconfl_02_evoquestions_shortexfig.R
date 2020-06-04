@@ -7,6 +7,8 @@
 	#run simulations across specific scenarios for illustrative purposes
 ##
 
+# source('~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/host-micr-fitconfl_01_simfunction.R') 
+source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
 
 trait.v1 <- sort(rnorm(1000,mean=1.5,sd=1))
 teste1.micr   <- univar.fit( z=trait.v1, zopt=2, sd.fit=2)
@@ -32,7 +34,9 @@ testf2.plntff   <- 0.6*testf2.plnt + (1-0.6)*testf2.micr
 testf2.micrff   <- (1-0.6)*testf2.plnt + 0.6*testf2.micr
 con.f2 <- c(trait.v2[which(testf2.micrff == max(testf2.micrff))],trait.v2[which(testf2.plntff == max(testf2.plntff))])
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Fitcor_DirectandFeedbacks.pdf",height=3.5,width=3.5)
+
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Fitcor_DirectandFeedbacks.pdf",height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/Fitcor_DirectandFeedbacks.pdf",sep=""),height=3.5,width=3.5)
 par(mfrow=c(2,2))
 par(mar=c(1,1,1,1))
 par(oma=c(3,3,1,1))
@@ -52,7 +56,8 @@ legend(-0.00025,y=0.004,c("Direct only","+ feedbacks"),fill=c(rgb(0,0,0),rgb(0.5
 dev.off()
 
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)
+pdf(paste(Sys.getenv("SCRATCH"), "/RelativeFitness_DirectandFeedbacks.pdf",sep=""),height=3.5,width=3.5)
 layout(matrix(1:6, ncol=2,byrow=F))
 par(mar=c(3,3,0,0))
 par(oma=c(0.5,2,3,1))
@@ -100,101 +105,51 @@ dev.off()
 
 
 
-
-
-
-# source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
-
 gens <- 200
 #4 scenarios
 #micr direct very weak
-test.4b <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+test.4b <- 		sim.cotrait(NP=100,NM=100,nlP=50,nlM=100,nlnP=500,nlnM=1000,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=1000,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #micr direct very weak, indirect stronger
-test.4bff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+test.4bff <- 	sim.cotrait(NP=100,NM=100,nlP=50,nlM=100,nlnP=500,nlnM=1000,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=gens,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 #conflict, links =,  direct only
-test.4f <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+test.4f <- 		sim.cotrait(NP=100,NM=100,nlP=50,nlM=100,nlnP=500,nlnM=1000,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 #conflict, links =,  direct and indirect links
-test.4fff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+test.4fff2 <- 	sim.cotrait(NP=1000,NM=1000,nlP=10,nlM=20,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=1000,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+fourdemosims <- list(test.4b,test.4bff,test.4f,test.4fff)
+save(fourdemosims, file=paste(Sys.getenv("SCRATCH"),"/Simulation_Results_fourdemos.RData",sep=""),version=2)
+
+
+
+
 #other scenarios
 #matched optima, no ff
-test.4a <-		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#
-#mattched optima, ff
-test.4aff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
-#conflict, microbe link stronger,  direct links only
-test.4d <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
-#conflict, microbe link stronger,  direct and indirect links
-test.4dff <-	 sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
-#conflict, plant link stronger,  direct links only
-test.4e <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
-#conflict, plant link stronger,  direct and indirect links
-test.4eff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
-
-
-##
-tendemosims <- list(test.4a,test.4aff,test.4b,test.4bff,test.4d,test.4dff,test.4e,test.4eff,test.4f,test.4fff)
-save(tendemosims,file=paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
-
-
+# test.4a <-		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#
+# #mattched optima, ff
+# test.4aff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# #conflict, microbe link stronger,  direct links only
+# test.4d <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# #conflict, microbe link stronger,  direct and indirect links
+# test.4dff <-	 sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=2,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# #conflict, plant link stronger,  direct links only
+# test.4e <- 		sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# #conflict, plant link stronger,  direct and indirect links
+# test.4eff <- 	sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=2,timesteps=gens,Lambda=25,mutprb=0.0005,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# 
+# 
+# ##
+# tendemosims <- list(test.4a,test.4aff,test.4b,test.4bff,test.4d,test.4dff,test.4e,test.4eff,test.4f,test.4fff)
+# save(tendemosims,file=paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
+#
 # fourdmosims <- load(paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
 # test.4a <- fourdemosims[[1]]
 # test.4b <- fourdemosims[[2]]
 # test.4d <- fourdemosims[[3]]
 # test.4e <- fourdemosims[[4]]
 
-#pg <- colorRampPalette(c( rgb(0.5,0,0.5), rgb(1,1,1), rgb(0,0.5,0) ))
 
 
-titles <- c("Zoptp = Zoptm, alphas = 1","Zoptp = Zoptm, alphas = 0.6",
-			"~0 link to Fm, alphas = 1", "~0 link to Fm, alphas = 0.6",
-			"Fm link > Fp link, alphas = 1", "Fm link > Fp link, alphas = 0.6",
-			"Fp link > Fm link, alphas = 1", "Fp link > Fm link, alphas = 0.6",
-			"Fp link = Fm link, alphas = 1", "Fp link = Fm link, alphas = 0.6")
-
-# titles <- c("~0 link to microbe fitness","~0 link to plant fitness","microbe link > plant link","plant link > microbe link")
-
-gens <- 200
-# pdf(paste(Sys.getenv("SCRATCH"),"/Simulation Results_tendemos.pdf",sep=""),height=6,width=6)
-layout(matrix(1:10,ncol=5,byrow=F))
-# layout(matrix(1:8,ncol=4,byrow=F))
-par(mar=c(3,3,1,1))
-par(oma=c(1,0,1,0))
-windowplot(1,gens+1, 3,test.4b,ylim=c(-3,6),titles[3])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2)#col=rgb(1,0,0),lty=2)
-	abline(h=0)
-windowplot(1,gens+1, 3,test.4bff,ylim=c(-3,6),titles[4])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2)#col=rgb(1,0,0),lty=2)
-	abline(h=0)
-	legend(gens*-0.05,y=0,c("Plant","Microbe","Expressed"), fill=c(rgb(0,0.5,0,alpha=0.5),rgb(0.5,0,0.5,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
-windowplot(1,gens+1,3,test.4d,ylim=c(-3,6),titles[5])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2); abline(h=2.5,col=rgb(0,0,0,alpha=.5),lty=2) 
-	abline(h=0)
-windowplot(1,gens+1,3,test.4dff,ylim=c(-3,6),titles[6])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2); abline(h=2.5,col=rgb(0,0,0,alpha=.5),lty=2) 
-	abline(h=0)
-	legend(gens*-0.05,y=0,c("Plant optima","Microbe optima","Midpoint"), lty = 2, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
-windowplot(1,gens+1,3,test.4e,ylim=c(-3,6),titles[7])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2); abline(h=2.5,col=rgb(0,0,0,alpha=.5),lty=2) 
-	abline(h=0)
-windowplot(1,gens+1,3,test.4eff,ylim=c(-3,6),titles[8])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2); abline(h=2.5,col=rgb(0,0,0,alpha=.5),lty=2) 
-	abline(h=0)
-windowplot(1,gens+1,3,test.4f,ylim=c(-3,6),titles[9])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2); abline(h=2.5,col=rgb(0,0,0,alpha=.5),lty=2) 
-	abline(h=0)
-windowplot(1,gens+1,3,test.4fff,ylim=c(-3,6),titles[10])
-	abline(h=3,col=rgb(0,0.5,0),lty=2); abline(h=2,col=rgb(0.5,0,0.5),lty=2); abline(h=2.5,col=rgb(0,0,0,alpha=.5),lty=2) 
-	abline(h=0)
-windowplot(1,gens+1,3,test.4a,ylim=c(-3,6),titles[1])
-	abline(h=3,col=rgb(0,0.5,0),lty=2);  abline(h=3.1,col=rgb(0.5,0,0.5),lty=2)#col=rgb(0,0,1),lty=2)
-	abline(h=0)
-windowplot(1,gens+1,3,test.4aff,ylim=c(-3,6),titles[2])
-	abline(h=3,col=rgb(0,0.5,0),lty=2);  abline(h=3.1,col=rgb(0.5,0,0.5),lty=2)#col=rgb(0,0,1),lty=2)
-	abline(h=0)
-# dev.off()
-
-
-# pdf(paste(Sys.getenv("SCRATCH"),"/Simulation Results_fourdemos.pdf",sep=""),height=6,width=6)
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Simulation_Results_fourdemos_n.pdf",height=5,width=5)
+pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_fourdemos_n.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Simulation_Results_fourdemos_n.pdf",height=5,width=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,0,0))
@@ -219,13 +174,7 @@ windowplot(1,gens+1,3,test.4fff,ylim=c(-3,6),"",ylabs="")#titles[10])
 dev.off()
 
 
-
-
-#demo figure for total variance "G", variance G proportions of M and P, distance from optimum, local dynamics?
-#take two simulations from above figure, and plot each below
-
 VmVp4b <- extractVmVp(test.4b, 1,gens+1,1)
-VmVp4e <- extractVmVp(test.4e, 1,gens+1,1)
 VmVp4bff <- extractVmVp(test.4bff, 1,gens+1,1)
 VmVp4f <- extractVmVp(test.4f, 1,gens+1,1)
 VmVp4fff <- extractVmVp(test.4fff, 1,gens+1,1)
@@ -247,20 +196,14 @@ cor(VmVp4f$cVm,VmVp4f$cVb,use="complete.obs") #[1] 0.9994929
 win4bff  <- extractwinning(test.4bff,first=1,last=gens+1,1,zoP=3,zoM= 2)
 win4f  <- extractwinning(test.4f,first=1,last=gens+1,1,zoP=3,zoM= 2)
 win4fff  <- extractwinning(test.4fff,first=1,last=gens+1,1,zoP=3,zoM= 2)
-win4e  <- extractwinning(test.4e,first=1,last=gens+1,1,zoP=3,zoM= 2)
-win4b  <- extractwinning(test.4b,first=1,last=gens+1,1,zoP=3,zoM= 2)
+win4b  <- extractwinning(test.4b,first=1,last=gens+1,1,zoP=3,zoM= 2) # this is sort of obvious...
 
-which(win4f$dM<0.01)
+##not sure yet if these are useful.
+# rangepheno.4b <- sapply(2:(gens+1), function(t) range( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
+# meanpheno.4b <- sapply(2:(gens+1), function(t) mean( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
 
-rangepheno.4b <- sapply(2:(gens+1), function(t) range( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
-rangepheno.4bff <- sapply(2:(gens+1), function(t) range( rowSums(colSums(test.4bff$Plant[,,,t])) + colSums(test.4bff$Microbe[,,t]) )  )
-meanpheno.4b <- sapply(2:(gens+1), function(t) mean( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
-meanpheno.4bff <- sapply(2:(gens+1), function(t) mean( rowSums(colSums(test.4bff$Plant[,,,t])) + colSums(test.4bff$Microbe[,,t]) )  )
-meanpheno.4f <- sapply(2:(gens+1), function(t) mean( rowSums(colSums(test.4f$Plant[,,,t])) + colSums(test.4f$Microbe[,,t]) )  )
-meanpheno.4fff <- sapply(2:(gens+1), function(t) mean( rowSums(colSums(test.4fff$Plant[,,,t])) + colSums(test.4fff$Microbe[,,t]) )  )
-
-
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Variance_Results_fourdemos_n.pdf",height=4.5,width=5.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/Variance_Results_fourdemos_n.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Variance_Results_fourdemos_n.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
@@ -297,7 +240,8 @@ par(oma=c(2,2,1,0))
 		mtext("generations",side=1,line=2,adj=-0.75)
 dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/coefV_Results_fourdemos_n.pdf",height=4.5,width=5.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/coefV_Results_fourdemos_n.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/coefV_Results_fourdemos_n.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
@@ -332,20 +276,6 @@ par(oma=c(2,2,1,0))
 dev.off()
 
 
-getsegcounts <- function(finaltime,type="plant",nloci=100){
-	if(type=="plant"){
-		unlistall <- t(sapply(1:nloci, function(l) as.vector(finaltime[l,,])  ))
-		whichsegallele <- which(sapply(1:nloci, function(l) length(unique(unlistall[l,]))) > 1)
-		unlistallseg <- unlistall[whichsegallele,]
-	}
-	if(type=="microbe"){
-		unlistall <- t(sapply(1:nloci, function(l) as.vector(finaltime[l,])  ))
-		whichsegallele <- which(sapply(1:nloci, function(l) length(unique(unlistall[l,]))) > 1)
-		unlistallseg <- unlistall[whichsegallele,]
-	}
-	return(unlistallseg)
-} #type can be microbe
-
 
 #characterize segregating variants
 finalplant4f<- test.4f$Plant[,,,gens+1]
@@ -358,8 +288,6 @@ finalmicr4fff<- test.4fff$Microbe[,,gens+1]
 finalmicr4b<- test.4b$Microbe[,,gens+1]
 finalmicr4bff<- test.4bff$Microbe[,,gens+1]
 #
-
-
 unlistallP4f <- getsegcounts(finalplant4f,type="plant")
 unlistallP4fff <- getsegcounts(finalplant4fff,type="plant")
 unlistallP4bff <- getsegcounts(finalplant4bff,type="plant")
@@ -369,8 +297,8 @@ unlistallM4fff <- getsegcounts(finalmicr4fff,type="microbe")
 unlistallM4bff <- getsegcounts(finalmicr4bff,type="microbe")
 unlistallM4b <- getsegcounts(finalmicr4b,type="microbe")
 
-
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PooledLociAndAlleles_effectsizedistr.pdf",height=4.5,width=5.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/PooledLociAndAlleles_effectsizedistr.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PooledLociAndAlleles_effectsizedistr.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
@@ -397,50 +325,18 @@ hist(abs(as.vector(unlistallP4fff))[as.vector(unlistallP4fff)!=0],breaks=seq(fro
 		add=T,col=rgb(0.5,0,0.5,alpha=0.75))
 	mtext("Effect Size",side=1,line=2,adj=-0.75)
 dev.off()
- #include all frequencies when non biallelic? or?
+ #includes all frequencies -- e.g biallelic in 2x, non biallelic >2x, includes alleles that are still the 0 state.
 
 ###trajectories
 #getting allele specific information
-
-
-
-plottraj <- function(genotimemat,type="plant",maxpos,maxneg){
-	nloci <- dim(genotimemat)[1]
-	nind <- dim(genotimemat)[2]
-	if(type=="plant"){
-		ntime <- dim(genotimemat)[4]
-		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
-		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
-		plot(1~c(1),pch=NA,ylim=c(0,nind*2),xlim=c(0,ntime-1),ylab="",xlab="")
-	}
-	if(type=="micr"){
-		ntime <- dim(genotimemat)[3]
-		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
-		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
-		plot(1~c(1),pch=NA,ylim=c(0,nind),xlim=c(0,ntime-1),ylab="",xlab="")
-	}
-	maxall <- max(abs(c(maxpos,maxneg)))
-	for(l in 1:length(locusbytime)){
-		freqs <- locusbytime[[l]]
-		sapply(1:nrow(freqs), function(a) lines(1:(ntime-1),freqs[a,], 
-			col= ifelse(fullunique[[l]][a]>=0,
-			rgb(0,0,1,alpha=abs(fullunique[[l]][a])/maxall),
-			rgb(1,0,0,alpha=abs(fullunique[[l]][a])/maxall) )  ) )
-	# 		rgb(0,0,fullunique[[l]][a]/maxpos,alpha=abs(fullunique[[l]][a])/maxall),
-# 			rgb(fullunique[[l]][a]/maxneg,0,0,alpha=abs(fullunique[[l]][a])/maxall) )  ) )
-	}
-}
-
-
-
 rangep <- range(c(as.vector(test.4b$Plant),as.vector(test.4bff$Plant),as.vector(test.4f$Plant),as.vector(test.4fff$Plant)))
 rangem <- range(c(as.vector(test.4b$Microbe),as.vector(test.4bff$Microbe),as.vector(test.4f$Microbe),as.vector(test.4fff$Microbe)))
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_plant.pdf",width=8,height=5)
+
+pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_plant.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_plant.pdf",width=8,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
-# par(mar=c(4,4,1,1))
-# par(oma=c(0,2,2,0))
 plottraj(test.4b$Plant,maxpos=rangep[2],maxneg=rangep[1])
  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 	mtext("No direct link to microbe fitness",side=3,line=0.5)
@@ -449,17 +345,12 @@ plottraj(test.4bff$Plant,maxpos=rangep[2],maxneg=rangep[1])
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
 plottraj(test.4f$Plant,maxpos=rangep[2],maxneg=rangep[1])
 	mtext("Equal links to fitness",side=3,line=0.5)
-# mtext("No fitness feedback",line=4,side=2)
-# mtext("No direct link to microbe fitness",line=0.5,side=3)
-# plottraj(test.4f$Plant,maxpos=rangep[2],maxneg=rangep[1])
-# mtext("Equal links to fitness",line=0.5,side=3)
-# plottraj(test.4bff$Plant,maxpos=rangep[2],maxneg=rangep[1])
-# mtext("+ fitness feedback",line=4,side=2)
 plottraj(test.4fff$Plant,maxpos=rangep[2],maxneg=rangep[1])
 	mtext("Generations",side=1,line=2,adj=-0.375)
 dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_micr.pdf",width=8,height=5)
+pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_micr.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_micr.pdf",width=8,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
@@ -476,46 +367,6 @@ plottraj(test.4fff$Microbe, type="micr",maxpos=rangem[2],maxneg=rangem[1])
 dev.off()
 
 
-
-sojT <- function(genotimemat,type="plant"){
-	nloci <- dim(genotimemat)[1]
-	nind <- dim(genotimemat)[2]
-	copies <- ifelse(type=="plant",nind*2,nind)
-	if(type=="plant"){
-		ntime <- dim(genotimemat)[4]
-		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
-		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
-	}
-	if(type=="micr"){
-		ntime <- dim(genotimemat)[3]
-		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
-		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
-	}
-	soj <- list()
-	fstate <- list()
-	for(l in 1:length(locusbytime)){
-		freqs <- locusbytime[[l]]
-		soj[[l]] <- c(rep(NA, times=nrow(freqs)))
-		fstate[[l]] <- c(rep(NA, times=nrow(freqs)))
-		for(a in 1:nrow(freqs)){
-			first<- which(freqs[a,]>0)[1]  
-			iffix1 <- which(freqs[a,first:ncol(freqs)]==copies)[1] 
-			iffix0 <- which(freqs[a,first:ncol(freqs)]==0)[1]  
-			last <- ifelse(any(c(iffix1,iffix0)>0), min(c(first+iffix1,first+iffix0),na.rm=T),NA) #individually can be NA if segregating or 
-			soj[[l]][a] <- last-first #returns NA when segregating at final time
-			seg <- is.na(soj[[l]][a] )
-			if(seg==T){
-				fstate[[l]][a] <- "seg"
-			} else if(!is.na(iffix1) & last == (iffix1+first)) {
-				fstate[[l]][a] <- "fixed" #at least at one point
-			} else{fstate[[l]][a] <- "lost"} 
-		}
-		#get first > 0, get first == 1 or next ==0  and then diff bt 2
-	}
-	return(list(soj=soj, effs = fullunique, fstate = fstate))
-}
-
-
 soj4bP <- sojT(test.4b$Plant)
 soj4bM <- sojT(test.4b$Micr,type="micr")
 soj4bffP <- sojT(test.4bff$Plant)
@@ -525,157 +376,130 @@ soj4fM <- sojT(test.4f$Micr,type="micr")
 soj4fffP <- sojT(test.4fff$Plant)
 soj4fffM <- sojT(test.4fff$Micr,type="micr")
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_plant.pdf",width=5,height=5)
+#considered plotting the other way
+# plot(unlist(soj4bP$soj)[unlist(soj4bP$eff)!=0]~unlist(soj4bP$origingen)[unlist(soj4bP$eff)!=0],col=rgb(range01(unlist(soj4bP$origingen)[unlist(soj4bP$eff)!=0]),0,0),cex=c(1,0.1,NA)[as.numeric(as.factor(unlist(soj4bP$fstate)[unlist(soj4bP$eff)!=0]))] )
+#but I think there's no good way to show effect size/sign relationships here.
+
+pdf(paste(Sys.getenv("SCRATCH"), "/sojT_plant.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_plant.pdf",width=5,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
-plot((unlist(soj4bP$soj))[unlist(soj4bP$effs)!=0]~unlist(soj4bP$effs)[unlist(soj4bP$effs)!=0],
+plot((unlist(soj4bP$soj))[unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))]~
+	  unlist(soj4bP$effs)[unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01( unlist(soj4bP$origingen) [ unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))] ),0,0),# alpha = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0] == "fixed") +1 ]), 
+	cex = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))] == "fixed") +1 ])
+	# 	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0] == "fixed") +1 ])
 	abline(v=0)
  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 	mtext("No direct link to microbe fitness",side=3,line=0.5)
 	mtext("Sojourn (gens)",side=2,line=2,adj=-1.08)
-plot((unlist(soj4bffP$soj))[unlist(soj4bffP$effs)!=0]~unlist(soj4bffP$effs)[unlist(soj4bffP$effs)!=0],
+plot((unlist(soj4bffP$soj))[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))]~
+	  unlist(soj4bffP$effs)[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bffP$fstate)[unlist(soj4bffP$effs)!=0] == "fixed") +1 ])
+# 	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bffP$fstate)[unlist(soj4bffP$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01(unlist(soj4bffP$origingen)[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))]),0,0), 
+	cex = c(0.1,1)[(unlist(soj4bffP$fstate)[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-plot((unlist(soj4fP$soj))[unlist(soj4fP$effs)!=0]~unlist(soj4fP$effs)[unlist(soj4fP$effs)!=0],
+plot((unlist(soj4fP$soj))[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))]~
+	  unlist(soj4fP$effs)[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4fP$fstate)[unlist(soj4fP$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01(unlist(soj4fP$origingen)[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))]),0,0), 
+	cex = c(0.1,1)[(unlist(soj4fP$fstate)[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("Equal links to fitness",side=3,line=0.5)
-plot((unlist(soj4fffP$soj))[unlist(soj4fffP$effs)!=0]~unlist(soj4fffP$effs)[unlist(soj4fffP$effs)!=0],
+plot((unlist(soj4fffP$soj))[unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj))]~
+	  unlist(soj4fffP$effs)[unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4fffP$fstate)[unlist(soj4fffP$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01(unlist(soj4fffP$origingen)[(unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj)))]),0,0), 
+	cex = c(0.1,1)[(unlist(soj4fffP$fstate)[unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj))] == "fixed") +1 ])
 	abline(v=0) 
  	mtext("Effect size",side=1,line=2,adj=-0.75)
 dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_micr.pdf",width=5,height=5)
+pdf(paste(Sys.getenv("SCRATCH"), "/sojT_micr.pdf",sep=""),height=3.5,width=3.5)
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_micr.pdf",width=5,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
-plot((unlist(soj4bM$soj))[unlist(soj4bM$effs)!=0]~unlist(soj4bM$effs)[unlist(soj4bM$effs)!=0],
+plot((unlist(soj4bM$soj))[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))]~
+	  unlist(soj4bM$effs)[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4bM$fstate)[unlist(soj4bM$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01(unlist(soj4bM$origingen)[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))]),0,0),
+	cex = c(0.1,1)[(unlist(soj4bM$fstate)[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 	mtext("No direct link to microbe fitness",side=3,line=0.5)
 	mtext("Sojourn (gens)",side=2,line=2,adj=-1.08)
-plot((unlist(soj4bffM$soj))[unlist(soj4bffM$effs)!=0]~unlist(soj4bffM$effs)[unlist(soj4bffM$effs)!=0],
+plot((unlist(soj4bffM$soj))[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))]~
+	  unlist(soj4bffM$effs)[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4bffM$fstate)[unlist(soj4bffM$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01(unlist(soj4bffM$origingen)[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))]),0,0),
+	cex = c(0.1,1)[(unlist(soj4bffM$fstate)[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-plot((unlist(soj4fM$soj))[unlist(soj4fM$effs)!=0]~unlist(soj4fM$effs)[unlist(soj4fM$effs)!=0],
+plot((unlist(soj4fM$soj))[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))]~
+	  unlist(soj4fM$effs)[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4fM$fstate)[unlist(soj4fM$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01(unlist(soj4fM$origingen)[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))]),0,0),
+	cex = c(0.1,1)[(unlist(soj4fM$fstate)[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("Equal links to fitness",side=3,line=0.5)
-plot((unlist(soj4fffM$soj))[unlist(soj4fffM$effs)!=0]~unlist(soj4fffM$effs)[unlist(soj4fffM$effs)!=0],
+plot((unlist(soj4fffM$soj))[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))]~
+	  unlist(soj4fffM$effs)[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))],
 	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
-	col=rgb(0.5,0,0.5), cex = c(0.1,1)[(unlist(soj4fffM$fstate)[unlist(soj4fffM$effs)!=0] == "fixed") +1 ])
+	col=rgb(range01(unlist(soj4fffM$origingen)[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))]),0,0),
+	cex = c(0.1,1)[(unlist(soj4fffM$fstate)[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))] == "fixed") +1 ])
 	abline(v=0)
  	mtext("Effect size",side=1,line=2,adj=-0.75)
 dev.off()
  
- 
-getrelfitandtrait <- function(simdat,gen,zoP,zoM,wP,wM,pfP,pfM){
-	traitend <- rowSums(colSums(simdat$Plant[,,,gen])) + colSums(simdat$Microbe[,,gen])
-	micrfit   <- univar.fit( z=traitend, zopt=zoM, sd.fit=wM)
-	hostfit   <- univar.fit( z=traitend, zopt=zoP, sd.fit=wP)
-	rHfit <-     pfP*hostfit + (1-pfP)*micrfit
-	rMfit <- (1-pfM)*hostfit +     pfM*micrfit
-	return(data.frame(traitend = traitend,rfitplnt=rHfit,rfitmicr=rMfit))
-}
+  
 
-trait.a 	<- getrelfitandtrait(test.4a  ,gens+1,zoP=3,zoM=3,wP=0.75,wM=0.75,pfP=1,pfM=1)
-trait.aff 	<- getrelfitandtrait(test.4aff,gens+1,zoP=3,zoM=3,wP=0.75,wM=0.75,pfP=0.6,pfM=0.6)
-trait.b 	<- getrelfitandtrait(test.4b  ,gens+1,zoP=3,zoM=2,wP=0.75  ,wM=10,pfP=1,pfM=1)
-trait.bff 	<- getrelfitandtrait(test.4bff,gens+1,zoP=3,zoM=2,wP=0.75  ,wM=10,pfP=0.6,pfM=0.6)
-trait.d 	<- getrelfitandtrait(test.4d  ,gens+1,zoP=3,zoM=2,wP=2   ,wM=0.75,pfP=1,pfM=1)
-trait.dff 	<- getrelfitandtrait(test.4dff,gens+1,zoP=3,zoM=2,wP=2   ,wM=0.75,pfP=0.6,pfM=0.6)
-trait.e 	<- getrelfitandtrait(test.4e  ,gens+1,zoP=3,zoM=2,wP=0.75,wM=2   ,pfP=1,pfM=1)
-trait.eff 	<- getrelfitandtrait(test.4eff,gens+1,zoP=3,zoM=2,wP=0.75,wM=2   ,pfP=0.6,pfM=0.6)
-trait.f 	<- getrelfitandtrait(test.4f  ,gens+1,zoP=3,zoM=2,wP=0.75,wM=0.75,pfP=1,pfM=1)
-trait.fff 	<- getrelfitandtrait(test.4fff,gens+1,zoP=3,zoM=2,wP=0.75,wM=0.75,pfP=0.6,pfM=0.6)
+# 
+# # trait.a 	<- getrelfitandtrait(test.4a  ,gens+1,zoP=3,zoM=3,wP=0.75,wM=0.75,pfP=1,pfM=1)
+# # trait.aff 	<- getrelfitandtrait(test.4aff,gens+1,zoP=3,zoM=3,wP=0.75,wM=0.75,pfP=0.6,pfM=0.6)
+# trait.b 	<- getrelfitandtrait(test.4b  ,gens+1,zoP=3,zoM=2,wP=0.75  ,wM=10,pfP=1,pfM=1)
+# trait.bff 	<- getrelfitandtrait(test.4bff,gens+1,zoP=3,zoM=2,wP=0.75  ,wM=10,pfP=0.6,pfM=0.6)
+# # trait.d 	<- getrelfitandtrait(test.4d  ,gens+1,zoP=3,zoM=2,wP=2   ,wM=0.75,pfP=1,pfM=1)
+# # trait.dff 	<- getrelfitandtrait(test.4dff,gens+1,zoP=3,zoM=2,wP=2   ,wM=0.75,pfP=0.6,pfM=0.6)
+# # trait.e 	<- getrelfitandtrait(test.4e  ,gens+1,zoP=3,zoM=2,wP=0.75,wM=2   ,pfP=1,pfM=1)
+# # trait.eff 	<- getrelfitandtrait(test.4eff,gens+1,zoP=3,zoM=2,wP=0.75,wM=2   ,pfP=0.6,pfM=0.6)
+# trait.f 	<- getrelfitandtrait(test.4f  ,gens+1,zoP=3,zoM=2,wP=0.75,wM=0.75,pfP=1,pfM=1)
+# trait.fff 	<- getrelfitandtrait(test.4fff,gens+1,zoP=3,zoM=2,wP=0.75,wM=0.75,pfP=0.6,pfM=0.6)
+# 
+# # conend.e <- c(trait.eff$traitend[which(trait.eff$rfitmicr == max(trait.eff$rfitmicr))],trait.eff$traitend[which(trait.eff$rfitplnt== max(trait.eff$rfitplnt))])
+# # conend.f <- c(trait.fff$traitend[which(trait.fff$rfitmicr == max(trait.fff$rfitmicr))],trait.fff$traitend[which(trait.fff$rfitplnt== max(trait.fff$rfitplnt))])
+# # 
+# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeandDirectandCorrelation_sims_fourdemos_n.pdf",height=5,width=5)
+# par(mfrow=c(2,2))
+# par(mar=c(1,1,1,1))
+# par(oma=c(3,5,1,1))
+# plot( trait.b$rfitplnt~trait.b$traitend,col=rgb(0,0.5,0), pch=1,xlim=c(1,4),ylim=c(0,0.015),xaxt="n",cex=0.5)
+# 	points( trait.b$rfitmicr~trait.b$traitend,col=rgb(0.5,0,0.5),pch=1 ,cex=0.5)
+# 	points( trait.bff$rfitplnt~trait.bff$traitend,col=rgb(0,0.5,0),pch=8 ,cex=0.5)
+# 	points( trait.bff$rfitmicr~trait.bff$traitend,col=rgb(0.5,0,0.5),pch=8 ,cex=0.5)
+# 	mtext("Relative fitness",side=2,line=2)
+# 	mtext("No link to microbe fitness",side=2,line=3.5)
+# plot( trait.b$rfitplnt~trait.b$rfitmicr,col=rgb(0,0,0),pch=1 ,xlim=c(0,0.015) ,ylim=c(0,0.015),xaxt="n",yaxt="n",cex=0.5)
+# #	points( trait.bff$rfitplnt~trait.bff$rfitmicr,col=rgb(0.5,0.5,0.5) ,cex=0.5)
+# 	points( trait.bff$rfitplnt~trait.bff$rfitmicr,pch=8 ,cex=0.5)
+# 	mtext("Plant relative fitness",side=2,line=0.5)
+# plot( trait.f$rfitplnt~trait.f$traitend,col=rgb(0,0.5,0), pch=1,xlim=c(1,4),ylim=c(0,0.015),cex=0.5)
+# 	points( trait.f$rfitmicr~trait.f$traitend,col=rgb(0.5,0,0.5),pch=1 ,cex=0.5)
+# 	points( trait.fff$rfitplnt~trait.fff$traitend,col=rgb(0,0.5,0),pch=8 ,cex=0.5)
+# 	mtext("Relative fitness",side=2,line=2)
+# 	points( trait.fff$rfitmicr~trait.fff$traitend,col=rgb(0.5,0,0.5),pch=8 ,cex=0.5)
+# 	mtext("Equal links to fitness",side=2,line=3.5)
+# 	mtext("Trait Value",side=1, line=2,cex=1)
+# 	legend(-0.05,y=0.04,c("Plant","Microbe"),bty="n",border=NA, fill=c(rgb(0,0.5,0),rgb(0.5,0,0.5)) )
+# plot( trait.f$rfitplnt~trait.f$rfitmicr,col=rgb(0,0,0) ,pch=1,xlim=c(0,0.015) ,ylim=c(0,0.015),yaxt="n",cex=0.5)
+# 	mtext("Plant relative fitness",side=2,line=0.5)
+# 	points( trait.fff$rfitplnt~trait.fff$rfitmicr,pch=8 ,cex=0.5)#,col=rgb(0.5,0.5,0.5)
+# 	legend(0,y=0.004,c("Direct only","+ feedbacks"),pch=c(1,8),bty="n",border=NA) #fill=c(rgb(0,0,0),rgb(0.5,0.5,0.5)) )
+# 	mtext("Microbe relative fitness",side=1, line=2,cex=1)
+# dev.off()
 
-conend.e <- c(trait.eff$traitend[which(trait.eff$rfitmicr == max(trait.eff$rfitmicr))],trait.eff$traitend[which(trait.eff$rfitplnt== max(trait.eff$rfitplnt))])
-conend.f <- c(trait.fff$traitend[which(trait.fff$rfitmicr == max(trait.fff$rfitmicr))],trait.fff$traitend[which(trait.fff$rfitplnt== max(trait.fff$rfitplnt))])
-
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeandDirectandCorrelation_sims_fourdemos_n.pdf",height=5,width=5)
-par(mfrow=c(2,2))
-par(mar=c(1,1,1,1))
-par(oma=c(3,5,1,1))
-plot( trait.b$rfitplnt~trait.b$traitend,col=rgb(0,0.5,0), pch=1,xlim=c(1,4),ylim=c(0,0.015),xaxt="n",cex=0.5)
-	points( trait.b$rfitmicr~trait.b$traitend,col=rgb(0.5,0,0.5),pch=1 ,cex=0.5)
-	points( trait.bff$rfitplnt~trait.bff$traitend,col=rgb(0,0.5,0),pch=8 ,cex=0.5)
-	points( trait.bff$rfitmicr~trait.bff$traitend,col=rgb(0.5,0,0.5),pch=8 ,cex=0.5)
-	mtext("Relative fitness",side=2,line=2)
-	mtext("No link to microbe fitness",side=2,line=3.5)
-plot( trait.b$rfitplnt~trait.b$rfitmicr,col=rgb(0,0,0),pch=1 ,xlim=c(0,0.015) ,ylim=c(0,0.015),xaxt="n",yaxt="n",cex=0.5)
-#	points( trait.bff$rfitplnt~trait.bff$rfitmicr,col=rgb(0.5,0.5,0.5) ,cex=0.5)
-	points( trait.bff$rfitplnt~trait.bff$rfitmicr,pch=8 ,cex=0.5)
-	mtext("Plant relative fitness",side=2,line=0.5)
-plot( trait.f$rfitplnt~trait.f$traitend,col=rgb(0,0.5,0), pch=1,xlim=c(1,4),ylim=c(0,0.015),cex=0.5)
-	points( trait.f$rfitmicr~trait.f$traitend,col=rgb(0.5,0,0.5),pch=1 ,cex=0.5)
-	points( trait.fff$rfitplnt~trait.fff$traitend,col=rgb(0,0.5,0),pch=8 ,cex=0.5)
-	mtext("Relative fitness",side=2,line=2)
-	points( trait.fff$rfitmicr~trait.fff$traitend,col=rgb(0.5,0,0.5),pch=8 ,cex=0.5)
-	mtext("Equal links to fitness",side=2,line=3.5)
-	mtext("Trait Value",side=1, line=2,cex=1)
-	legend(-0.05,y=0.04,c("Plant","Microbe"),bty="n",border=NA, fill=c(rgb(0,0.5,0),rgb(0.5,0,0.5)) )
-plot( trait.f$rfitplnt~trait.f$rfitmicr,col=rgb(0,0,0) ,pch=1,xlim=c(0,0.015) ,ylim=c(0,0.015),yaxt="n",cex=0.5)
-	mtext("Plant relative fitness",side=2,line=0.5)
-	points( trait.fff$rfitplnt~trait.fff$rfitmicr,pch=8 ,cex=0.5)#,col=rgb(0.5,0.5,0.5)
-	legend(0,y=0.004,c("Direct only","+ feedbacks"),pch=c(1,8),bty="n",border=NA) #fill=c(rgb(0,0,0),rgb(0.5,0.5,0.5)) )
-	mtext("Microbe relative fitness",side=1, line=2,cex=1)
-dev.off()
-
-
-
-
-#also run at least one shifting optima simulation
-
-zoptP <- c(rep(0,times=100),rep(3,times=100),rep(2,times=100),rep(3,times=200)) 
-zoptM <- c(rep(0,times=100),rep(2,times=200),rep(2,times=100),rep(3,times=100))
-zvecs <- list(PlantZ = zoptP, MicrZ = zoptM)
-testvarE <- sim.cotrait(NP=100,NM=100,nlP=100,nlM=200,nlnP=3,nlnM=3,
-		zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=length(zoptP),Lambda=25,mutprb=0.0005,
-		prbHorz = 0.2,pfP = 0.6, pfM=0.6,
-		FLFC=0.1,zoptvects =zvecs)
-
-
-#save(testvarE,file=paste(Sys.getenv("SCRATCH"),"/Simulation Results_testvarE.R",sep=""))
-
-#load(paste(Sys.getenv("SCRATCH"),"/Simulation Results_testvarE.R",sep=""))
-
-#figure, summarizing testvarE
-
-
-VmVpVE <- extractVmVp(testvarE, 1,length(zoptP)+1,1)
-
-#pdf(paste(Sys.getenv("SCRATCH"),"/Simulation Results_varE_statsovertime.pdf",sep=""),height=9,width=6)
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims//Simulation_Results_varE_statsovertime.pdf",height=6,width=3)
-        par(mfrow=c(2,1))
-        par(mar=c(2,3,1,1))
-        par(oma=c(1.5,0,0,0))
-	windowplot(1,length(zoptP)+1,5,testvarE,ylim=c(-2,6),"",xlab="",ylab="")
-        	abline(h=0)
-           	lines(zoptP~c(2:(length(zoptP)+1)),lty=2,col=rgb(0,0.5,0))
-           	lines(zoptM~c(2:(length(zoptP)+1)),lty=2,col=rgb(0.5,0,0.5))
-#         	mtext("variable optima",side=3,line=0.5)  
-        	mtext("breeding value",side=2,line=2)
-		legend(0,y=6.5,c("Plant","Microbe","Interacting"), fill=c(rgb(0,0.5,0,alpha=0.5),rgb(0.5,0,0.5,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
-		legend(225,y=6.5,c("Optima"), lty=2,  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
-        plot(VmVpVE$Vp ~ c(1:length(VmVpVE$Vp)),pch=NA,ylim=c(0,0.12),ylab="Genetic variance",xlab="")
-		  	mtext("genetic variance",side=2,line=2)
-	       	mtext("generations",side=1,line=2)
-	       	abline(v=c(101,201,301,401),lty=3,col=rgb(0,0,0,alpha=0.5))
-			lines( 1:length(VmVpVE$PVp),VmVpVE$Vp,col=rgb(0,0.5,0))
-			lines(1:length(VmVpVE$PVm),VmVpVE$Vm , col=rgb(0.5,0,0.5))
-			lines( 1:length(VmVpVE$PVp),VmVpVE$Vb,col=rgb(0.5,0.5,0.5))
-dev.off()
 
