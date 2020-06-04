@@ -472,7 +472,7 @@ save(red_popset,file=paste(Sys.getenv("SCRATCH"),'/red_popsetIBD_noconfl.RData',
 
 
 #.005 seems very low for experimental error, but there for now so that the range of effects is less than larger allele effect sizes
-expsetabo <- run.exp.allbyone(popset, numperpop= 4,exp.err=0.005,nreps=4) #2 plant and 2  micr from 200 pops , 4*(800*1 + 1*800) , = 6400 exp; 3200 (800 w/o dupl) ea gwas
+expsetabo <- run.exp.allbyone(popset, numperpop= 4,exp.err=0.005,nreps=4) #4 plant and 4  micr from 200 pops , 4*(800*1 + 1*800) , = 6400 exp; 3200 (800 w/o dupl) ea gwas
 save(expsetabo,file=paste(Sys.getenv("SCRATCH"),'/expset_abo.RData',sep=""))
 plinkabo <- makegwasfiles(expsetabo,expsetabo$expdat,type="HOLO") #<- function(expset,name_append){
 	write.table(plinkabo$geno, file=paste(Sys.getenv("SCRATCH"), "/HOLOevosims_ABO.ped",sep=""),quote=F,sep="\t",row.names=F,col.names=F)
