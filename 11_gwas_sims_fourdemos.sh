@@ -36,13 +36,13 @@ plink --file $SCRATCH/MICR4fff_ABO --out MICR4fffABO --make-bed
 #however, they say -gk 1 usually performs better.
 
 #run models without K
-$HOME/gemma-0.98.1-linux-static -bfile PLANT4bABO -lm 4 -o PLANTgemmaABO4b -maf 0.02
-$HOME/gemma-0.98.1-linux-static -bfile PLANT4bffABO -lm 4 -o PLANTgemmaABO4bff -maf 0.02
-$HOME/gemma-0.98.1-linux-static -bfile PLANT4fABO -lm 4 -o PLANTgemmaABO4f -maf 0.02
-$HOME/gemma-0.98.1-linux-static -bfile PLANT4fffABO -lm 4 -o PLANTgemmaABO4fff -maf 0.02
+$HOME/gemma-0.98.1-linux-static -bfile PLANT4bABO -lm 4 -o PLANTgemmaABO4b -maf 0.00375
+$HOME/gemma-0.98.1-linux-static -bfile PLANT4bffABO -lm 4 -o PLANTgemmaABO4bff -maf 0.00375
+$HOME/gemma-0.98.1-linux-static -bfile PLANT4fABO -lm 4 -o PLANTgemmaABO4f -maf 0.00375
+$HOME/gemma-0.98.1-linux-static -bfile PLANT4fffABO -lm 4 -o PLANTgemmaABO4fff -maf 0.00375
 
-$HOME/gemma-0.98.1-linux-static -bfile MICR4bABO -lm 4 -o MICRgemmaABO4b -maf 0.02
-$HOME/gemma-0.98.1-linux-static -bfile MICR4bffABO -lm 4 -o MICRgemmaABO4bff -maf 0.02
-$HOME/gemma-0.98.1-linux-static -bfile MICR4fABO -lm 4 -o MICRgemmaABO4f -maf 0.02
-$HOME/gemma-0.98.1-linux-static -bfile MICR4fffABO -lm 4 -o MICRgemmaABO4fff -maf 0.02
+$HOME/gemma-0.98.1-linux-static -bfile MICR4bABO -lm 4 -o MICRgemmaABO4b -maf 0.00375
+$HOME/gemma-0.98.1-linux-static -bfile MICR4bffABO -lm 4 -o MICRgemmaABO4bff -maf 0.00375
+$HOME/gemma-0.98.1-linux-static -bfile MICR4fABO -lm 4 -o MICRgemmaABO4f -maf 0.00375
+$HOME/gemma-0.98.1-linux-static -bfile MICR4fffABO -lm 4 -o MICRgemmaABO4fff -maf 0.00375
 

@@ -18,10 +18,10 @@ test.4f <- fourdemosims[[3]]
 test.4fff <- fourdemosims[[4]]
 
 #.005 seems very low for experimental error, but there for now so that the range of effects is less than larger allele effect sizes
-expsetabo4b <- 		run.exp.allbyone(test.4b, numperpop= 100,numsites=1, exp.err=0.005,nreps=4) 
-expsetabo4bff <- 	run.exp.allbyone(test.4bff,numperpop= 100,numsites=1, exp.err=0.005,nreps=4) 
-expsetabo4f <- 		run.exp.allbyone(test.4f,numperpop= 100,numsites=1, exp.err=0.005,nreps=4) 
-expsetabo4fff <- 	run.exp.allbyone(test.4fff, numperpop= 100,numsites=1, exp.err=0.005,nreps=4) 
+expsetabo4b <- 		run.exp.allbyone(test.4b, numperpop= 800,numsites=1, exp.err=0.005,nreps=4) 
+expsetabo4bff <- 	run.exp.allbyone(test.4bff,numperpop= 800,numsites=1, exp.err=0.005,nreps=4) 
+expsetabo4f <- 		run.exp.allbyone(test.4f,numperpop= 800,numsites=1, exp.err=0.005,nreps=4) 
+expsetabo4fff <- 	run.exp.allbyone(test.4fff, numperpop= 800,numsites=1, exp.err=0.005,nreps=4) 
 
 fourdemoexps <- list(expsetabo4b,expsetabo4bff,expsetabo4f,expsetabo4fff)
 save(fourdemoexps,file=paste(Sys.getenv("SCRATCH"),'/fourdemoexps_abo.RData',sep=""))

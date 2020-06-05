@@ -57,7 +57,7 @@ dev.off()
 
 
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/RelativeFitness_DirectandFeedbacks.pdf",height=5,width=5)
-pdf(paste(Sys.getenv("SCRATCH"), "/RelativeFitness_DirectandFeedbacks.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/RelativeFitness_DirectandFeedbacks.pdf",sep=""),height=5,width=5)
 layout(matrix(1:6, ncol=2,byrow=F))
 par(mar=c(3,3,0,0))
 par(oma=c(0.5,2,3,1))
@@ -103,22 +103,24 @@ par(oma=c(0.5,2,3,1))
 dev.off()
 
 
-
-
-gens <- 200
-#4 scenarios
-#micr direct very weak
-test.4b <- 		sim.cotrait(NP=100,NM=100,nlP=50,nlM=100,nlnP=500,nlnM=1000,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=1000,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
-#micr direct very weak, indirect stronger
-test.4bff <- 	sim.cotrait(NP=100,NM=100,nlP=50,nlM=100,nlnP=500,nlnM=1000,zoP=3,zoM=2,wP=0.75,wM=10,timesteps=gens,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
-#conflict, links =,  direct only
-test.4f <- 		sim.cotrait(NP=100,NM=100,nlP=50,nlM=100,nlnP=500,nlnM=1000,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
-#conflict, links =,  direct and indirect links
-test.4fff2 <- 	sim.cotrait(NP=1000,NM=1000,nlP=10,nlM=20,nlnP=3,nlnM=3,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=1000,Lambda=25,mutprb=0.00001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
-fourdemosims <- list(test.4b,test.4bff,test.4f,test.4fff)
-save(fourdemosims, file=paste(Sys.getenv("SCRATCH"),"/Simulation_Results_fourdemos.RData",sep=""),version=2)
-
-
+# #Temporary comment out
+gens <- 300
+# #4 scenarios
+# # #micr direct very weak
+# test.4b <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# #micr direct very weak, indirect stronger
+# test.4bff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# #conflict, links =,  direct only
+# test.4f <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# #conflict, links =,  direct and indirect links
+# test.4fff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# fourdemosims <- list(test.4b,test.4bff,test.4f,test.4fff)
+# save(fourdemosims,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_fourdemos.RData',sep=""))
+# 
+#matched optima, no ff
+test.4a <-		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#
+#mattched optima, ff
+test.4aff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 
 
 #other scenarios
@@ -140,15 +142,18 @@ save(fourdemosims, file=paste(Sys.getenv("SCRATCH"),"/Simulation_Results_fourdem
 # tendemosims <- list(test.4a,test.4aff,test.4b,test.4bff,test.4d,test.4dff,test.4e,test.4eff,test.4f,test.4fff)
 # save(tendemosims,file=paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
 #
-# fourdmosims <- load(paste(Sys.getenv("SCRATCH"),"/Simulation Results_PFF_expDFE.R",sep=""))
-# test.4a <- fourdemosims[[1]]
-# test.4b <- fourdemosims[[2]]
-# test.4d <- fourdemosims[[3]]
-# test.4e <- fourdemosims[[4]]
+load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_fourdemos.RData',sep=""))
+
+test.4b <- fourdemosims[[1]]
+test.4bff <- fourdemosims[[2]]
+test.4f <- fourdemosims[[3]]
+test.4fff <- fourdemosims[[4]]
+
+sixdemosims <- list(test.4b,test.4bff,test.4a,test.4aff,test.4f,test.4fff)
+save(sixdemosims,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_sixdemos.RData',sep=""))
 
 
-
-pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_fourdemos_n.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_fourdemos_n.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Simulation_Results_fourdemos_n.pdf",height=5,width=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
@@ -202,12 +207,12 @@ win4b  <- extractwinning(test.4b,first=1,last=gens+1,1,zoP=3,zoM= 2) # this is s
 # rangepheno.4b <- sapply(2:(gens+1), function(t) range( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
 # meanpheno.4b <- sapply(2:(gens+1), function(t) mean( rowSums(colSums(test.4b$Plant[,,,t])) + colSums(test.4b$Microbe[,,t]) )  )
 
-pdf(paste(Sys.getenv("SCRATCH"), "/Variance_Results_fourdemos_n.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/Variance_Results_fourdemos_n.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/Variance_Results_fourdemos_n.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
-	plot(VmVp4b$Vp ~ c(1:length(VmVp4b$Vp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+	plot(VmVp4b$Vp ~ c(1:length(VmVp4b$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
 		lines( 1:length(VmVp4b$Vp),VmVp4b$Vp,col=rgb(0,0.5,0)) 
 		lines(1:length(VmVp4b$Vm),VmVp4b$Vm , col=rgb(0.5,0,0.5)) 
 		lines(1:length(VmVp4b$Vb),VmVp4b$Vb , col=rgb(0.5,0.5,0.5)) 
@@ -216,22 +221,22 @@ par(oma=c(2,2,1,0))
 		mtext("No direct link to microbe fitness",side=3,line=0.5)
 		mtext("genetic variance",side=2,line=2,adj=-1.75)
 # 		text(x=100,y=0.11, labels =expression(Z[opt[P]]~reached))
-	plot(VmVp4bff$Vp ~ c(1:length(VmVp4bff$Vp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+	plot(VmVp4bff$Vp ~ c(1:length(VmVp4bff$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
 		lines( 1:length(VmVp4bff$Vp),VmVp4bff$Vp,col=rgb(0,0.5,0)) 
 		lines(1:length(VmVp4bff$Vm),VmVp4bff$Vm , col=rgb(0.5,0,0.5)) 
 		lines(1:length(VmVp4bff$Vb),VmVp4bff$Vb , col=rgb(0.5,0.5,0.5)) 
 		abline(v=which(win4bff$dP==min(win4bff$dP)),col=rgb(0,0.5,0,alpha=0.5),lwd=5) #first generation does plant mean reach its optima or beyond
 		mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
 # 		text(x=95,y=0.11, labels =expression(Z[opt[P]]~reached))
-	plot(VmVp4f$Vp ~ c(1:length(VmVp4f$Vp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+	plot(VmVp4f$Vp ~ c(1:length(VmVp4f$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
 		lines( 1:length(VmVp4f$Vp),VmVp4f$Vp,col=rgb(0,0.5,0))
 		lines(1:length(VmVp4f$Vm),VmVp4f$Vm , col=rgb(0.5,0,0.5))
 		lines(1:length(VmVp4f$Vb),VmVp4f$Vb , col=rgb(0.5,0.5,0.5))
 		abline(v=which(win4f$dM==min(win4f$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
 # 		text(x=55,y=0.11, labels =expression(Z[opt[M]]~reached))
 		mtext("Equal links to fitness",side=3,line=0.5)
-		legend(gens*0.4,y=0.21,c(expression(V[P]),expression(V[M]),expression(V[A])),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
-	plot(VmVp4fff$Vp ~ c(1:length(VmVp4fff$Vp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+		legend(gens*0.4,y=0.11,c(expression(V[P]),expression(V[M]),expression(V[A])),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
+	plot(VmVp4fff$Vp ~ c(1:length(VmVp4fff$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
 		lines( 1:length(VmVp4f$Vp),VmVp4fff$Vp,col=rgb(0,0.5,0))
 		lines(1:length(VmVp4f$Vm),VmVp4fff$Vm , col=rgb(0.5,0,0.5))
 		lines(1:length(VmVp4fff$Vb),VmVp4fff$Vb , col=rgb(0.5,0.5,0.5))
@@ -240,12 +245,12 @@ par(oma=c(2,2,1,0))
 		mtext("generations",side=1,line=2,adj=-0.75)
 dev.off()
 
-pdf(paste(Sys.getenv("SCRATCH"), "/coefV_Results_fourdemos_n.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/coefV_Results_fourdemos_n.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/coefV_Results_fourdemos_n.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
-	plot(VmVp4b$cVp ~ c(1:length(VmVp4b$cVp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+	plot(VmVp4b$cVp ~ c(1:length(VmVp4b$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
 		lines( 1:length(VmVp4b$cVp),VmVp4b$cVp,col=rgb(0,0.5,0)) 
 		lines(1:length(VmVp4b$cVm),VmVp4b$cVm , col=rgb(0.5,0,0.5)) 
 		lines(1:length(VmVp4b$cVb),VmVp4b$cVb , col=rgb(0.5,0.5,0.5)) 
@@ -253,26 +258,26 @@ par(oma=c(2,2,1,0))
 		mtext("No direct link to microbe fitness",side=3,line=0.5)
 		mtext("genetic variance scaled by expressed mean",side=2,line=2,adj=1.08)
 		abline(v=which(win4f$dP==min(win4f$dP)),col=rgb(0,0.5,0,alpha=0.5),lwd=5) #first generation does plant mean reach its optima or beyond
-	plot(VmVp4bff$cVp ~ c(1:length(VmVp4bff$cVp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+	plot(VmVp4bff$cVp ~ c(1:length(VmVp4bff$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
 		lines( 1:length(VmVp4bff$cVp),VmVp4bff$cVp,col=rgb(0,0.5,0)) 
 		lines(1:length(VmVp4bff$cVm),VmVp4bff$cVm , col=rgb(0.5,0,0.5)) 
 		lines(1:length(VmVp4bff$cVb),VmVp4bff$cVb , col=rgb(0.5,0.5,0.5)) 
 		abline(v=which(win4f$dP==min(win4f$dP)),col=rgb(0,0.5,0,alpha=0.5),lwd=5) #first generation does plant mean reach its optima or beyond
 		mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-	plot(VmVp4f$cVp ~ c(1:length(VmVp4f$cVp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+	plot(VmVp4f$cVp ~ c(1:length(VmVp4f$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
 		lines( 1:length(VmVp4f$cVp),VmVp4f$cVp,col=rgb(0,0.5,0))
 		lines(1:length(VmVp4f$cVm),VmVp4f$cVm , col=rgb(0.5,0,0.5))
 		lines(1:length(VmVp4f$cVb),VmVp4f$cVb , col=rgb(0.5,0.5,0.5))
 		abline(v=which(win4f$dM==min(win4f$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
 # 		text(x=85,y=0.12, labels =expression(Z[opt[M]]~reached))
 		mtext("Equal links to fitness",side=3,line=0.5)
-	plot(VmVp4fff$cVp ~ c(1:length(VmVp4fff$cVp)),pch=NA,ylim=c(0,0.2),ylab="",xlab="")
+	plot(VmVp4fff$cVp ~ c(1:length(VmVp4fff$cVp)),pch=NA,ylim=c(0,0.15),ylab="",xlab="")
 		lines( 1:length(VmVp4f$cVp),VmVp4fff$cVp,col=rgb(0,0.5,0))
 		lines(1:length(VmVp4f$cVm),VmVp4fff$cVm , col=rgb(0.5,0,0.5))
 		lines(1:length(VmVp4fff$cVb),VmVp4fff$cVb , col=rgb(0.5,0.5,0.5))
 		abline(v=which(win4fff$dM==min(win4fff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
 		mtext("generations",side=1,line=2,adj=-0.75)
-		legend(gens*0.2,y=0.22,c("Plant portion","Microbe portion","Interacting"),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
+		legend(gens*0.2,y=0.16,c("Plant portion","Microbe portion","Interacting"),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
 dev.off()
 
 
@@ -282,6 +287,7 @@ finalplant4f<- test.4f$Plant[,,,gens+1]
 finalplant4fff<- test.4fff$Plant[,,,gens+1]
 finalplant4b<- test.4b$Plant[,,,gens+1]
 finalplant4bff<- test.4bff$Plant[,,,gens+1]
+
 # finalmicr<- test.4fff$Microbe[,,gens+1]
 finalmicr4f<- test.4f$Microbe[,,gens+1]
 finalmicr4fff<- test.4fff$Microbe[,,gens+1]
@@ -297,31 +303,31 @@ unlistallM4fff <- getsegcounts(finalmicr4fff,type="microbe")
 unlistallM4bff <- getsegcounts(finalmicr4bff,type="microbe")
 unlistallM4b <- getsegcounts(finalmicr4b,type="microbe")
 
-pdf(paste(Sys.getenv("SCRATCH"), "/PooledLociAndAlleles_effectsizedistr.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/PooledLociAndAlleles_effectsizedistr.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PooledLociAndAlleles_effectsizedistr.pdf",height=4.5,width=5.5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
-hist(abs(as.vector(unlistallP4b))[as.vector(unlistallP4b)!=0],breaks=seq(from=0,to=0.5,by=0.025),
-	ylab="",xlab="",main="",ylim=c(0,1500),col=rgb(0,0.5,0,alpha=0.75))
-	hist(abs(as.vector(unlistallM4b))[as.vector(unlistallM4b)!=0],breaks=seq(from=0,to=0.5,by=0.025),
+hist(abs(as.vector(unlistallP4b))[as.vector(unlistallP4b)!=0],breaks=seq(from=0,to=0.6,by=0.05),
+	ylab="",xlab="",main="",col=rgb(0,0.5,0,alpha=0.75),ylim=c(0,15000))
+	hist(abs(as.vector(unlistallM4b))[as.vector(unlistallM4b)!=0],breaks=seq(from=0,to=0.6,by=0.05),
 		add=T,col=rgb(0.5,0,0.5,alpha=0.75))
  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 	mtext("No direct link to microbe fitness",side=3,line=0.5)
 	mtext("Frequency",side=2,line=2,adj=-0.75)
-hist(abs(as.vector(unlistallP4bff))[as.vector(unlistallP4bff)!=0],breaks=seq(from=0,to=0.5,by=0.025),
-	ylab="",xlab="",main="",ylim=c(0,1500),col=rgb(0,0.5,0,alpha=0.75))
-	hist(abs(as.vector(unlistallM4bff))[as.vector(unlistallM4bff)!=0],breaks=seq(from=0,to=0.5,by=0.025),
+hist(abs(as.vector(unlistallP4bff))[as.vector(unlistallP4bff)!=0],breaks=seq(from=0,to=0.6,by=0.05),
+	ylab="",xlab="",main="",col=rgb(0,0.5,0,alpha=0.75),ylim=c(0,15000))
+	hist(abs(as.vector(unlistallM4bff))[as.vector(unlistallM4bff)!=0],breaks=seq(from=0,to=0.6,by=0.05),
 		add=T,col=rgb(0.5,0,0.5,alpha=0.75))
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-hist(abs(as.vector(unlistallP4f))[as.vector(unlistallP4f)!=0],breaks=seq(from=0,to=0.5,by=0.025),
-	ylab="",xlab="",main="",ylim=c(0,1500),col=rgb(0,0.5,0,alpha=0.75))
-	hist(abs(as.vector(unlistallM4f))[as.vector(unlistallM4f)!=0],breaks=seq(from=0,to=0.5,by=0.025),
+hist(abs(as.vector(unlistallP4f))[as.vector(unlistallP4f)!=0],breaks=seq(from=0,to=0.6,by=0.05),
+	ylab="",xlab="",main="",col=rgb(0,0.5,0,alpha=0.75),ylim=c(0,15000))
+	hist(abs(as.vector(unlistallM4f))[as.vector(unlistallM4f)!=0],breaks=seq(from=0,to=0.6,by=0.05),
 		add=T,col=rgb(0.5,0,0.5,alpha=0.75))
 	mtext("Equal links to fitness",side=3,line=0.5)
-hist(abs(as.vector(unlistallP4fff))[as.vector(unlistallP4fff)!=0],breaks=seq(from=0,to=0.5,by=0.025),
-	ylab="",xlab="",main="",ylim=c(0,1500),col=rgb(0,0.5,0,alpha=0.75))
-	hist(abs(as.vector(unlistallM4fff))[as.vector(unlistallM4fff)!=0],breaks=seq(from=0,to=0.5,by=0.025),
+hist(abs(as.vector(unlistallP4fff))[as.vector(unlistallP4fff)!=0],breaks=seq(from=0,to=0.6,by=0.05),
+	ylab="",xlab="",main="",col=rgb(0,0.5,0,alpha=0.75),ylim=c(0,15000))
+	hist(abs(as.vector(unlistallM4fff))[as.vector(unlistallM4fff)!=0],breaks=seq(from=0,to=0.6,by=0.05),
 		add=T,col=rgb(0.5,0,0.5,alpha=0.75))
 	mtext("Effect Size",side=1,line=2,adj=-0.75)
 dev.off()
@@ -332,7 +338,7 @@ dev.off()
 rangep <- range(c(as.vector(test.4b$Plant),as.vector(test.4bff$Plant),as.vector(test.4f$Plant),as.vector(test.4fff$Plant)))
 rangem <- range(c(as.vector(test.4b$Microbe),as.vector(test.4bff$Microbe),as.vector(test.4f$Microbe),as.vector(test.4fff$Microbe)))
 
-pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_plant.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_plant.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_plant.pdf",width=8,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
@@ -349,7 +355,7 @@ plottraj(test.4fff$Plant,maxpos=rangep[2],maxneg=rangep[1])
 	mtext("Generations",side=1,line=2,adj=-0.375)
 dev.off()
 
-pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_micr.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_micr.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_micr.pdf",width=8,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
@@ -380,14 +386,14 @@ soj4fffM <- sojT(test.4fff$Micr,type="micr")
 # plot(unlist(soj4bP$soj)[unlist(soj4bP$eff)!=0]~unlist(soj4bP$origingen)[unlist(soj4bP$eff)!=0],col=rgb(range01(unlist(soj4bP$origingen)[unlist(soj4bP$eff)!=0]),0,0),cex=c(1,0.1,NA)[as.numeric(as.factor(unlist(soj4bP$fstate)[unlist(soj4bP$eff)!=0]))] )
 #but I think there's no good way to show effect size/sign relationships here.
 
-pdf(paste(Sys.getenv("SCRATCH"), "/sojT_plant.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/sojT_plant.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_plant.pdf",width=5,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
 plot((unlist(soj4bP$soj))[unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))]~
 	  unlist(soj4bP$effs)[unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 	col=rgb(range01( unlist(soj4bP$origingen) [ unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))] ),0,0),# alpha = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0] == "fixed") +1 ]), 
 	cex = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))] == "fixed") +1 ])
 	# 	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bP$fstate)[unlist(soj4bP$effs)!=0] == "fixed") +1 ])
@@ -397,7 +403,7 @@ plot((unlist(soj4bP$soj))[unlist(soj4bP$effs)!=0 & !is.na(unlist(soj4bP$soj))]~
 	mtext("Sojourn (gens)",side=2,line=2,adj=-1.08)
 plot((unlist(soj4bffP$soj))[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))]~
 	  unlist(soj4bffP$effs)[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 # 	col=rgb(0,0.5,0), cex = c(0.1,1)[(unlist(soj4bffP$fstate)[unlist(soj4bffP$effs)!=0] == "fixed") +1 ])
 	col=rgb(range01(unlist(soj4bffP$origingen)[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))]),0,0), 
 	cex = c(0.1,1)[(unlist(soj4bffP$fstate)[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$soj))] == "fixed") +1 ])
@@ -405,28 +411,28 @@ plot((unlist(soj4bffP$soj))[unlist(soj4bffP$effs)!=0 & !is.na(unlist(soj4bffP$so
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
 plot((unlist(soj4fP$soj))[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))]~
 	  unlist(soj4fP$effs)[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 	col=rgb(range01(unlist(soj4fP$origingen)[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))]),0,0), 
 	cex = c(0.1,1)[(unlist(soj4fP$fstate)[unlist(soj4fP$effs)!=0 & !is.na(unlist(soj4fP$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("Equal links to fitness",side=3,line=0.5)
 plot((unlist(soj4fffP$soj))[unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj))]~
 	  unlist(soj4fffP$effs)[unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 	col=rgb(range01(unlist(soj4fffP$origingen)[(unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj)))]),0,0), 
 	cex = c(0.1,1)[(unlist(soj4fffP$fstate)[unlist(soj4fffP$effs)!=0 & !is.na(unlist(soj4fffP$soj))] == "fixed") +1 ])
 	abline(v=0) 
  	mtext("Effect size",side=1,line=2,adj=-0.75)
 dev.off()
 
-pdf(paste(Sys.getenv("SCRATCH"), "/sojT_micr.pdf",sep=""),height=3.5,width=3.5)
+pdf(paste(Sys.getenv("SCRATCH"), "/sojT_micr.pdf",sep=""),height=5,width=5)
 # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sojT_micr.pdf",width=5,height=5)
 layout(matrix(1:4,ncol=2,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
 plot((unlist(soj4bM$soj))[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))]~
 	  unlist(soj4bM$effs)[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 	col=rgb(range01(unlist(soj4bM$origingen)[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))]),0,0),
 	cex = c(0.1,1)[(unlist(soj4bM$fstate)[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))] == "fixed") +1 ])
 	abline(v=0)
@@ -435,21 +441,21 @@ plot((unlist(soj4bM$soj))[unlist(soj4bM$effs)!=0 & !is.na(unlist(soj4bM$soj))]~
 	mtext("Sojourn (gens)",side=2,line=2,adj=-1.08)
 plot((unlist(soj4bffM$soj))[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))]~
 	  unlist(soj4bffM$effs)[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 	col=rgb(range01(unlist(soj4bffM$origingen)[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))]),0,0),
 	cex = c(0.1,1)[(unlist(soj4bffM$fstate)[unlist(soj4bffM$effs)!=0 & !is.na(unlist(soj4bffM$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
 plot((unlist(soj4fM$soj))[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))]~
 	  unlist(soj4fM$effs)[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 	col=rgb(range01(unlist(soj4fM$origingen)[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))]),0,0),
 	cex = c(0.1,1)[(unlist(soj4fM$fstate)[unlist(soj4fM$effs)!=0 & !is.na(unlist(soj4fM$soj))] == "fixed") +1 ])
 	abline(v=0)
 	mtext("Equal links to fitness",side=3,line=0.5)
 plot((unlist(soj4fffM$soj))[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))]~
 	  unlist(soj4fffM$effs)[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))],
-	xlim=c(-0.4,0.4),ylim=c(0,200), ylab="",xlab="",
+	xlim=c(-0.8,0.8),ylim=c(0,gens), ylab="",xlab="",
 	col=rgb(range01(unlist(soj4fffM$origingen)[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))]),0,0),
 	cex = c(0.1,1)[(unlist(soj4fffM$fstate)[unlist(soj4fffM$effs)!=0 & !is.na(unlist(soj4fffM$soj))] == "fixed") +1 ])
 	abline(v=0)
