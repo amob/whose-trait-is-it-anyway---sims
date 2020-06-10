@@ -56,157 +56,236 @@ connectIG <- function(inputlociinfo, inputgwasinfo){
 
 plantout4b <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PLANTgemmaABO4b.assoc.txt",header=T,sep="\t")
 plantout4bff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PLANTgemmaABO4bff.assoc.txt",header=T,sep="\t")
+plantout4a <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PLANTgemmaABO4a.assoc.txt",header=T,sep="\t")
+plantout4aff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PLANTgemmaABO4aff.assoc.txt",header=T,sep="\t")
 plantout4f <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PLANTgemmaABO4f.assoc.txt",header=T,sep="\t")
 plantout4fff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/PLANTgemmaABO4fff.assoc.txt",header=T,sep="\t")
 microut4b <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/MICRgemmaABO4b.assoc.txt",header=T,sep="\t")
 microut4bff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/MICRgemmaABO4bff.assoc.txt",header=T,sep="\t")
+microut4a <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/MICRgemmaABO4a.assoc.txt",header=T,sep="\t")
+microut4aff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/MICRgemmaABO4aff.assoc.txt",header=T,sep="\t")
 microut4f <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/MICRgemmaABO4f.assoc.txt",header=T,sep="\t")
 microut4fff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/MICRgemmaABO4fff.assoc.txt",header=T,sep="\t")
 
 plantout4b <- addcols(plantout4b)
 plantout4bff <- addcols(plantout4bff)
+plantout4a <- addcols(plantout4a)
+plantout4aff <- addcols(plantout4aff)
 plantout4f <- addcols(plantout4f)
 plantout4fff <- addcols(plantout4fff)
 microut4b <- addcols(microut4b)
 microut4bff <- addcols(microut4bff)
+microut4a <- addcols(microut4a)
+microut4aff <- addcols(microut4aff)
 microut4f <- addcols(microut4f)
 microut4fff <- addcols(microut4fff)
 
 summarizep4b  <- summarizeSNPcalls(plantout4b)
 summarizep4bff  <- summarizeSNPcalls(plantout4bff)
+summarizep4a  <- summarizeSNPcalls(plantout4a)
+summarizep4aff  <- summarizeSNPcalls(plantout4aff)
 summarizep4f  <- summarizeSNPcalls(plantout4f)
 summarizep4fff  <- summarizeSNPcalls(plantout4fff)
 summarizem4b  <- summarizeSNPcalls(microut4b)
 summarizem4bff  <- summarizeSNPcalls(microut4bff)
+summarizem4a  <- summarizeSNPcalls(microut4a)
+summarizem4aff  <- summarizeSNPcalls(microut4aff)
 summarizem4f  <- summarizeSNPcalls(microut4f)
 summarizem4fff  <- summarizeSNPcalls(microut4fff)
 
 plantLinfo4b <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/plantlociABO4b.csv",header=T)
 plantLinfo4bff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/plantlociABO4bff.csv",header=T)
+plantLinfo4a <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/plantlociABO4a.csv",header=T)
+plantLinfo4aff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/plantlociABO4aff.csv",header=T)
 plantLinfo4f <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/plantlociABO4f.csv",header=T)
 plantLinfo4fff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/plantlociABO4fff.csv",header=T)
 micrLinfo4b <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/micrlociABO4b.csv",header=T)
 micrLinfo4bff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/micrlociABO4bff.csv",header=T)
+micrLinfo4a <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/micrlociABO4a.csv",header=T)
+micrLinfo4aff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/micrlociABO4aff.csv",header=T)
 micrLinfo4f <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/micrlociABO4f.csv",header=T)
 micrLinfo4fff <- read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/micrlociABO4fff.csv",header=T)
 
 
 CIGp_4b <- connectIG(plantLinfo4b,plantout4b)
 CIGp_4bff <- connectIG(plantLinfo4bff,plantout4bff)
+CIGp_4a <- connectIG(plantLinfo4a,plantout4a)
+CIGp_4aff <- connectIG(plantLinfo4aff,plantout4aff)
 CIGp_4f <- connectIG(plantLinfo4f,plantout4f)
 CIGp_4fff <- connectIG(plantLinfo4fff,plantout4fff)
 CIGm_4b <- connectIG(micrLinfo4b,microut4b)
 CIGm_4bff <- connectIG(micrLinfo4bff,microut4bff)
+CIGm_4a <- connectIG(micrLinfo4a,microut4a)
+CIGm_4aff <- connectIG(micrLinfo4aff,microut4aff)
 CIGm_4f <- connectIG(micrLinfo4f,microut4f)
 CIGm_4fff <- connectIG(micrLinfo4fff,microut4fff)
 
 
 #visualize what is lost, it is the small effect size loci
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/dens_loci_tossed_fourdemos.pdf",height=4,width=8)
-par(mfrow=c(2,4))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/dens_loci_tossed_sixdemos.pdf",height=4,width=12)
+par(mfrow=c(2,6))
 par(oma=c(3,3,2,0))
 par(mar=c(2,2,1,1))
-hist(plantLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+hist(plantLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(plantLinfo4b$reststate[!is.na(CIGp_4b$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 	mtext("Frequency",side=2, line=3)
-	mtext("Plant estimated",side=2, line=2)
-hist(plantLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+	mtext("Host estimated",side=2, line=2)
+hist(plantLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(plantLinfo4bff$reststate[!is.na(CIGp_4bff$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(plantLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+hist(plantLinfo4a$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4a$reststate[!is.na(CIGp_4a$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(plantLinfo4aff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4aff$reststate[!is.na(CIGp_4aff$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(plantLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(plantLinfo4f$reststate[!is.na(CIGp_4f$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(plantLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+hist(plantLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(plantLinfo4fff$reststate[!is.na(CIGp_4fff$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+hist(micrLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(micrLinfo4b$reststate[!is.na(CIGm_4b$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 	mtext("Frequency",side=2, line=3)
-	mtext("Plant estimated",side=2, line=2)
-hist(micrLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+	mtext("Microbe estimated",side=2, line=2)
+hist(micrLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(micrLinfo4bff$reststate[!is.na(CIGm_4bff$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+hist(micrLinfo4a$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4a$reststate[!is.na(CIGm_4a$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(micrLinfo4aff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4aff$reststate[!is.na(CIGm_4aff$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(micrLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(micrLinfo4f$reststate[!is.na(CIGm_4f$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,100),main="") #ylim=c(0,200))#
+hist(micrLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
 	hist(micrLinfo4fff$reststate[!is.na(CIGm_4fff$beta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
 dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/betas_maf_sig_fourdemos.pdf",height=4,width=8)
-# par(mfrow=c(2,3))
-par(mfrow=c(2,4))
-par(oma=c(3,3,2,0))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/betas_maf_sig_sixdemos.pdf",height=4,width=12)
+par(mfrow=c(2,6))
+par(oma=c(3,4,2,0))
 par(mar=c(2,2,1,1))
-plot(CIGp_4b$beta~(CIGp_4b$af), cex = ifelse(CIGp_4b$p_used < 0.05,1,0.1), xlim=c(0,0.2),ylim=c(-4,2)) #limits might need to change
-	mtext("Plant genome",side=2, line=3)
+plot(CIGp_4b$beta~(CIGp_4b$af), cex = ifelse(CIGp_4b$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-2,2.5)) #limits might need to change
+	mtext("Host genome",side=2, line=4)
 	mtext("Estimated Beta",side=2, line=2)
-plot(CIGp_4bff$beta~(CIGp_4bff$af), cex = ifelse(CIGp_4bff$p_used < 0.05,1,0.1), xlim=c(0,0.2),ylim=c(-4,2))
-plot(CIGp_4f$beta~(CIGp_4f$af), cex = ifelse(CIGp_4f$p_used < 0.05,1,0.1), xlim=c(0,0.2),ylim=c(-4,2)) 
-plot(CIGp_4fff$beta~(CIGp_4fff$af), cex = ifelse(CIGp_4fff$p_used < 0.05,1,0.1), xlim=c(0,0.2),ylim=c(-4,2))
+plot(CIGp_4bff$beta~(CIGp_4bff$af), cex = ifelse(CIGp_4bff$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-2,2.5))
+plot(CIGp_4a$beta~(CIGp_4a$af), cex = ifelse(CIGp_4a$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-2,2.5)) 
+plot(CIGp_4aff$beta~(CIGp_4aff$af), cex = ifelse(CIGp_4aff$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-2,2.5))
+plot(CIGp_4f$beta~(CIGp_4f$af), cex = ifelse(CIGp_4f$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-2,2.5)) 
+plot(CIGp_4fff$beta~(CIGp_4fff$af), cex = ifelse(CIGp_4fff$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-2,2.5))
 
-plot(CIGm_4b$beta~(CIGm_4b$af), cex = ifelse(CIGm_4b$p_used < 0.05,1,0.1),  xlim=c(0,0.2),ylim=c(-4,2)) 
-	mtext("Microbe genome",side=2, line=2)
-	mtext("Minor Allele Frequency",side=1, line=2, adj = 3)
-plot(CIGm_4bff$beta~(CIGm_4bff$af), cex = ifelse(CIGm_4bff$p_used < 0.05,1,0.1),  xlim=c(0,0.2),ylim=c(-4,2)) 
-plot(CIGm_4f$beta~(CIGm_4f$af), cex = ifelse(CIGm_4f$p_used < 0.05,1,0.1),  xlim=c(0,0.2),ylim=c(-4,2)) 
-plot(CIGm_4fff$beta~(CIGm_4fff$af), cex = ifelse(CIGm_4fff$p_used < 0.05,1,0.1),  xlim=c(0,0.2),ylim=c(-4,2)) 
+plot(CIGm_4b$beta~(CIGm_4b$af), cex = ifelse(CIGm_4b$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-2,2.5)) 
+	mtext("Estimated Beta",side=2, line=2)
+	mtext("Microbe genome",side=2, line=4)
+plot(CIGm_4bff$beta~(CIGm_4bff$af), cex = ifelse(CIGm_4bff$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-2,2.5)) 
+plot(CIGm_4a$beta~(CIGm_4a$af), cex = ifelse(CIGm_4a$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-2,2.5)) 
+	 mtext("Minor Allele Frequency",side=1, line=2)
+plot(CIGm_4aff$beta~(CIGm_4aff$af), cex = ifelse(CIGm_4aff$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-2,2.5)) 
+plot(CIGm_4f$beta~(CIGm_4f$af), cex = ifelse(CIGm_4f$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-2,2.5)) 
+plot(CIGm_4fff$beta~(CIGm_4fff$af), cex = ifelse(CIGm_4fff$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-2,2.5)) 
 dev.off()
 #
-# pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_maf_sig_fourdemos.pdf",height=4,width=8)
-# par(mfrow=c(1,2))
-# par(oma=c(3,3,2,0))
-# par(mar=c(2,2,1,1))
-# plot(plantLinfo4b$reststate~(CIGp_4b$af), cex = ifelse(CIGp_4b$p_used < 0.05,1,0.1), 
-# 	 xlim=c(0,0.5),ylim=c(-1.5,2.5)) #limits might need to change
-# 	mtext("Plant-estimated",side=3, line=0.5)
-# 	mtext("Known effect",side=2, line=2,adj = -2)
-# plot(micrLinf4b$reststate~(CIGm_4b$af), cex = ifelse(CIGm_4b$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-1.5,2.5)) 
-# dev.off()
-#
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_beta_sig_fourdemos.pdf",height=4,width=8)
-par(mfrow=c(2,4))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_maf_sig_sixdemos.pdf",height=4,width=12)
+par(mfrow=c(2,6))
 par(oma=c(3,3,2,0))
+par(mar=c(2,2,1,1))
+plot(plantLinfo4b$reststate~(CIGp_4b$af), cex = ifelse(CIGp_4b$p_used < 0.05,1,0.1), 
+	 xlim=c(0,0.5),ylim=c(-0.5,0.5)) #limits might need to change
+	mtext("Host-estimated",side=2, line=4)
+	mtext("Known effect",side=2, line=2)
+plot(plantLinfo4bff$reststate~(CIGp_4bff$af), cex = ifelse(CIGp_4bff$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-0.5,0.7))
+plot(plantLinfo4a$reststate~(CIGp_4a$af), cex = ifelse(CIGp_4a$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-0.5,0.7))
+plot(plantLinfo4aff$reststate~(CIGp_4aff$af), cex = ifelse(CIGp_4aff$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-0.5,0.7))
+plot(plantLinfo4f$reststate~(CIGp_4f$af), cex = ifelse(CIGp_4f$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-0.5,0.7))
+plot(plantLinfo4fff$reststate~(CIGp_4fff$af), cex = ifelse(CIGp_4fff$p_used < 0.05,1,0.1), xlim=c(0,0.5),ylim=c(-0.5,0.7))
+plot(micrLinfo4b$reststate~(CIGm_4b$af), cex = ifelse(CIGm_4b$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-0.5,0.7)) 
+	mtext("Microbe-estimated",side=2, line=4)
+	mtext("Known effect",side=2, line=2)
+plot(micrLinfo4bff$reststate~(CIGm_4bff$af), cex = ifelse(CIGm_4bff$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-0.5,0.7)) 
+plot(micrLinfo4a$reststate~(CIGm_4a$af), cex = ifelse(CIGm_4a$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-0.5,0.7)) 
+plot(micrLinfo4aff$reststate~(CIGm_4aff$af), cex = ifelse(CIGm_4aff$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-0.5,0.7)) 
+plot(micrLinfo4f$reststate~(CIGm_4f$af), cex = ifelse(CIGm_4f$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-0.5,0.7)) 
+plot(micrLinfo4fff$reststate~(CIGm_4fff$af), cex = ifelse(CIGm_4fff$p_used < 0.05,1,0.1),  xlim=c(0,0.5),ylim=c(-0.5,0.7)) 
+dev.off()
+#
+
+range( c(plantLinfo4b$reststate,plantLinfo4bff$reststate,plantLinfo4a$reststate,plantLinfo4aff$reststate,plantLinfo4f$reststate,plantLinfo4fff$reststate))
+range( c(micrLinfo4b$reststate,micrLinfo4bff$reststate,micrLinfo4a$reststate,micrLinfo4aff$reststate,micrLinfo4f$reststate,micrLinfo4fff$reststate))
+range( c(CIGp_4b$beta,CIGp_4bff$beta,CIGp_4a$beta,CIGp_4aff$beta,CIGp_4f$beta,CIGp_4fff$beta),na.rm=T)
+range( c(CIGm_4b$beta,CIGm_4bff$beta,CIGm_4a$beta,CIGm_4aff$beta,CIGm_4f$beta,CIGm_4fff$beta),na.rm=T)
+
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/knownEffs_beta_sig_sixdemos.pdf",height=4,width=12)
+par(mfrow=c(2,6))
+par(oma=c(3,4,2,0))
 par(mar=c(2,2,1,1))
 plot(CIGp_4b$beta~(plantLinfo4b$reststate), cex = ifelse(CIGp_4b$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) #limits might need to change
-	mtext("Plant genome",side=3, line=0.5)
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) #limits might need to change
+	mtext("Host genome",side=2, line=4)
 	mtext("Estimated Beta",side=2, line=2)
 plot(CIGp_4bff$beta~(plantLinfo4bff$reststate), cex = ifelse(CIGp_4bff$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
+plot(CIGp_4a$beta~(plantLinfo4a$reststate), cex = ifelse(CIGp_4a$p_used < 0.05,1,0.1), 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
+plot(CIGp_4aff$beta~(plantLinfo4aff$reststate), cex = ifelse(CIGp_4aff$p_used < 0.05,1,0.1), 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
 plot(CIGp_4f$beta~(plantLinfo4f$reststate), cex = ifelse(CIGp_4f$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
 plot(CIGp_4fff$beta~(plantLinfo4fff$reststate), cex = ifelse(CIGp_4fff$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
 plot(CIGm_4b$beta~(micrLinfo4b$reststate), cex = ifelse(CIGm_4b$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
-	mtext("Microbe genome",side=3, line=0.5)
-	mtext("Known Effect",side=1, line=2, adj = -1.5)
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
+	mtext("Estimated Beta",side=2, line=2)
+	mtext("Microbe genome",side=2, line=4)
 plot(CIGm_4bff$beta~(micrLinfo4bff$reststate), cex = ifelse(CIGm_4bff$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
+plot(CIGm_4a$beta~(micrLinfo4a$reststate), cex = ifelse(CIGm_4a$p_used < 0.05,1,0.1), 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 	
+	 mtext("Known Effect",side=1, line=2)
+plot(CIGm_4aff$beta~(micrLinfo4aff$reststate), cex = ifelse(CIGm_4aff$p_used < 0.05,1,0.1), 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
 plot(CIGm_4f$beta~(micrLinfo4f$reststate), cex = ifelse(CIGm_4f$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 	
 plot(CIGm_4fff$beta~(micrLinfo4fff$reststate), cex = ifelse(CIGm_4fff$p_used < 0.05,1,0.1), 
-	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+	 xlim=c(-0.5,0.7),ylim=c(-2.5,2)) 
 dev.off()
 
 
-
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin_fourdemos_plant.pdf",height=4,width=4)
-par(mfrow=c(2,2))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin_sixdemos_plant.pdf",height=5,width=7)
+layout(matrix(1:6,ncol=3,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,3,0))
 image(t(matrix( (summarizep4b$cattots/summarizep4b$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
 		summarizep4b$cattots[5:8],rep("/",times=4), summarizep4b$catshouldbesums[5:8], rep("=",times=4),
 		round(  (summarizep4b$cattots/summarizep4b$catshouldbesums)[5:8],digits=2), sep="" ))
-image(t(matrix( (summarizep4f$cattots/summarizep4f$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
-	axis(2,at=c(0,1),labels=c("neutral","causal"))
-	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-		summarizep4f$cattots[5:8],rep("/",times=4), summarizep4f$catshouldbesums[5:8], rep("=",times=4),
-		round(  (summarizep4f$cattots/summarizep4f$catshouldbesums)[5:8],digits=2), sep="" ))
+	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+	mtext("No link to microbe fitness",side=3)
 image(t(matrix( (summarizep4bff$cattots/summarizep4bff$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
 		summarizep4bff$cattots[5:8],rep("/",times=4), summarizep4bff$catshouldbesums[5:8], rep("=",times=4),
 		round(  (summarizep4bff$cattots/summarizep4bff$catshouldbesums)[5:8],digits=2), sep="" ))
+	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+image(t(matrix( (summarizep4a$cattots/summarizep4a$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+	axis(2,at=c(0,1),labels=c("neutral","causal"))
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
+		summarizep4a$cattots[5:8],rep("/",times=4), summarizep4a$catshouldbesums[5:8], rep("=",times=4),
+		round(  (summarizep4a$cattots/summarizep4a$catshouldbesums)[5:8],digits=2), sep="" ))
+	mtext("Equal links to fitness",side=3)
+	mtext("Same optima",side=3,line=2)
+image(t(matrix( (summarizep4aff$cattots/summarizep4aff$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+	axis(2,at=c(0,1),labels=c("neutral","causal"))
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
+		summarizep4aff$cattots[5:8],rep("/",times=4), summarizep4aff$catshouldbesums[5:8], rep("=",times=4),
+		round(  (summarizep4aff$cattots/summarizep4aff$catshouldbesums)[5:8],digits=2), sep="" ))
+image(t(matrix( (summarizep4f$cattots/summarizep4f$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+	axis(2,at=c(0,1),labels=c("neutral","causal"))
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
+		summarizep4f$cattots[5:8],rep("/",times=4), summarizep4f$catshouldbesums[5:8], rep("=",times=4),
+		round(  (summarizep4f$cattots/summarizep4f$catshouldbesums)[5:8],digits=2), sep="" ))
+	mtext("Equal links to fitness",side=3)
+	mtext("Different optima",side=3,line=2)
 image(t(matrix( (summarizep4fff$cattots/summarizep4fff$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
@@ -215,26 +294,47 @@ image(t(matrix( (summarizep4fff$cattots/summarizep4fff$catshouldbesums)[5:8],nro
 		round(  (summarizep4fff$cattots/summarizep4fff$catshouldbesums)[5:8],digits=2), sep="" ))
 dev.off()
 
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin_fourdemos_micr.pdf",height=4,width=4)
-par(mfrow=c(2,2))
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin_sixdemos_micr.pdf",height=5,width=7)
+layout(matrix(1:6,ncol=3,byrow=F))
+par(mar=c(1.5,3,1,1))
+par(oma=c(2,2,3,0))
 image(t(matrix( (summarizem4b$cattots/summarizem4b$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
 		summarizem4b$cattots[1:4],rep("/",times=4), summarizem4b$catshouldbesums[1:4], rep("=",times=4),
 		round(  (summarizem4b$cattots/summarizem4b$catshouldbesums)[1:4],digits=2), sep="" ))
-image(t(matrix( (summarizem4f$cattots/summarizem4f$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
-	axis(2,at=c(0,1),labels=c("neutral","causal"))
-	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
-	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-		summarizem4f$cattots[1:4],rep("/",times=4), summarizem4f$catshouldbesums[1:4], rep("=",times=4),
-		round(  (summarizem4f$cattots/summarizem4f$catshouldbesums)[1:4],digits=2), sep="" ))
+	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+	mtext("No link to microbe fitness",side=3)
 image(t(matrix( (summarizem4bff$cattots/summarizem4bff$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
 		summarizem4bff$cattots[1:4],rep("/",times=4), summarizem4bff$catshouldbesums[1:4], rep("=",times=4),
 		round(  (summarizem4bff$cattots/summarizem4bff$catshouldbesums)[1:4],digits=2), sep="" ))
+	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+image(t(matrix( (summarizem4a$cattots/summarizem4a$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+	axis(2,at=c(0,1),labels=c("neutral","causal"))
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
+		summarizem4a$cattots[1:4],rep("/",times=4), summarizem4a$catshouldbesums[1:4], rep("=",times=4),
+		round(  (summarizem4a$cattots/summarizem4a$catshouldbesums)[1:4],digits=2), sep="" ))
+	mtext("Equal links to fitness",side=3)
+	mtext("Same optima",side=3,line=2)
+image(t(matrix( (summarizem4aff$cattots/summarizem4aff$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+	axis(2,at=c(0,1),labels=c("neutral","causal"))
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
+		summarizem4aff$cattots[1:4],rep("/",times=4), summarizem4aff$catshouldbesums[1:4], rep("=",times=4),
+		round(  (summarizem4aff$cattots/summarizem4aff$catshouldbesums)[1:4],digits=2), sep="" ))
+image(t(matrix( (summarizem4f$cattots/summarizem4f$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+	axis(2,at=c(0,1),labels=c("neutral","causal"))
+	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
+	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
+		summarizem4f$cattots[1:4],rep("/",times=4), summarizem4f$catshouldbesums[1:4], rep("=",times=4),
+		round(  (summarizem4f$cattots/summarizem4f$catshouldbesums)[1:4],digits=2), sep="" ))
+	mtext("Equal links to fitness",side=3)
+	mtext("Different optima",side=3,line=2)
 image(t(matrix( (summarizem4fff$cattots/summarizem4fff$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
