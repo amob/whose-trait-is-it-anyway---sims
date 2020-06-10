@@ -164,55 +164,55 @@ par(mfrow=c(2,4))
 par(oma=c(3,3,2,0))
 par(mar=c(2,2,1,1))
 plot(CIGp_4b$beta~(plantLinfo4b$reststate), cex = ifelse(CIGp_4b$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) #limits might need to change
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) #limits might need to change
 	mtext("Plant genome",side=3, line=0.5)
 	mtext("Estimated Beta",side=2, line=2)
 plot(CIGp_4bff$beta~(plantLinfo4bff$reststate), cex = ifelse(CIGp_4bff$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) 
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
 plot(CIGp_4f$beta~(plantLinfo4f$reststate), cex = ifelse(CIGp_4f$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) 
-plot(CIGp_4fff$beta~(plantLinfo4f$reststate), cex = ifelse(CIGp_4fff$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) 
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+plot(CIGp_4fff$beta~(plantLinfo4fff$reststate), cex = ifelse(CIGp_4fff$p_used < 0.05,1,0.1), 
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
 plot(CIGm_4b$beta~(micrLinfo4b$reststate), cex = ifelse(CIGm_4b$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) 
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
 	mtext("Microbe genome",side=3, line=0.5)
 	mtext("Known Effect",side=1, line=2, adj = -1.5)
 plot(CIGm_4bff$beta~(micrLinfo4bff$reststate), cex = ifelse(CIGm_4bff$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) 
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
 plot(CIGm_4f$beta~(micrLinfo4f$reststate), cex = ifelse(CIGm_4f$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) 
-plot(CIGm_4fff$beta~(micrLinfo4f$reststate), cex = ifelse(CIGm_4fff$p_used < 0.05,1,0.1), 
-	 xlim=c(-1.5,2.5),ylim=c(-4,2)) 
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
+plot(CIGm_4fff$beta~(micrLinfo4fff$reststate), cex = ifelse(CIGm_4fff$p_used < 0.05,1,0.1), 
+	 xlim=c(-0.5,0.5),ylim=c(-2,3)) 
 dev.off()
 
 
 
 pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin_fourdemos_plant.pdf",height=4,width=4)
 par(mfrow=c(2,2))
-image(t(matrix( (summarizep4b$cattots/summarizep4b$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+image(t(matrix( (summarizep4b$cattots/summarizep4b$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-		summarizep4b$cattots[1:4],rep("/",times=4), summarizep4b$catshouldbesums[1:4], rep("=",times=4),
-		round(  (summarizep4b$cattots/summarizep4b$catshouldbesums)[1:4],digits=2), sep="" ))
-image(t(matrix( (summarizep4f$cattots/summarizep4f$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+		summarizep4b$cattots[5:8],rep("/",times=4), summarizep4b$catshouldbesums[5:8], rep("=",times=4),
+		round(  (summarizep4b$cattots/summarizep4b$catshouldbesums)[5:8],digits=2), sep="" ))
+image(t(matrix( (summarizep4f$cattots/summarizep4f$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-		summarizep4f$cattots[1:4],rep("/",times=4), summarizep4f$catshouldbesums[1:4], rep("=",times=4),
-		round(  (summarizep4f$cattots/summarizep4f$catshouldbesums)[1:4],digits=2), sep="" ))
-image(t(matrix( (summarizep4bff$cattots/summarizep4bff$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+		summarizep4f$cattots[5:8],rep("/",times=4), summarizep4f$catshouldbesums[5:8], rep("=",times=4),
+		round(  (summarizep4f$cattots/summarizep4f$catshouldbesums)[5:8],digits=2), sep="" ))
+image(t(matrix( (summarizep4bff$cattots/summarizep4bff$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-		summarizep4bff$cattots[1:4],rep("/",times=4), summarizep4bff$catshouldbesums[1:4], rep("=",times=4),
-		round(  (summarizep4bff$cattots/summarizep4bff$catshouldbesums)[1:4],digits=2), sep="" ))
-image(t(matrix( (summarizep4fff$cattots/summarizep4fff$catshouldbesums)[1:4],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
+		summarizep4bff$cattots[5:8],rep("/",times=4), summarizep4bff$catshouldbesums[5:8], rep("=",times=4),
+		round(  (summarizep4bff$cattots/summarizep4bff$catshouldbesums)[5:8],digits=2), sep="" ))
+image(t(matrix( (summarizep4fff$cattots/summarizep4fff$catshouldbesums)[5:8],nrow=2,byrow=F)),zlim=c(0,1),xaxt="n",yaxt="n",main="")
 	axis(2,at=c(0,1),labels=c("neutral","causal"))
 	axis(1,at=c(0,1),labels=c("p < 0.05","p > 0.05"))
 	text(x=c(0,0,1,1),y=c(0,1,0,1),labels=paste(
-		summarizep4fff$cattots[1:4],rep("/",times=4), summarizep4fff$catshouldbesums[1:4], rep("=",times=4),
-		round(  (summarizep4fff$cattots/summarizep4fff$catshouldbesums)[1:4],digits=2), sep="" ))
+		summarizep4fff$cattots[5:8],rep("/",times=4), summarizep4fff$catshouldbesums[5:8], rep("=",times=4),
+		round(  (summarizep4fff$cattots/summarizep4fff$catshouldbesums)[5:8],digits=2), sep="" ))
 dev.off()
 
 pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/quickGWAStest_nokin_fourdemos_micr.pdf",height=4,width=4)
