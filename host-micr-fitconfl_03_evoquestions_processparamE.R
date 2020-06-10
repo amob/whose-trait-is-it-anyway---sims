@@ -9,56 +9,47 @@
 
 source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
 
-
 #how do the following parameters change ans to above:
-	#strength of link between trait and fitness; wP and wM, lower is stronger link -- with lower links, PFF becomes more important
-		wP.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5, 5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 1?  
-		wM.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75?
-	#drift and selection within each species; # uhhh. wP and wM vs fiterrP and fiterrM
-		#N and s
-# 		fiterrP.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001
-# 		fiterrM.v <- c(0.001, 0.005, 0.01, 0.015, 0.02, 0.025, 0.03, 0.035,0.04, 0.045)#base set both low, to 0.001, at 0.05, with the other params at baseline, there is no response to sel. but at 0.01 there is.
-		popsz.v <- c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300) #note turning up M without N is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
-		nloc.v <- c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300)# multiply by 2 for microbes, base set to 100
-#		nloc.v <- c(10, 25, 50, 75, 125, 150, 200, 250, 300, 500) # multiply by 2 for microbes, base set to 100
-		prbHorz.v <- seq(from =0, to =1, length.out=10)
-	# mutational inputs;  Lambda
-		Lambda.v <- seq(from = 41, to = 23, by =-2) #base 30
-#		mutprb.v <- c(0.00001, 0.000025, 0.00005, 0.000075, 0.0001, 0.00025, 0.00075, 0.001 ,0.0015, 0.002)
-		mutprb.v <- seq( from = 0.0001,to= 0.001 , length.out=10) #base 0.0005
-	#symmetries in conflict between partners (are these poss? I think just change pff for one only)
-		pfP.v <- seq(from = 0.0, to =0.95, by =0.1) #base 0.6	#repeated 2x! once for plants, on
-	#fitness optima?
-		#maybe 2 sets, one for conflict and one for shared optima?
+
+		popsz.v <- c(50, 100, 200, 500, 1000, 2000, 2500,5000), #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+		nloc.v <- c(1, 2, 4, 8, 16, 32, 64, 128, 256, 516),# multiply by 2 for microbes, base set to 20 --
+		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
+		Lambda.v <- seq(from = 35, to = 17, by =-2), #base 25
+		mutprb.v <- c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1) #base 0.0001
+		prbHorz.v <- seq(from =0, to =1, length.out=10),  #unchanged
+		alphaP.v <- seq(from = 0.0, to =0.9, by =0.1), #base 0.6	 #unchanged
+		alphaM.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
+
+
 	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
 
-basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       25, 0.0005,      0.2,    0.6,0.6,   0.1)
+basevals <- c(2000,2000, 20,40, 3,3, 3,2,      0.75,0.75, 1000,       25, 0.0005,      0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
 													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 
 
-parm <- data.frame(matrix(rep(basevals,times=91),nrow=91,byrow=T)) #81 is the base case
+parm <- data.frame(matrix(rep(basevals,times=111),nrow=111,byrow=T)) #81 is the base case
 parm[1:10,1] <- popsz.v
 parm[1:10,2] <- popsz.v
-parm[11:20,3] <- nloc.v
-parm[11:20,4] <- nloc.v*2
-parm[21:30,9] <- wP.v
-parm[31:40,10] <- wM.v
-parm[41:50,12] <- Lambda.v
-parm[51:60,13] <- mutprb.v
+parm[11:20,3] <- nloc.v #P
+parm[21:30,4] <- nloc.v*2 #M
+parm[31:40,3] <- nloc.v #tog
+parm[31:40,4] <- nloc.v*2 #tog
+parm[41:50,9] <- w.v #P
+parm[51:60,10] <- w.v #M
+parm[61:70,12] <- Lambda.v
+parm[71:80,13] <- mutprb.v
 # parm[61:70,14] <- fiterrP.v
 # parm[71:80,15] <- fiterrM.v
-parm[61:70,14] <- prbHorz.v
-parm[71:80,15] <- pfP.v #repeated 2x! once for plants, once for microbes
-parm[81:90,16] <- pfP.v
-#91st row is the base state
+parm[81:90,14] <- prbHorz.v
+parm[91:100,15] <- pfP.v #repeated 2x! once for plants, once for microbes
+parm[101:110,16] <- pfP.v
+#111st and 222nd rows are the base state
 parm2 <- rbind(parm,parm)
-parm2[92:182,8] <- 3 #change to fitness agreement; now both have optima at 3
-#then this ran as array job so that each row of parameters went into sim.cotrait
-#simres outputs were saved with names: where jn is 1:nrow(parm2)
-#file=paste(Sys.getenv("SCRATCH"),'/sensitivity_',jn,'rep',repnum,'.RData',sep=""))
-#repnum goes from 1 to 5 
+parm2[112:222,8] <- 3 #change to fitness agreement; now both have optima at 3
+# repnum from 1-10, as each gets repeated 10 times.
+
 
 #they have the following stats output to a file
 # FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[15],pfM=pv[16])$fitnesscorrelation

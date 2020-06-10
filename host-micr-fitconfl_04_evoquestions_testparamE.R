@@ -24,17 +24,18 @@ tmp2var<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r
 
 #####PASTED FROM 02 series. CHECK ACCURACY
 params <- data.frame(
-		popsz.v = c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300), #note turning up M without N is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
-		nloc.v = c(50, 75, 125, 150, 175, 200, 225, 250, 275, 300),# multiply by 2 for microbes, base set to 100
-		wP.v = c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75?
-		wM.v = c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5, 5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 1?  
-		Lambda.v = seq(from = 41, to = 23, by =-2), #base 30
+		popsz.v = c(50, 100, 200, 500, 1000, 2000, 2500,5000), #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+		nloc.v = c(1, 2, 4, 8, 16, 32, 64, 128, 256, 516),# multiply by 2 for microbes, base set to 20
+		wP.v = c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75? #remains unchanged
+		wM.v = c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5, 5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 1?  #remains unchanged
+		Lambda.v =seq(from = 35, to = 17, by =-2), #base 25
 		mutprb.v = seq( from = 0.0001,to= 0.001 , length.out=10), #base 0.0005
 		prbHorz.v = seq(from =0, to =1, length.out=10),
 		alphaP.v = seq(from = 0.0, to =0.95, by =0.1), #base 0.6	
 		alphaM.v = seq(from = 0.0, to =0.95, by =0.1) #base 0.6	
 )
 
+# test.4b <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 
 mains <- c("Fitness correlation","Vp/(Vp+Vm)",expression(Plant~V[A]~(V[P])),"Vm/(Vp+Vm)",expression(Microbe~V[A]~(V[M])),
 			expression(Mean~paste("|","D","|",sep="")~from~Z[opt][P]),"Microbe avg |D| from Zopt","Plant terminal slope", "Microbe terminal slope")
