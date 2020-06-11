@@ -22,7 +22,8 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 #full factorial combination for each of these as microbe and plant parameters.	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
 
-basevals <- c(100,100, 100,200, 3,3, 5,5,      1,1, 1000,       25, 0.0005,     0.2,    0.6,0.6,   0.1)
+basevals <- c(2000,2000, 20,40, 3,3, 3,2,      0.75,0.75, 1000,       25, 0.0005,      0.2,    0.6,0.6,   0.1)
+# basevals <- c(100,100, 100,200, 3,3, 5,5,      1,1, 1000,       25, 0.0005,     0.2,    0.6,0.6,   0.1)
 #basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       25, 0.0005,     0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
 													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")

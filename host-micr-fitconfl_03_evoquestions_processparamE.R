@@ -6,20 +6,20 @@
 #goal of this script is to evaluate simulation outputs parameter ranges.
 ##
 
+Reps <- 5
 
 source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
 
 #how do the following parameters change ans to above:
 
-		popsz.v <- c(50, 100, 200, 500, 1000, 2000, 2500,5000), #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
-		nloc.v <- c(1, 2, 4, 8, 16, 32, 64, 128, 256, 516),# multiply by 2 for microbes, base set to 20 --
-		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
-		Lambda.v <- seq(from = 35, to = 17, by =-2), #base 25
+		popsz.v <- c(10, 20, 50, 100, 200, 500, 1000, 2000, 5000,10000) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+# 		nlocP.v = c(2, 2, 4, 8, 16, 32, 64, 128, 256, 516),#  base set to 20 --
+		nloc.v = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)# this has been lowered. since last run
+		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
+		Lambda.v <- seq(from = 35, to = 17, by =-2) #base 25
 		mutprb.v <- c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1) #base 0.0001
-		prbHorz.v <- seq(from =0, to =1, length.out=10),  #unchanged
-		alphaP.v <- seq(from = 0.0, to =0.9, by =0.1), #base 0.6	 #unchanged
-		alphaM.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
-
+		prbHorz.v <- seq(from =0, to =1, length.out=10)  #unchanged
+		alpha.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
 
 	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
@@ -33,7 +33,7 @@ parm <- data.frame(matrix(rep(basevals,times=111),nrow=111,byrow=T)) #81 is the 
 parm[1:10,1] <- popsz.v
 parm[1:10,2] <- popsz.v
 parm[11:20,3] <- nloc.v #P
-parm[21:30,4] <- nloc.v*2 #M
+parm[21:30,4] <- nloc.v #M
 parm[31:40,3] <- nloc.v #tog
 parm[31:40,4] <- nloc.v*2 #tog
 parm[41:50,9] <- w.v #P
@@ -43,12 +43,14 @@ parm[71:80,13] <- mutprb.v
 # parm[61:70,14] <- fiterrP.v
 # parm[71:80,15] <- fiterrM.v
 parm[81:90,14] <- prbHorz.v
-parm[91:100,15] <- pfP.v #repeated 2x! once for plants, once for microbes
-parm[101:110,16] <- pfP.v
+parm[91:100,15] <- alpha.v #repeated 2x! once for plants, once for microbes
+parm[101:110,16] <- alpha.v
 #111st and 222nd rows are the base state
 parm2 <- rbind(parm,parm)
 parm2[112:222,8] <- 3 #change to fitness agreement; now both have optima at 3
-# repnum from 1-10, as each gets repeated 10 times.
+#
+
+# repnum from 1-5?, as each gets repeated 5 times.
 
 
 #they have the following stats output to a file
@@ -89,19 +91,19 @@ finalstate <-  matrix(NA,nrow=0,ncol=ncol(examplefinal))#ncol in stats file
 
 
 for(i in 1:nrow(parm2)){
-	for(r in 1:10){
+	for(r in 1:Reps){
 		simout <- read.csv(file=paste(Sys.getenv("SCRATCH"),'/sens_stats/sensitivity_stats',i,'rep',r,'.csv',sep=""),header=T)
 		finalstate <- rbind(finalstate, simout[ parm2[i,timecol]+1 ,] )
 	}
 }
 
-finalstate$repl <- rep(1:10,times=nrow(parm2))
+finalstate$repl <- rep(1:Reps,times=nrow(parm2))
 
 
 numargs <- length(formalArgs(sim.cotrait))
 colnames(parm2)<- formalArgs(sim.cotrait)[-c(numargs-1,numargs)]
 
-parmWfs <- cbind(parm2[rep(1:nrow(parm2),each=10),],finalstate)
+parmWfs <- cbind(parm2[rep(1:nrow(parm2),each=Reps),],finalstate)
 # parmWfs <- cbind(parm2,finalstate)
 # parmVfs <- cbind(parm2,finalstate)
 # 
