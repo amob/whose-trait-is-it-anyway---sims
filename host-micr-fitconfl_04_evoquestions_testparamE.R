@@ -4,38 +4,81 @@ simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-
 pars <- simsens[,1:17]
 resps <- simsens[,18:26]
 #not all pars were modified
-mpars <- c(1,3,9,10,12:16)#which then is manipulated one after the other, all but zoM here.
-
-#1:90, 91, 92:181, 182
-# 1 thru 900 are part of first set of sims, then 901-910 are base, 911-1810 are second set and 1811-1820 are second base with matched zopt
-# however, each 10 rows together are the same simulation parameters.
-#91:100; 101:110  1101
-tmp <- lapply( 1:ncol(resps), function(r) sapply( 1:length(mpars), function(p) resps[ c( 1:100+(100*(p-1)) , 911:1010+(100*(p-1)) ) , r]) )
-#each result of the sapply goes into a column
-
-tmp2<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) colMeans(tmp[[r]][startrow:(startrow+9),]))  ) )
-#each resul of the sapply goes into a column, but we want it to go into a row
-
-tmp2var<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) sapply(1:length(mpars), function(clmn)  var(tmp[[r]][startrow:(startrow+9),clmn])  ))  ) )
-#each resul of the sapply goes into a column, but we want it to go into a row
-
-
-
+mpars <- c(1,3,4,4, 9,10,12:16)#which then is manipulated one after the other, all but zoM here.
+#4 is twice because loci were manipulated separately then together.
 
 #####PASTED FROM 02 series. CHECK ACCURACY
-params <- data.frame(
-		popsz.v = c(50, 100, 200, 500, 1000, 2000, 2500,5000), #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
-		nloc.v = c(1, 2, 4, 8, 16, 32, 64, 128, 256, 516),# multiply by 2 for microbes, base set to 20
-		wP.v = c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75? #remains unchanged
-		wM.v = c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5, 5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 1?  #remains unchanged
-		Lambda.v =seq(from = 35, to = 17, by =-2), #base 25
-		mutprb.v = seq( from = 0.0001,to= 0.001 , length.out=10), #base 0.0005
-		prbHorz.v = seq(from =0, to =1, length.out=10),
-		alphaP.v = seq(from = 0.0, to =0.95, by =0.1), #base 0.6	
-		alphaM.v = seq(from = 0.0, to =0.95, by =0.1) #base 0.6	
-)
+#copy paste design of 02 series that generated the files
+basevals <- c(2000,2000, 20,40, 3,3, 3,2,      0.75,0.75, 1000,       25, 0.0005,      0.2,    0.6,0.6,   0.1)
+#sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
+reps = 5
+		popsz.v <- c(10, 20, 50, 100, 200, 500, 1000, 2000, 5000,10000) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+		nloc.v =<-c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)# this has been lowered. since last run
+		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
+		Lambda.v <- seq(from = 35, to = 17, by =-2) #base 25
+		mutprb.v <- c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1) #base 0.0001
+		prbHorz.v <- seq(from =0, to =1, length.out=10)  #unchanged
+		alpha.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
 
-# test.4b <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+params <- data.frame(
+		popsz.v = c(10, 20, 50, 100, 200, 500, 1000, 2000, 5000,10000), #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+		nloc.v = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50),# this has been lowered. since last run
+		w.v = c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5),#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
+		Lambda.v = seq(from = 35, to = 17, by =-2), #base 25
+		mutprb.v = c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1), #base 0.0001
+		prbHorz.v = seq(from =0, to =1, length.out=10),  #unchanged
+		alpha.v= seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
+)
+parm <- data.frame(matrix(rep(basevals,times=111),nrow=111,byrow=T)) #81 is the base case
+parm[1:10,1] <- popsz.v
+parm[1:10,2] <- popsz.v
+parm[11:20,3] <- nloc.v #P
+parm[21:30,4] <- nloc.v #M
+parm[31:40,3] <- nloc.v #tog
+parm[31:40,4] <- nloc.v*2 #tog
+parm[41:50,9] <- w.v #P
+parm[51:60,10] <- w.v #M
+parm[61:70,12] <- Lambda.v
+parm[71:80,13] <- mutprb.v
+# parm[61:70,14] <- fiterrP.v
+# parm[71:80,15] <- fiterrM.v
+parm[81:90,14] <- prbHorz.v
+parm[91:100,15] <- alpha.v #repeated 2x! once for plants, once for microbes
+parm[101:110,16] <- alpha.v
+#111st and 222nd rows are the base state
+parm2 <- rbind(parm,parm)
+parm2[112:222,8] <- 3 #change to fitness agreement; now both have optima at 3
+#
+
+
+
+scenarios <- rep(1:nrow(parm2),each=reps)
+#remove rows are subtracted
+means.c <- lapply( (1:ncol(resps), function(r) matrix(
+					sapply(1:nrow(parm2)) [-c(111,222)] function(scenario), mean(resps[ which(scenarios==scenario) , r]) ), 
+					ncol= 10, byrow = T)   )
+vars.c <- lapply( (1:ncol(resps), function(r) matrix(
+					sapply(1:nrow(parm2)) [-c(111,222)] function(scenario), var(resps[ which(scenarios==scenario) , r]) ), 
+					ncol= 10, byrow = T)   )
+
+# #old 1:90, 91, 92:181, 182
+# # old 1 thru 900 are part of first set of sims, then 901-910 are base, 911-1810 are second set and 1811-1820 are second base with matched zopt
+# # however, each 10 rows together are the same simulation parameters.
+# #91:100; 101:110  1101
+# tmp <- lapply( 1:ncol(resps), function(r) sapply( 1:length(mpars), function(p) resps[ c( 1:100+(100*(p-1)) , 911:1010+(100*(p-1)) ) , r]) )
+# #each result of the sapply goes into a column
+# 
+# tmp2<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) colMeans(tmp[[r]][startrow:(startrow+9),]))  ) )
+# #each resul of the sapply goes into a column, but we want it to go into a row
+# 
+# tmp2var<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) sapply(1:length(mpars), function(clmn)  var(tmp[[r]][startrow:(startrow+9),clmn])  ))  ) )
+# #each resul of the sapply goes into a column, but we want it to go into a row
+# 
+
+
+
+													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
+
 
 mains <- c("Fitness correlation","Vp/(Vp+Vm)",expression(Plant~V[A]~(V[P])),"Vm/(Vp+Vm)",expression(Microbe~V[A]~(V[M])),
 			expression(Mean~paste("|","D","|",sep="")~from~Z[opt][P]),"Microbe avg |D| from Zopt","Plant terminal slope", "Microbe terminal slope")
