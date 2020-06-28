@@ -357,11 +357,13 @@ sojT <- function(genotimemat,type="plant"){
 		ntime <- dim(genotimemat)[4]
 		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,,]))) )
 		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,,t])==fullunique[[l]][a]) ) ) )
+		finalfrq <- lapply(1:nloci, function(l) sapply(fullunique[[l]], function(a) length(which(genotimemat[l,,,ntime]==a)) )/copies )
 	}
 	if(type=="micr"){
 		ntime <- dim(genotimemat)[3]
 		fullunique <- sapply(1:nloci, function(l) sort(unique(as.vector(genotimemat[l,,]))) )
 		locusbytime <- lapply(1:nloci, function(l) sapply(2:(ntime), function(t)  sapply(1:length(fullunique[[l]]), function(a)  sum(as.vector(genotimemat[l,,t])==fullunique[[l]][a]) ) ) )
+		finalfrq <- lapply(1:nloci, function(l) sapply(fullunique[[l]], function(a) length(which(genotimemat[l,,ntime]==a)) )/copies )
 	}
 	soj <- list()
 	fstate <- list()
@@ -387,16 +389,16 @@ sojT <- function(genotimemat,type="plant"){
 		}
 		#get first > 0, get first == 1 or next ==0  and then diff bt 2
 	}
-	return(list(soj=soj, effs = fullunique, fstate = fstate, origingen = origingen))
+	return(list(soj=soj, effs = fullunique, fstate = fstate, origingen = origingen,finalfrq =finalfrq))
 }
 
 
 getrelfitandtrait <- function(simdat,gen,zoP,zoM,wP,wM,pfP,pfM){
-	traitend <- rowSums(colSums(simdat$Plant[,,,gen])) + colSums(simdat$Microbe[,,gen])
-	micrfit   <- univar.fit( z=traitend, zopt=zoM, sd.fit=wM)
-	hostfit   <- univar.fit( z=traitend, zopt=zoP, sd.fit=wP)
+	traitexp <- rowSums(colSums(simdat$Plant[,,,gen])) + colSums(simdat$Microbe[,,gen])
+	micrfit   <- univar.fit( z=traitexp, zopt=zoM, sd.fit=wM)
+	hostfit   <- univar.fit( z=traitexp, zopt=zoP, sd.fit=wP)
 	rHfit <-     pfP*hostfit + (1-pfP)*micrfit
 	rMfit <- (1-pfM)*hostfit +     pfM*micrfit
-	return(data.frame(traitend = traitend,rfitplnt=rHfit,rfitmicr=rMfit))
+	return(data.frame(traitexp = traitexp,rfitplnt=rHfit,rfitmicr=rMfit))
 }
 

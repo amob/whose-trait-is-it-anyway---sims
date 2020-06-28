@@ -1,11 +1,12 @@
 #!/bin/bash
-#SBATCH --time=8:00:00
+#SBATCH --time=0:8:00
 #SBATCH --job-name=simdemofigs
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=40
 #SBATCH --output=outandlog/%x_%j.txt
 #SBATCH --mail-type=END
 #SBATCH --mail-user=anna.obrien@utoronto.ca
+#SBATCH --partition=debug
 
 
 module load r/3.4.3-anaconda5.1.0
