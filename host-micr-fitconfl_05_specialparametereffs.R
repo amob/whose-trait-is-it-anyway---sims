@@ -22,7 +22,7 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 #full factorial combination for each of these as microbe and plant parameters.	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
 
-basevals <- c(2000,2000, 20,40, 3,3, 3,2,      0.75,0.75, 1000,       25, 0.0005,      0.2,    0.6,0.6,   0.1)
+basevals <- c(2000,2000, 20,40, 3,3, 2,2,      0.75,0.75, 1000,       25, 0.0001,      0.2,    0.6,0.6,   0.1)
 # basevals <- c(100,100, 100,200, 3,3, 5,5,      1,1, 1000,       25, 0.0005,     0.2,    0.6,0.6,   0.1)
 #basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       25, 0.0005,     0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
@@ -30,7 +30,7 @@ basevals <- c(2000,2000, 20,40, 3,3, 3,2,      0.75,0.75, 1000,       25, 0.0005
 
 
 params <- data.frame(	pfm =   rep( rep( pf.v, times=4),    times=7 ), #pfp
-						zoptM = rep( rep(zopt.v, each=10), times = 7  ), #zoptp
+						zoptP = rep( rep(zopt.v, each=10), times = 7  ), #zoptp
 						wM =    rep(w.v, each=40) #wm
 			)
 
@@ -50,8 +50,8 @@ length(unique(sapply(1:nrow(params), function(z) paste(params[z,],collapse=".") 
 #all same length!
 
 parm <- data.frame(matrix(rep(basevals,times=nrow(params)),nrow=nrow(params),byrow=T)) #
-#parm[,7] <- params$zoptP
-parm[,8] <- params$zoptM
+parm[,7] <- params$zoptP
+# parm[,8] <- params$zoptM
 #parm[,9] <- params$wP
 parm[,10] <- params$wM
 #parm[,15] <- params$pfp

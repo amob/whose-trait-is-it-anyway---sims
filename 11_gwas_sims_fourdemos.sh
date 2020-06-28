@@ -1,11 +1,12 @@
 #!/bin/bash
-#SBATCH --time=6:00:00
+#SBATCH --time=0:12:00
 #SBATCH --job-name=gwassim4demo
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=40
 #SBATCH --output=outandlog/%x_%j.txt
 #SBATCH --mail-type=END
 #SBATCH --mail-user=anna.obrien@utoronto.ca
+#SBATCH --partition=debug
 
 
 #temporarily comment out next two lines if no need to rerun

@@ -12,14 +12,17 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 
 #how do the following parameters change ans to above:
 
-		popsz.v <- c(10, 20, 50, 100, 200, 500, 1000, 2000, 5000,10000) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+# 		popsz.v <- c(10, 20, 50, 100, 200, 500, 1000, 2000, 5000,10000) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+		popsz.v <- c(100, 500, 900, 1300, 1700, 2100, 2500, 2900, 3300, 4100) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
 # 		nlocP.v = c(2, 2, 4, 8, 16, 32, 64, 128, 256, 516),#  base set to 20 --
 		nloc.v = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)# this has been lowered. since last run
 		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
 		Lambda.v <- seq(from = 35, to = 17, by =-2) #base 25
-		mutprb.v <- c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1) #base 0.0001
+		mutprb.v <- c( 0.0001, 0.0002, 0.0003,0.0004, 0.0005, 0.0006, 0.0007, 0.0008, 0.0009, 0.001 )
+# 		mutprb.v <- c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1) #base 0.0001
 		prbHorz.v <- seq(from =0, to =1, length.out=10)  #unchanged
 		alpha.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
+
 
 	
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
