@@ -252,7 +252,7 @@ sim.cotraitV <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,
 
 
 #######These are not adjusted for the multipop scenario, and so results must be limited to single pop outcomes 
-
+####e.g. pull out one population at a time to use
 
 
 windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding values",xlabs="generations") {
@@ -275,8 +275,6 @@ windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding v
 
 
 
-#one question: when plant and microbes are unevenly sized in pop, what does this do?
-#now it discards unpartnered microbes. before, unclear what it did
 getfitcon <- function(first, last, thinsize, simdat,zoP,zoM, wP, wM,pfP,pfM) {
 	twindows <- seq(from=first, to = last,by=thinsize)
 	if(dim(simdat$Plant)[2]<(dim(simdat$Microbe)[2])){

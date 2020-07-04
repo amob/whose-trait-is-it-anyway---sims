@@ -15,13 +15,12 @@ return(newnums)
 
 reps <- 5 ## MUST SET NUMBER OF REPS.
 
-# simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_feedbackparameters.csv",header=T)
 
 simsens <-read.csv("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/sens_reps_feedbackparameters_holdplant.csv",header=T)
 
 pars <- simsens[,1:17] #
 resps <- simsens[,18:26]
-mpars <- c(7,8,9,10,15,16)#now its only  -- ws, zs, and pfs
+mpars <- c(7,8,9,10,15,16)# its  -- ws, zs, and pfs
 
 #1 - 2800
 # however, each 10 rows together are the same simulation parameters.
@@ -41,8 +40,6 @@ ylabv <- c( bquote("Fitness"~rho),"pVh",bquote("V"[H]),"pVm",bquote("V"[M]),
 			bquote("Slope Z"[H]),"tcoefM", 
 			bquote("log V "[H]),bquote("log V"[M]))
 			
-		# c("Fitness correlation",expression(Plant~V[A]~(V[P])),
-# 			expression(Mean~paste("|","D","|",sep="")~from~Z[opt][P]),"Microbe avg |D| from Zopt","Plant terminal slope", "Microbe terminal slope")
 
 
 pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/feedbacks_mostres.pdf",height=8,width=7)
@@ -57,7 +54,7 @@ for(i in rofint){
 			ranges <- c(-1.1,1.1)
 			} else if(i%in%c(6,7)){
 			ranges <- c(-0.3,3.3)
-			} else if(i == 5){ #high variance in this one, I think its a "real" phenomena, just messes with visualization!
+			} else if(i == 5){ #high variance in this one, its a "real" phenomena, just messes with visualization!
 			ranges <- c(0,0.05) #currently plot log instead to avoid issue
 			} else {ranges <- bufferX(range(respsbyreps[,i]),0.1)} #[parby10$zoM==j]; keeping on same scale means only 1 y axis
 		if(i == rofint[1]){mains <- bquote("Z"[opt][H]==.(j))} else{mains <- ""}

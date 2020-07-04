@@ -11,12 +11,12 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 reps <- 5 #SET REPLICATES
 
 # 
-# ###COPIED FROM 05 .R script
+# ###COPIED FROM 05 series .R script
 		pf.v <- c(1:10)/10 # can have 10 now
 		w.v <- c( 0.25,0.5,0.75, 1,1.25,1.5,1.75)#7
 		zopt.v <- c(2:5)#4
 #full factorial combination for each of these as microbe and plant parameters.	
-##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
+##note one simulation generates a datafile of at least 5MB on disk, then 200 would be 1000 MB, or about 1 GB. 
 basevals <- c(2000,2000, 20,40, 3,3, 2,2,      0.75,0.75, 1000,       25, 0.0001,      0.2,    0.6,0.6,   0.1)
 params <- data.frame(	pfm =   rep( rep( pf.v, times=4),    times=7 ), #pfp
 						zoptP = rep( rep(zopt.v, each=10), times = 7  ), #zoptp
@@ -28,7 +28,7 @@ parm[,10] <- params$wM
 parm[,16] <- params$pfm
 
 
-#they have the following stats output to a file
+#they have the following stats output to a file like this (copied over from 05 series R script)
 # FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[15],pfM=pv[16])$fitnesscorrelation
 # VmVp <- extractVmVp(simres, 1,pv[11]+1,1)
 # pVp <- VmVp$PVp

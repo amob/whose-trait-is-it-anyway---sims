@@ -11,15 +11,14 @@ repnum <- Sys.getenv("REP")
 
 source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
 
-		popsz.v <- c(100, 500, 900, 1300, 1700, 2100, 2500, 2900, 3300, 4100) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
-		nloc.v = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)# this has been lowered. since last run
-		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
+		popsz.v <- c(100, 500, 900, 1300, 1700, 2100, 2500, 2900, 3300, 4100) #
+		nloc.v = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)# 
+		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#
 		Lambda.v <- seq(from = 35, to = 17, by =-2) #base 25
-# 		mutprb.v <- c( 0.0001, 0.0002, 0.0003,0.0004, 0.0005, 0.0006, 0.0007, 0.0008, 0.0009, 0.001 )
 		mutprb.v <- c(0.00002, 0.00004, 0.00006, 0.00008, 0.0001, 0.0002, 0.0004, 0.0006, 0.0008, 0.001 )
 # 		mutprb.v <- c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1) #base 0.0001
-		prbHorz.v <- seq(from =0, to =1, length.out=10)  #unchanged
-		alpha.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
+		prbHorz.v <- seq(from =0, to =1, length.out=10)  #
+		alpha.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	
 
 
 	
@@ -40,8 +39,6 @@ parm[41:50,9] <- w.v #P
 parm[51:60,10] <- w.v #M
 parm[61:70,12] <- Lambda.v
 parm[71:80,13] <- mutprb.v
-# parm[61:70,14] <- fiterrP.v
-# parm[71:80,15] <- fiterrM.v
 parm[81:90,14] <- prbHorz.v
 parm[91:100,15] <- alpha.v #repeated 2x! once for plants, once for microbes
 parm[101:110,16] <- alpha.v
@@ -76,7 +73,7 @@ simres <- sim.cotrait(NP=pv[1],NM=pv[2],nlP=pv[3],nlM=pv[4],nlnP=pv[5],nlnM=pv[6
 #write sim with jobbum in the name
 save(simres,file=paste(Sys.getenv("SCRATCH"),'/sens_rdata/sensitivity_',jn,'rep',repnum,'.RData',sep=""))
 
-#calculate diagnostic stats?
+#calculate diagnostic stats
 FC <- getfitcon(10, pv[11]+1, 1, simres,zoP=pv[7],zoM=pv[8], wP=pv[9], wM=pv[10],pfP=pv[15],pfM=pv[16])$fitnesscorrelation
 VmVp <- extractVmVp(simres, 1,pv[11]+1,1)
 pVp <- VmVp$PVp

@@ -51,39 +51,13 @@ return(newnums)
 ###The current code.
 
 #fitness function for trait, zopt
-#based on normal distribution, but instead of pdf summing to one, fitness is 1 at the optimum, just remove the 1/sqrt(2*pi*sd) in the normal P.D.F., not sure who to cite for deterministic part of this formula, I feel like I have seen it a lot...
+#based on normal distribution, but instead of pdf summing to one, fitness is 1 at the optimum, just remove the 1/sqrt(2*pi*sd) in the normal P.D.F., 
 univar.fit <- function(z, zopt, sd.fit) {   
 										rawfit <-   exp( -1* ((z-zopt)^2) / (2 * (sd.fit^2)) )  
 										adjfit <- rawfit /sum(rawfit)
 										return(adjfit)
 										} 
-#see lecorre and kramer 2012, for example, but this is commonly not cited., looks like is from Haldane 1954
-
-# multivar.fit <- function(z, zopt, sd.fit,fiterr) { 
-# 
-#  dmvnorm(z,means=zopt  ,sigma = diag(sd.fit))
-# #   sapply(1:length(z), function(k) exp( -1* ((z[k]-zopt[k])^2) / (2 * (sd.fit[k]^2)) ) 
-#    
-#    + rnorm(length(z), mean=0,sd=fiterr) ) 
-# 
-# }
-# #the same function, sort of, but vectorized, zopt has to be a matrix?
-# #I found 
-# # zdiff <- (z - zopt)^2
-# #exp( -(1/2) * t(zdiff)*inv(V)*zdiff  )
-# # Evolution. 2003 Aug;57(8):1761-75.
-# #Multivariate stabilizing selection and pleiotropy in the maintenance of quantitative genetic variation.
-# #Zhang XS1, Hill WG.
-# 
-# #from Zhang 2012: this one has a bit more info,,
-# 
-# #zeta^2 = 1/(2VS) and VS is the variance of the fitness profile on each trait
-# #and from turelli 1984, which is cited. Vs = w2 + Ve; with the note : For convenience, it will be assumed hereafter that all measurements are scaled so that Ve = 1
-# ##so I gues zeta is a vector?? but then from Zhang: Individuals are subject to real stabilizing selection, with independent and identical strength of selection on each trait, characterized by S = ζ^2 I
-# # exp( -(1/2) * sum(1:ntraits,  (z[i]-zopt[i])^2 * (zeta^2)    ) )
-# 
-#
-#so, sdfit controls the strength of the peak in the normal distribution, when higher, peaks are flatter, and genetic differences in fitness can be overwhelmed by random factors, including non-genetic sources of fitness differences: fiterr
+#see lecorre and kramer 2012, for example, but from Haldane 1954
 
 
 mutate.exp <- function(nL,N,lambda, prbmut) { sapply( 1:N , function(z)
@@ -140,7 +114,7 @@ sim.cotrait <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,m
 	#End initialize
 	
 	for(i in 2:(timesteps+1) ) {
-		if(length(zoptvects)==1){ #shortcut. there are too many warnings with better logical statement:  & zoptvects=="n"){
+		if(length(zoptvects)==1){ 
 				zoP = zoP
 				zoM = zoM} else{
 				zoP = zoptvects$PlantZ[i-1]
@@ -161,7 +135,7 @@ sim.cotrait <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,m
 		micrfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoM, sd.fit=wM)# fiterr=fiterrM)#, freeliving = freeliving,FLCL=FLCL) 
 		wH.e <-     pfP*hostfit + (1-pfP)*micrfit
 		wM.e <- (1-pfM)*hostfit +     pfM*micrfit
-	##NOTE: if wanted to do antagonistic interactions, do pfP*hostfit + (1-pfP)*((1-micrfit)/sum(1-micrfit))  #e.g. direct impact of trait on fitness, and impact passed through the inverse (e.g. perfectly negatively correlated) of impact on antagonists fitness
+	##NOTE: if wanted to do antagonistic interactions, base on: pfP*hostfit + (1-pfP)*((1-micrfit)/sum(1-micrfit))  #e.g. direct impact of trait on fitness, and impact passed through the inverse (e.g. perfectly negatively correlated) of impact on antagonists fitness
 		#Plant reproductions
 		#reproduce: random mating with respect to relative fitness, and unlinked loci, but finite popsize.
 		seedP <- sample( 1:NP , NP ,replace=T , prob=  wH.e) # (wH.e)/ sum((wH.e)) ) # 
@@ -219,9 +193,6 @@ windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding v
 	polygon( c(twindows,rev(twindows)), c(r.mp[1,],rev(r.mp[2,])),col=rgb(0,0,0,alpha=0.25),border=NA)
 	polygon( c(twindows,rev(twindows)), c(r.p[1,],rev(r.p[2,])),col=rgb(0,0.5,0,alpha=0.5),border=NA)
 	polygon( c(twindows,rev(twindows)), c(r.m[1,],rev(r.m[2,])),col=rgb(0.5,0,0.5,alpha=0.5),border=NA)
-# 	polygon( c(twindows,rev(twindows)), c(sdw.mp[1,],rev(sdw.mp[2,])),col=rgb(0,0,0,alpha=0.25),border=NA)
-# 	polygon( c(twindows,rev(twindows)), c(sdw.p[1,],rev(sdw.p[2,])),col=rgb(0,0.5,0,alpha=0.5),border=NA)
-# 	polygon( c(twindows,rev(twindows)), c(sdw.m[1,],rev(sdw.m[2,])),col=rgb(0.5,0,0.5,alpha=0.5),border=NA)
 }
 
 
@@ -240,7 +211,7 @@ getfitcon <- function(first, last, thinsize, simdat,zoP,zoM, wP, wM,pfP,pfM) {
 		cor.p <-sapply(1:ncol(pfit), function(t) cor(pfit[,t]/sum(pfit[,t]),mfit[,t]/sum(mfit[,t])))
 		slp.p <- sapply(1:ncol(pfit), function(t)  glm(pfit[,t] ~ mfit[,t])$coef[2] ) 
  	return(list(fitnesscorrelation=cor.p,fitnessslope=slp.p))
-} #this function ASSUMES NO ERROR IN FITNESS, since it cannot be applied exactly as was simulated. alternative option is to record observed fitnesses.
+} #this function ASSUMES NO ERROR IN FITNESS, since it cannot be applied exactly as was simulated. 
 #partners are the same as in the simulation, however, because interact function just pairs the columns of genotypes. 
 
 plotfitcon <- function(fitconobj,twindows,main,ylim="n") {
@@ -402,3 +373,28 @@ getrelfitandtrait <- function(simdat,gen,zoP,zoM,wP,wM,pfP,pfM){
 	return(data.frame(traitexp = traitexp,rfitplnt=rHfit,rfitmicr=rMfit))
 }
 
+#considerations for possible multivariate extension
+# multivar.fit <- function(z, zopt, sd.fit,fiterr) { 
+# 
+#  dmvnorm(z,means=zopt  ,sigma = diag(sd.fit))
+# #   sapply(1:length(z), function(k) exp( -1* ((z[k]-zopt[k])^2) / (2 * (sd.fit[k]^2)) ) 
+#    
+#    + rnorm(length(z), mean=0,sd=fiterr) ) 
+# 
+# }
+# #the same function, sort of, but vectorized,
+# # 
+# # zdiff <- (z - zopt)^2
+# #exp( -(1/2) * t(zdiff)*inv(V)*zdiff  )
+# # Evolution. 2003 Aug;57(8):1761-75.
+# #Multivariate stabilizing selection and pleiotropy in the maintenance of quantitative genetic variation.
+# #Zhang XS1, Hill WG.
+# 
+# #from Zhang 2012: this one has a bit more info,,
+# 
+# #zeta^2 = 1/(2VS) and VS is the variance of the fitness profile on each trait
+# #and from turelli 1984, which is cited. Vs = w2 + Ve; with the note : For convenience, it will be assumed hereafter that all measurements are scaled so that Ve = 1
+# ##so I gues zeta is a vector?? but then from Zhang: Individuals are subject to real stabilizing selection, with independent and identical strength of selection on each trait, characterized by S = ζ^2 I
+# # exp( -(1/2) * sum(1:ntraits,  (z[i]-zopt[i])^2 * (zeta^2)    ) )
+# 
+#
