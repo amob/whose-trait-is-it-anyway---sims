@@ -12,10 +12,11 @@ repnum <- Sys.getenv("REP")
 source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R',sep="")) 
 
 #how do the following parameters change ans to above:
-# 		w.v <- c( 0.25, 1)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 1?  
+
+# 		w.v <- c( 0.25, 1)#seq(from = 0.25, to = 5,lenght.out=10) # other interesting ranges previously explored.
 # 		pf.v <- c(0,0.4,0.9) #
 # 		zopt.v <- c(1,3,5)
-		pf.v <- c(1:10)/10 # can have 10 now
+		pf.v <- c(1:10)/10 # 10 levels
 		w.v <- c( 0.25,0.5,0.75, 1,1.25,1.5,1.75)#7
 		zopt.v <- c(2:5)#4
 
@@ -23,8 +24,6 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 ##since one simulation generates a datafile of about 5MB on disk, then 200 would be 1000 MB, or about 1 GB. seems totally reasonable amount of space.
 
 basevals <- c(2000,2000, 20,40, 3,3, 2,2,      0.75,0.75, 1000,       25, 0.0001,      0.2,    0.6,0.6,   0.1)
-# basevals <- c(100,100, 100,200, 3,3, 5,5,      1,1, 1000,       25, 0.0005,     0.2,    0.6,0.6,   0.1)
-#basevals <- c(100,100, 100,200, 3,3, 3,2,      1,1, 1000,       25, 0.0005,     0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
 													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 
@@ -34,13 +33,6 @@ params <- data.frame(	pfm =   rep( rep( pf.v, times=4),    times=7 ), #pfp
 						wM =    rep(w.v, each=40) #wm
 			)
 
-# params <- data.frame(	pfp = rep( rep( rep( rep(pf.v, times=3),    times=3 ), times=3), times=4), #pfp
-# 						pfm = rep( rep( rep( rep(pf.v, each =3),    times=3 ), times=3), times=4), #pfm
-# 						zoptP = rep( rep( rep( rep(zopt.v, each=3), each = 3  ), times=3), times=4), #zoptp
-# 						zoptM = rep( rep( rep( rep(zopt.v, each =3), each = 3 ), each =3), times=4), #zoptm			
-# 						wP = rep( rep(w.v, each=81), times=2 ), #wp
-# 						wM = rep(w.v, each=162) #wm
-# 			)
 
 
 
@@ -51,7 +43,7 @@ length(unique(sapply(1:nrow(params), function(z) paste(params[z,],collapse=".") 
 
 parm <- data.frame(matrix(rep(basevals,times=nrow(params)),nrow=nrow(params),byrow=T)) #
 parm[,7] <- params$zoptP
-# parm[,8] <- params$zoptM
+# parm[,8] <- params$zoptM # other variable that one might vary are commented out.
 #parm[,9] <- params$wP
 parm[,10] <- params$wM
 #parm[,15] <- params$pfp

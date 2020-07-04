@@ -8,8 +8,7 @@
 #SBATCH --mail-user=anna.obrien@utoronto.ca
 #SBATCH --array=1-280
 
-#280 in redo.
-#ultimately we want array to be 1-280, since that is how many rows in parameters
+# we want array to be 1-280, since that is how many rows in parameters
 export REP=5
 
 module load r/3.4.3-anaconda5.1.0

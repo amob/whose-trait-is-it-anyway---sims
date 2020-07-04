@@ -118,7 +118,6 @@ run.exp.allbyone<- function(popsetobj,numperpop,numsites,exp.err,nreps=1) {
 
 
 ##A FUNCTION TO GET GENOTYPES TO USE IN GEMMA (called in experiment function above)
-###NOTES ON PROCESS
 ###Get genotypes for gemma. Simulations assumed infinite alleles, need to translate this to biallelic loci
 		# (depending on loci, time and # pops) possibly many unique allele values per locus
 		#the below reinterprets these as different locations (e.g. different base pairs) within non-recombining regions
@@ -184,7 +183,6 @@ getalleles <- function(sel.finalT.P, sel.finalT.M,numperpop,numsites){ #final ti
 				prevgenos1 <- unlist(lapply(1:length(sel.finalT.P), function(POP) (sel.finalT.P[[POP]][l,1]) ))# individuals are rows, alleles in columns
 				prevgenos2 <- unlist(lapply(1:length(sel.finalT.P), function(POP) (sel.finalT.P[[POP]][l,2]) ))# individuals are rows, alleles in columns
 			}
-#		prevgenos cbind(prevgenos1,prevgenos2)
 			whichval1 <- sapply(1:length(prevgenos1), function(a) which(uniquevalsP.s[[l]]==prevgenos1[a]) )
 			whichval2 <- sapply(1:length(prevgenos2), function(a) which(uniquevalsP.s[[l]]==prevgenos2[a]) )
 			newloc1 <- sapply(1:length(prevgenos1), function(a)  newlocinumP[[l]][whichval1[a]]  )
@@ -220,7 +218,6 @@ getalleles <- function(sel.finalT.P, sel.finalT.M,numperpop,numsites){ #final ti
 		for(l in 1:nLP){
 			prevgenos1 <- sel.finalT.P[l,,1]#vector of individuals
 			prevgenos2 <- sel.finalT.P[l,,2]#
-#		prevgenos cbind(prevgenos1,prevgenos2)
 			whichval1 <- sapply(1:length(prevgenos1), function(a) which(uniquevalsP.s[[l]]==prevgenos1[a]) )
 			whichval2 <- sapply(1:length(prevgenos2), function(a) which(uniquevalsP.s[[l]]==prevgenos2[a]) )
 			newloc1 <- sapply(1:length(prevgenos1), function(a)  newlocinumP[[l]][whichval1[a]]  )
@@ -265,15 +262,11 @@ return(list(genoP = newgenomatP, genoM=newgenomatM, locusdatP = locusdatP, locus
 }
 
 
-##needs to do something about the plant v microbe kin issue but is otherwise ok.
 
 ##MAKE OUTPUT FILES FOR EXPORT TO GEMMA
-#NOTES
-#how should the GWAS be run exaxtly?
 #genotypes and phenotypes together, with only one phenotype column so genotypes must be repeated
-	#presumably that means 1 file each for phenotypes with plant genotypes and phenotypes with microbe genotypes
-# -- OR we could paste together genos of HOSTS and MICROBES A-LA experimental design?
-	#trying this second option for now.
+	# that means 1 file each for phenotypes with plant genotypes and phenotypes with microbe genotypes
+# -- OR we could paste together genos of HOSTS and MICROBES in an interesting, but not reported in ms, design
 #GEMMA can include SNP covariate information, e.g. ; the file could include whether SNP is host or microbial; whether it is causal or not
 	#this is stored in SNP names for now
 #GEMMA can include individual/phenotype covariate information.
@@ -305,7 +298,7 @@ return(list(genoP = newgenomatP, genoM=newgenomatM, locusdatP = locusdatP, locus
 		# By default, each line of the MAP file describes a single marker and must contain exactly 4 columns:
 		#
 
-
+##NOTE, notes and code are repeated for similar actions in this function.
 makegwasfiles <- function(expset,expdat,type="HOLO"){
 	if(type=="HOLO"){
 	 RGP <- t( sapply(seq(from=1, to =ncol(expset$causalgenos$genoP),by=2), function(Ind) 
@@ -313,7 +306,7 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 geno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),  #Family ID when missing, plink wants this= to individual ID
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""), # Individual ID
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) , # 
-			scale(expdat$traitvalue), ##SCALED version
+			scale(expdat$traitvalue), ##SCALED version, as one might reasonably do for a real experiment
 		    (RGP+1) [expdat$IDPG,] , # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
  			#then
 	 	   t(rbind( expset$causalgenos$genoM[rep(1:nrow(expset$causalgenos$genoM)  ,each=2), ], 
@@ -340,7 +333,6 @@ makegwasfiles <- function(expset,expdat,type="HOLO"){
 	 geno <- cbind( paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""), #
 			paste("p",expdat$IDPG,"m",expdat$IDMG,sep=""),
 			rep(0,times=nrow(expdat)) , rep(0,times=nrow(expdat)) ,rep(0,times=nrow(expdat)) ,
-# 			expdat$traitvalue,
 			scale(expdat$traitvalue), ##SCALED version
 		    (RGP+1) [expdat$IDPG,]  # adding 1 so bt 1 and 2, and then grabbing rows as they are used in the experiment.
 	  	   )

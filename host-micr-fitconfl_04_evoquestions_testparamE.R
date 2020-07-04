@@ -4,24 +4,24 @@ reps = 5 #MUST SET REPLICATES
 
 pars <- simsens[,1:17]
 resps <- simsens[,18:26]
-#not all pars were modified
+#not all parameters were modified
 mpars <- c(1,3,4,4, 9,10,12:16)#which then is manipulated one after the other, all but zoM here.
 #4 is twice because loci were manipulated separately then together.
 
-#####PASTED FROM 02 series. CHECK ACCURACY
+#####PASTED FROM 02 series. CHECK ACCURACY if you change things
 #copy paste design of 02 series that generated the files
 basevals <- c(2000,2000, 20,40, 3,3, 3,2,      0.75,0.75, 1000,       25, 0.0005,      0.2,    0.6,0.6,   0.1)
 #sim.cotrait(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,
-# 		popsz.v <- c(10, 20, 50, 100, 200, 500, 1000, 2000, 5000,10000) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
-		popsz.v <- c(100, 500, 900, 1300, 1700, 2100, 2500, 2900, 3300, 4100) #note turning up NM without NP is similar to increasing fiterr. increasing hosts without microbes makes no sense and is not possible.
+# 		popsz.v <- c(10, 20, 50, 100, 200, 500, 1000, 2000, 5000,10000)  #other interesting ranges here, commented out because do not match current settings.
+		popsz.v <- c(100, 500, 900, 1300, 1700, 2100, 2500, 2900, 3300, 4100) 
 # 		nlocP.v = c(2, 2, 4, 8, 16, 32, 64, 128, 256, 516),#  base set to 20 --
-		nloc.v = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)# this has been lowered. since last run
-		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#seq(from = 0.25, to = 5,lenght.out=10) # set base at 0.75. #remains unchanged
+		nloc.v = c(5, 10, 15, 20, 25, 30, 35, 40, 45, 50)# 
+		w.v <- c(0.1, 0.15, 0.25, 0.5, 1, 1.25, 1.5, 2, 2.5 ,5)#
 		Lambda.v <- seq(from = 35, to = 17, by =-2) #base 25
 		mutprb.v <- c( 0.0001, 0.0002, 0.0003,0.0004, 0.0005, 0.0006, 0.0007, 0.0008, 0.0009, 0.001 )
 # 		mutprb.v <- c(0.0000005,0.000001,0.000005,0.00001,0.00005,0.0001,0.0005,0.001,0.005,0.1) #base 0.0001
-		prbHorz.v <- seq(from =0, to =1, length.out=10)  #unchanged
-		alpha.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	 #unchanged
+		prbHorz.v <- seq(from =0, to =1, length.out=10)  
+		alpha.v <- seq(from = 0.0, to =0.9, by =0.1) #base 0.6	
 
 
 parm <- data.frame(matrix(rep(basevals,times=111),nrow=111,byrow=T)) #81 is the base case
@@ -35,8 +35,6 @@ parm[41:50,9] <- w.v #P
 parm[51:60,10] <- w.v #M
 parm[61:70,12] <- Lambda.v
 parm[71:80,13] <- mutprb.v
-# parm[61:70,14] <- fiterrP.v
-# parm[71:80,15] <- fiterrM.v
 parm[81:90,14] <- prbHorz.v
 parm[91:100,15] <- alpha.v #repeated 2x! once for plants, once for microbes
 parm[101:110,16] <- alpha.v
@@ -74,45 +72,20 @@ vars.s <- lapply( 1:ncol(resps), function(r) matrix(
 means <- lapply( means.s, function(r) cbind(r[1:length(mpars),],r[(length(mpars)+1):(length(mpars)*2),])  )
 vars <- lapply( vars.s, function(r) cbind(r[1:length(mpars),],r[(length(mpars)+1):(length(mpars)*2),])  )
 
-# #old 1:90, 91, 92:181, 182
-# # old 1 thru 900 are part of first set of sims, then 901-910 are base, 911-1810 are second set and 1811-1820 are second base with matched zopt
-# # however, each 10 rows together are the same simulation parameters.
-# #91:100; 101:110  1101
-# tmp <- lapply( 1:ncol(resps), function(r) sapply( 1:length(mpars), function(p) resps[ c( 1:100+(100*(p-1)) , 911:1010+(100*(p-1)) ) , r]) )
-# #each result of the sapply goes into a column
-# 
-# tmp2<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) colMeans(tmp[[r]][startrow:(startrow+9),]))  ) )
-# #each resul of the sapply goes into a column, but we want it to go into a row
-# 
-# tmp2var<- lapply(1:length(tmp), function(r) t(sapply(seq(from=1, to =nrow(tmp[[r]]),by=10), function(startrow) sapply(1:length(mpars), function(clmn)  var(tmp[[r]][startrow:(startrow+9),clmn])  ))  ) )
-# #each resul of the sapply goes into a column, but we want it to go into a row
-# 
 
-
-
-													#timesteps,Lambda,mutprb,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n")
 
 
 mains <- c("Fitness correlation","Vh/(Vh+Vm)",expression(Plant~V[A]~(V[H])),"Vm/(Vh+Vm)",expression(Microbe~V[A]~(V[H])),
 			expression(Mean~paste("|","D","|",sep="")~from~z[opt][H]),"Microbe avg |D| from zopt","Host terminal slope", "Microbe terminal slope")
-# mains <- c("Plant Va (Vp)","Microbe Va (Vm)",
-# 			"Plant avg |D| from Zopt","Microbe avg |D| from Zopt",
-# 			"plant terminal slope", "microbe terminal slope")
-
 ylabs <- c(expression(alpha[M]),expression(alpha[H]),expression(P[hrz]),
 			expression(P[mu]),
 			expression(lambda),expression(omega[M]),expression(omega[H]),
 			expression(L),expression(L[M]),expression(L[H]),expression(N))
-# y2labs <- c( paste(pfP.v,collapse=","), paste(pfP.v,collapse=","), paste(round(prbHorz.v,digits=2),collapse=","),
-# 			paste(mutprb.v,collapse=","),  
-# 			paste(Lambda.v,collapse=","), paste(wM.v,collapse=","), paste(wP.v,collapse=","),
-# 			paste(nloc.v,collapse=","), paste(popsz.v,collapse=",") )
 y2labs <- c(paste(params[c(1,10),11],collapse="-"), paste(params[c(1,10),10],collapse="-"), 
 			paste(params[c(1,10),9],collapse="-"), paste(params[c(1,10),8],collapse="-"), paste(round(params[c(1,10),7],digits=2),collapse="-"),
 			paste(params[c(1,10),6],collapse="-"),  
 			paste(params[c(1,10),5],collapse="-"), paste(params[c(1,10),4],collapse="-"), paste(params[c(1,10),3],collapse="-"),
 			paste(params[c(1,10),2],collapse="-"), paste(params[c(1,10),1],collapse="-") )
-#the both together label is problematic...microbes are 2x plants (hosts)
 
 rb <- colorRampPalette(c( rgb(1,0,0), rgb(1,1,1), rgb(0,0,1) ))
 wb <- colorRampPalette(c( rgb(1,1,1), rgb(0,0,1) ))
@@ -140,9 +113,7 @@ for(i in indices){
 	abline(v=0.5)
 	mtext(mains[i],side=3,line=1,cex=0.75)
 	axis(side=1,at = c(0.22,0.73),lab=c(expression("Z"[opt][H]>"Z"[opt][M]),expression("Z"[opt][H]*'='*"Z"[opt][M]) ) ) 
-#	if(i%in%c(7:9)){axis(side=1,at = c(0.22,0.73),lab=c(expression("z"[opt][P]>"z"[opt][M]),expression("z"[opt][P]*'='*"z"[opt][M]) ) ) }
 	if(i==1){axis(side=2,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(ylabs),las=2)}
-#	if(i%in%c(6,9)){axis(side=4,at = seq(from=0,to=1,length.out=length(mpars)),lab=rev(y2labs),las=2)}
 	mtext(paste(round(zlims,digits=3),collapse=" to "),side=3,line=0.2,cex=0.5)
 }
 image(t(as.matrix(t(params)/colSums(params))),main="",xaxt="n",yaxt="n")
