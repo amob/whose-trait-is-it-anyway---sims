@@ -32,4 +32,6 @@ Scripts in series 10 write the functions, and run analyses associated with GWAS 
 
 Script in secies 11 processes GWAS output and makes associated figures in manuscript
 
+Script FitnessAlignmnetConceptFig.R produces panels B-E in figure 1 in the manuscript
+	Uses dataset from Haney et. al. 2015 (full citation in associated manuscript)
 
