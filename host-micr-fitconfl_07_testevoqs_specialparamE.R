@@ -67,14 +67,16 @@ for(i in rofint){
 	  		yaxt = ifelse(j== unique(parbyreps$zoP)[1],"s","n"), xaxt = ifelse(i==rofint[length(rofint)], "s","n") )
 	  	mtext(ylabs,side=2,line=2,las=1)
 	  	mtext(mains,side=3,line=1.5)
-	  	if(j == 4 & i==tail(rofint,1)) {mtext(bquote("1-alpha"[M]),side=1,line=2.5,adj=-0.3)}
+	  	if(j == 4 & i==tail(rofint,1)) {mtext(bquote("1-"~alpha[M]),side=1,line=2.5,adj=-0.25)}
 # 	  	if(j == 4 & i==tail(rofint,1)) {mtext(bquote("alpha"[M]),side=1,line=1.5,adj=-0.5)}
 	  	mtext(mains2,side=3,line=0.25)
 		if(i%in%c(1,8,9)) {abline(h=0,lty=2)}
 		abline(v=0.6,lty=3,col=rgb(0,0,0,alpha=0.5))
+if(i==(rev(rofint)[1]) & j == (unique(parbyreps$zoP)[1])  ){
+	legend.gradient(cbind(c(0.1,0.2,0.2,0.1),c(0.7,0.7,2.7,2.7)),cols=rgb(range01(unique(parbyreps$wM)),0,0,alpha=0.75),title=bquote(omega[M]),limits=c("0.25","1.75"))
+	}
+
 	}
 }
-legend.gradient(cbind(c(0.6,0.7,0.7,0.6),c(0.7,0.7,2.7,2.7)),cols=rgb(range01(unique(parbyreps$wM)),0,0,alpha=0.75),title=bquote(omega[M]),limits=c("0.25","1.75"))
-mtext(bquote(1-alpha[M]),side=1,line=3,adj=2)
 dev.off()
 
