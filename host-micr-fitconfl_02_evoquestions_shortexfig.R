@@ -46,16 +46,16 @@ gens <- 300
 # save(test.4c,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4c.RData',sep=""))
 # test.4cff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=10,wM=0.75,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
 # save(test.4cff,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4cff.RData',sep=""))
-# load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4c.RData',sep=""))
-# load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4cff.RData',sep=""))
+load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4c.RData',sep=""))
+load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4cff.RData',sep=""))
 
 # # conflict, links =,  direct only, swap zopt
 # test.4e <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=2,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
 # save(test.4e,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData',sep=""))
 # #conflict, links =,  direct and indirect links
-test.4eff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=2,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1) 
+# test.4eff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=2,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1) 
 # save(test.4eff,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4eff.RData',sep=""))
-load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData',sep=""))
+# load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData',sep=""))
 # load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4eff.RData',sep=""))
 
 # 
@@ -92,26 +92,6 @@ load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData'
 # 	abline(h=3,col=rgb(0,0.5,0),lty=2,lwd=3); abline(h=2,col=rgb(0.5,0,0.5),lty=2,lwd=3); abline(h=2.5,col=rgb(0,0,0),lty=3,lwd=3) 
 # 	abline(h=0)
 # 	legend(gens*-0.05,y=0,c("Host optimum","Microbe optimum","Both optima","Midpoint"), lty = c(2,2,2,3),lwd=2, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0),rgb(0,0,0)), bty="n")
-# dev.off()
-# 
-# # #EXRA FIGURE
-# pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_extrademos_n.pdf",sep=""),height=5.75,width=3.1)
-# layout(matrix(1:2,ncol=1,byrow=F))
-# par(mar=c(1.5,3,1,1))
-# par(oma=c(2,2,1,0))
-# windowplot(1,gens+1, 3,test.4c,ylim=c(-3,6),"",xlabs="",ylabs="")#titles[3])
-# 	abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=2)
-# 	abline(h=0)
-# 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("breeding values",side=2,line=2,adj=-1)
-# 	legend(gens*-0.05,y=0,c("Microbe optimum"), lty = 2,lwd=2, col = rgb(0.5,0,0.5), bty="n")
-# windowplot(1,gens+1, 3,test.4cff,ylim=c(-3,6),"",xlabs="",ylabs="")#"titles[4]")
-# 	abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=2)
-# 	abline(h=0)
-# 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-# 	legend(gens*-0.05,y=0,c("Host","Microbe","Expressed"), fill=c(rgb(0,0.5,0,alpha=0.5),rgb(0.5,0,0.5,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
-# 	mtext("generations",side=1,line=2)
 # dev.off()
 # 
 
@@ -184,32 +164,6 @@ load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData'
 # # 		text(x=60,y=0.11, labels =expression(Z[opt[M]]~reached))
 # dev.off()
 
-##EXTRA FIGURE
-# VmVp4c <- extractVmVp(test.4c, 1,gens+1,1)
-# VmVp4cff <- extractVmVp(test.4cff, 1,gens+1,1)
-# win4c  <- extractwinning(test.4c,first=1,last=gens+1,1,zoP=3,zoM= 3)
-# win4cff  <- extractwinning(test.4cff,first=1,last=gens+1,1,zoP=3,zoM= 3)
-# pdf(paste(Sys.getenv("SCRATCH"), "/Variance_Results_extrademos_n.pdf",sep=""),height=5,width=3)
-# layout(matrix(1:2,ncol=1,byrow=F))
-# par(mar=c(1.5,3,1,1))
-# par(oma=c(2,2,1,0))
-# 	plot(VmVp4c$Vp ~ c(1:length(VmVp4c$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
-# 		lines( 1:length(VmVp4c$Vp),VmVp4c$Vp,col=rgb(0,0.5,0)) 
-# 		lines(1:length(VmVp4c$Vm),VmVp4c$Vm , col=rgb(0.5,0,0.5)) 
-# 		lines(1:length(VmVp4c$Vb),VmVp4c$Vb , col=rgb(0.5,0.5,0.5)) 
-# 		abline(v=which(win4c$dM==min(win4c$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
-# 	 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# 		mtext("No direct link to host fitness",side=3,line=0.5)
-# 		mtext("genetic variance",side=2,line=2,adj=-1.75)
-# 	plot(VmVp4cff$Vp ~ c(1:length(VmVp4cff$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
-# 		lines( 1:length(VmVp4cff$Vp),VmVp4cff$Vp,col=rgb(0,0.5,0)) 
-# 		lines(1:length(VmVp4cff$Vm),VmVp4cff$Vm , col=rgb(0.5,0,0.5)) 
-# 		lines(1:length(VmVp4cff$Vb),VmVp4cff$Vb , col=rgb(0.5,0.5,0.5)) 
-# 		abline(v=which(win4cff$dM==min(win4cff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
-# 		mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-# 		mtext("generations",side=1,line=2)
-# 		legend(gens*0.4,y=0.10,c(expression(V[H]),expression(V[M]),expression(V[A])),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
-# dev.off()
 
 # rangep <- range(c(as.vector(test.4b$Plant),as.vector(test.4bff$Plant),as.vector(test.4a$Plant), as.vector(test.4aff$Plant), as.vector(test.4f$Plant),as.vector(test.4fff$Plant)))
 # rangem <- range(c(as.vector(test.4b$Microbe),as.vector(test.4bff$Microbe),as.vector(test.4a$Microbe),as.vector(test.4aff$Microbe),as.vector(test.4f$Microbe),as.vector(test.4fff$Microbe)))
@@ -249,39 +203,6 @@ load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData'
 # 	abline(v=which(win4fff$dM==min(win4fff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #at which generation does the lower optima partner cross its optimum? only makes sense for f and fff, and therefor M
 # dev.off()
 
-## EXTRA FIGURE
-# rangepc <- range(c(as.vector(test.4c$Plant),as.vector(test.4cff$Plant)))
-# rangemc <- range(c(as.vector(test.4c$Microbe),as.vector(test.4cff$Microbe)))
-# maxabspc <- max(abs(rangepc))
-# maxabsmc <- max(abs(rangemc))
-# pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_plant_extra.pdf",sep=""),height=5,width=3)
-# layout(matrix(1:2,ncol=1,byrow=F))
-# par(mar=c(1.5,3,1,1))
-# par(oma=c(2,2,1,0))
-# plottraj(test.4c$Plant,maxpos=rangepc[2],maxneg=rangepc[1])
-#  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("Frequency",side=2,line=2,adj=-0.6)
-# 	abline(v=which(win4c$dM==min(win4c$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
-# plottraj(test.4cff$Plant,maxpos=rangepc[2],maxneg=rangepc[1])
-# 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-# 	abline(v=which(win4cff$dP==min(win4cff$dP)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
-# 	mtext("generations",side=1,line=2)
-# dev.off()
-# pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_micr_extra.pdf",sep=""),height=5,width=3)
-# layout(matrix(1:2,ncol=1,byrow=F))
-# par(mar=c(1.5,3,1,1))
-# par(oma=c(2,2,1,0))
-# plottraj(test.4c$Microbe, type="micr",maxpos=rangemc[2],maxneg=rangemc[1])
-#  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("Frequency",side=2,line=2,adj=-0.6)
-# 	abline(v=which(win4c$dM==min(win4c$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does plant mean reach its optima or beyond
-# plottraj(test.4cff$Microbe, type="micr",maxpos=rangemc[2],maxneg=rangemc[1])
-# 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-# 	abline(v=which(win4cff$dM==min(win4cff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does plant mean reach its optima or beyond
-# 	mtext("generations",side=1,line=2)
-# dev.off()
 
 # pdf(paste(Sys.getenv("SCRATCH"), "/AllTraject_micr_six.pdf",sep=""),height=5,width=7)
 # # pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/AllTraject_micr.pdf",width=8,height=5)
@@ -431,55 +352,6 @@ load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData'
 # 	abline(h=0)
 # dev.off()  
 # 
-#EXTRA FIGURE
-# soj4cM <- sojT(test.4c$Micr,type="micr")
-# soj4cffM <- sojT(test.4cff$Micr,type="micr")
-# soj4cP <- sojT(test.4c$Plant)
-# soj4cffP <- sojT(test.4cff$Plant)
-# pdf(paste(Sys.getenv("SCRATCH"), "/sojsegT_micr_extra.pdf",sep=""),height=5,width=3)
-# layout(matrix(1:2,ncol=1,byrow=F))
-# par(mar=c(1.5,3,1,1))
-# par(oma=c(2,2,1,0))
-# plot( unlist(soj4cM$effs)[unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))] ~
-# 	unlist(soj4cM$finalfrq) [ unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))],
-# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-# 	col = rgb( (unlist(soj4cM$origingen))[unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))]/gens,0,0),
-# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
-# 	abline(h=0)
-#  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("effect size",side=2,line=2,adj=-0.5)
-# plot( unlist(soj4cffM$effs)[unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))] ~
-# 	unlist(soj4cffM$finalfrq) [ unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))],
-# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-# 	col = rgb( (unlist(soj4cffM$origingen))[unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))]/gens,0,0),
-# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
-# 	abline(h=0)
-# 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-#  	mtext("Derived allele frequency",side=1,line=2)
-# dev.off()
-#  pdf(paste(Sys.getenv("SCRATCH"), "/sojsegT_plant_extra.pdf",sep=""),height=5,width=3)
-# layout(matrix(1:2,ncol=1,byrow=F))
-# par(mar=c(1.5,3,1,1))
-# par(oma=c(2,2,1,0))
-# plot( unlist(soj4cP$effs)[unlist(soj4cP$effs)!=0 & is.na(unlist(soj4cP$soj))] ~
-# 	unlist(soj4cP$finalfrq) [ unlist(soj4cP$effs)!=0 & is.na(unlist(soj4cP$soj))],
-# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-# 	col = rgb( (unlist(soj4cP$origingen))[unlist(soj4cP$effs)!=0 & is.na(unlist(soj4cP$soj))]/gens,0,0),
-# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
-# 	abline(h=0)
-#  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("effect size",side=2,line=2,adj=-0.5)
-# plot( unlist(soj4cffP$effs)[unlist(soj4cffP$effs)!=0 & is.na(unlist(soj4cffP$soj))] ~
-# 	unlist(soj4cffP$finalfrq) [ unlist(soj4cffP$effs)!=0 & is.na(unlist(soj4cffP$soj))],
-# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-# 	col = rgb( (unlist(soj4cffP$origingen))[unlist(soj4cffP$effs)!=0 & is.na(unlist(soj4cffP$soj))]/gens,0,0),
-# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
-# 	abline(h=0)
-# 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-#  	mtext("Derived allele frequency",side=1,line=2)
-# dev.off()
 
 # 
 #   
@@ -615,119 +487,131 @@ load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData'
 # 
 # 
 # 
-##EXTRA fig combo of main text figs
-# pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_COMBOextrademos_n.pdf",sep=""),height=5,width=7)
-# layout(matrix(1:6,ncol=3,byrow=F))
-# par(mar=c(1.5,3,1,1))
-# par(oma=c(2,2,1,0))
-# windowplot(1,gens+1, 3,test.4c,ylim=c(-3,6),"",xlabs="",ylabs="")#titles[3])
-# 	abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=2)
-# 	abline(h=0)
-# 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# # 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("breeding values",side=2,line=2,adj=-1)
-# 	legend(gens*-0.05,y=0,c("Microbe optimum"), lty = 2,lwd=2, col = rgb(0.5,0,0.5), bty="n")
-# windowplot(1,gens+1, 3,test.4cff,ylim=c(-3,6),"",xlabs="",ylabs="")#"titles[4]")
-# 	abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=2)
-# 	abline(h=0)
-# 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-# 	legend(gens*-0.05,y=0,c("Host","Microbe","Expressed"), fill=c(rgb(0,0.5,0,alpha=0.5),rgb(0.5,0,0.5,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
-# 	mtext("generations",side=1,line=2)
-# plot(VmVp4c$Vp ~ c(1:length(VmVp4c$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
-# 	lines( 1:length(VmVp4c$Vp),VmVp4c$Vp,col=rgb(0,0.5,0)) 
-# 	lines(1:length(VmVp4c$Vm),VmVp4c$Vm , col=rgb(0.5,0,0.5)) 
-# 	lines(1:length(VmVp4c$Vb),VmVp4c$Vb , col=rgb(0.5,0.5,0.5)) 
-# 	abline(v=which(win4c$dM==min(win4c$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
-# #  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# # 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("genetic variance",side=2,line=2,adj=-1.25)
-# plot(VmVp4cff$Vp ~ c(1:length(VmVp4cff$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
-# 	lines( 1:length(VmVp4cff$Vp),VmVp4cff$Vp,col=rgb(0,0.5,0)) 
-# 	lines(1:length(VmVp4cff$Vm),VmVp4cff$Vm , col=rgb(0.5,0,0.5)) 
-# 	lines(1:length(VmVp4cff$Vb),VmVp4cff$Vb , col=rgb(0.5,0.5,0.5)) 
-# 	abline(v=which(win4cff$dM==min(win4cff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
-# # 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-# 	mtext("generations",side=1,line=2)
-# 	legend(gens*0.4,y=0.10,c(expression(V[H]),expression(V[M]),expression(V[A])),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
-# plot( unlist(soj4cM$effs)[unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))] ~
-# 	unlist(soj4cM$finalfrq) [ unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))],
-# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-# 	col = rgb( (unlist(soj4cM$origingen))[unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))]/gens,0,0),
-# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
-# 	abline(h=0)
-# #  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
-# # 	mtext("No direct link to host fitness",side=3,line=0.5)
-# 	mtext("effect size",side=2,line=2,adj=-0.5)
-# plot( unlist(soj4cffM$effs)[unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))] ~
-# 	unlist(soj4cffM$finalfrq) [ unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))],
-# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-# 	col = rgb( (unlist(soj4cffM$origingen))[unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))]/gens,0,0),
-# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
-# 	abline(h=0)
-# # 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
-#  	mtext("Derived allele frequency",side=1,line=2)
-# dev.off()
-
-###EXTRA COMBO FIG 2, reverse host and microbe in conflict scenario
-VmVp4e <- extractVmVp(test.4e, 1,gens+1,1)
-VmVp4eff <- extractVmVp(test.4eff, 1,gens+1,1)
-win4e  <- extractwinning(test.4e,first=1,last=gens+1,1,zoP=3,zoM= 3)
-win4eff  <- extractwinning(test.4eff,first=1,last=gens+1,1,zoP=3,zoM= 3)
-soj4eM <- sojT(test.4e$Micr,type="micr")
-soj4effM <- sojT(test.4eff$Micr,type="micr")
-soj4eP <- sojT(test.4e$Plant)
-soj4effP <- sojT(test.4eff$Plant)
-pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_COMBOextrademosConfl_n.pdf",sep=""),height=5,width=7)
+#EXTRA fig combo of main text figs
+VmVp4c <- extractVmVp(test.4c, 1,gens+1,1)
+VmVp4cff <- extractVmVp(test.4cff, 1,gens+1,1)
+win4c  <- extractwinning(test.4c,first=1,last=gens+1,1,zoP=3,zoM= 3)
+win4cff  <- extractwinning(test.4cff,first=1,last=gens+1,1,zoP=3,zoM= 3)
+rangepc <- range(c(as.vector(test.4c$Plant),as.vector(test.4cff$Plant)))
+rangemc <- range(c(as.vector(test.4c$Microbe),as.vector(test.4cff$Microbe)))
+maxabspc <- max(abs(rangepc))
+maxabsmc <- max(abs(rangemc))
+soj4cM <- sojT(test.4c$Micr,type="micr")
+soj4cffM <- sojT(test.4cff$Micr,type="micr")
+soj4cP <- sojT(test.4c$Plant)
+soj4cffP <- sojT(test.4cff$Plant)
+pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_COMBOextrademos_n.pdf",sep=""),height=5,width=7)
 layout(matrix(1:6,ncol=3,byrow=F))
 par(mar=c(1.5,3,1,1))
 par(oma=c(2,2,1,0))
-windowplot(1,gens+1, 3,test.4e,ylim=c(-3,6),"",xlabs="",ylabs="")#titles[3])
-	abline(h=2,col=rgb(0,0.5,0),lty=2,lwd=3); abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=3); abline(h=2.5,col=rgb(0,0,0),lty=2,lwd=3) 
+windowplot(1,gens+1, 3,test.4c,ylim=c(-3,6),"",xlabs="",ylabs="")#titles[3])
+	abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=3)
 	abline(h=0)
 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 # 	mtext("No direct link to host fitness",side=3,line=0.5)
 	mtext("breeding values",side=2,line=2,adj=-1)
-	legend(gens*-0.05,y=0,c("Host optimum","Microbe optimum","Midpoint"), lty = c(2,2,3),lwd=2, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0)), bty="n")
-windowplot(1,gens+1, 3,test.4eff,ylim=c(-3,6),"",xlabs="",ylabs="")#"titles[4]")
-	abline(h=2,col=rgb(0,0.5,0),lty=2,lwd=3); abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=3); abline(h=2.5,col=rgb(0,0,0),lty=2,lwd=3) 
+	legend(gens*-0.05,y=0,c("Microbe optimum"), lty = 2,lwd=2, col = rgb(0.5,0,0.5), bty="n")
+windowplot(1,gens+1, 3,test.4cff,ylim=c(-3,6),"",xlabs="",ylabs="")#"titles[4]")
+	abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=3)
 	abline(h=0)
 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
 	legend(gens*-0.05,y=0,c("Host","Microbe","Expressed"), fill=c(rgb(0,0.5,0,alpha=0.5),rgb(0.5,0,0.5,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
 	mtext("generations",side=1,line=2)
-plot(VmVp4e$Vp ~ c(1:length(VmVp4e$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
-	lines( 1:length(VmVp4e$Vp),VmVp4e$Vp,col=rgb(0,0.5,0)) 
-	lines(1:length(VmVp4e$Vm),VmVp4e$Vm , col=rgb(0.5,0,0.5)) 
-	lines(1:length(VmVp4e$Vb),VmVp4e$Vb , col=rgb(0.5,0.5,0.5)) 
-	abline(v=which(win4e$dM==min(win4e$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
+plot(VmVp4c$Vp ~ c(1:length(VmVp4c$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
+	lines( 1:length(VmVp4c$Vp),VmVp4c$Vp,col=rgb(0,0.5,0)) 
+	lines(1:length(VmVp4c$Vm),VmVp4c$Vm , col=rgb(0.5,0,0.5)) 
+	lines(1:length(VmVp4c$Vb),VmVp4c$Vb , col=rgb(0.5,0.5,0.5)) 
+	abline(v=which(win4c$dM==min(win4c$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
 #  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 # 	mtext("No direct link to host fitness",side=3,line=0.5)
 	mtext("genetic variance",side=2,line=2,adj=-1.25)
-plot(VmVp4eff$Vp ~ c(1:length(VmVp4eff$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
-	lines( 1:length(VmVp4eff$Vp),VmVp4eff$Vp,col=rgb(0,0.5,0)) 
-	lines(1:length(VmVp4eff$Vm),VmVp4eff$Vm , col=rgb(0.5,0,0.5)) 
-	lines(1:length(VmVp4eff$Vb),VmVp4eff$Vb , col=rgb(0.5,0.5,0.5)) 
-	abline(v=which(win4eff$dM==min(win4eff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
+plot(VmVp4cff$Vp ~ c(1:length(VmVp4cff$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
+	lines( 1:length(VmVp4cff$Vp),VmVp4cff$Vp,col=rgb(0,0.5,0)) 
+	lines(1:length(VmVp4cff$Vm),VmVp4cff$Vm , col=rgb(0.5,0,0.5)) 
+	lines(1:length(VmVp4cff$Vb),VmVp4cff$Vb , col=rgb(0.5,0.5,0.5)) 
+	abline(v=which(win4cff$dM==min(win4cff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
 # 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
 	mtext("generations",side=1,line=2)
 	legend(gens*0.4,y=0.10,c(expression(V[H]),expression(V[M]),expression(V[A])),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
-plot( unlist(soj4eM$effs)[unlist(soj4eM$effs)!=0 & is.na(unlist(soj4eM$soj))] ~
-	unlist(soj4eM$finalfrq) [ unlist(soj4eM$effs)!=0 & is.na(unlist(soj4eM$soj))],
+plot( unlist(soj4cM$effs)[unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))] ~
+	unlist(soj4cM$finalfrq) [ unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))],
 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-	col = rgb( (unlist(soj4eM$origingen))[unlist(soj4eM$effs)!=0 & is.na(unlist(soj4eM$soj))]/gens,0,0),
+	col = rgb( (unlist(soj4cM$origingen))[unlist(soj4cM$effs)!=0 & is.na(unlist(soj4cM$soj))]/gens,0,0),
 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
 	abline(h=0)
 #  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
 # 	mtext("No direct link to host fitness",side=3,line=0.5)
 	mtext("effect size",side=2,line=2,adj=-0.5)
-plot( unlist(soj4effM$effs)[unlist(soj4effM$effs)!=0 & is.na(unlist(soj4effM$soj))] ~
-	unlist(soj4effM$finalfrq) [ unlist(soj4effM$effs)!=0 & is.na(unlist(soj4effM$soj))],
+plot( unlist(soj4cffM$effs)[unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))] ~
+	unlist(soj4cffM$finalfrq) [ unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))],
 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
-	col = rgb( (unlist(soj4effM$origingen))[unlist(soj4effM$effs)!=0 & is.na(unlist(soj4effM$soj))]/gens,0,0),
+	col = rgb( (unlist(soj4cffM$origingen))[unlist(soj4cffM$effs)!=0 & is.na(unlist(soj4cffM$soj))]/gens,0,0),
 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
 	abline(h=0)
 # 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
  	mtext("Derived allele frequency",side=1,line=2)
 dev.off()
+
+###EXTRA COMBO FIG 2, reverse host and microbe in conflict scenario
+# VmVp4e <- extractVmVp(test.4e, 1,gens+1,1)
+# VmVp4eff <- extractVmVp(test.4eff, 1,gens+1,1)
+# win4e  <- extractwinning(test.4e,first=1,last=gens+1,1,zoP=3,zoM= 3)
+# win4eff  <- extractwinning(test.4eff,first=1,last=gens+1,1,zoP=3,zoM= 3)
+# soj4eM <- sojT(test.4e$Micr,type="micr")
+# soj4effM <- sojT(test.4eff$Micr,type="micr")
+# soj4eP <- sojT(test.4e$Plant)
+# soj4effP <- sojT(test.4eff$Plant)
+# pdf(paste(Sys.getenv("SCRATCH"), "/Simulation_Results_COMBOextrademosConfl_n.pdf",sep=""),height=5,width=7)
+# layout(matrix(1:6,ncol=3,byrow=F))
+# par(mar=c(1.5,3,1,1))
+# par(oma=c(2,2,1,0))
+# windowplot(1,gens+1, 3,test.4e,ylim=c(-3,6),"",xlabs="",ylabs="")#titles[3])
+# 	abline(h=2,col=rgb(0,0.5,0),lty=2,lwd=3); abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=3); abline(h=2.5,col=rgb(0,0,0),lty=2,lwd=3) 
+# 	abline(h=0)
+# 	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+# # 	mtext("No direct link to host fitness",side=3,line=0.5)
+# 	mtext("breeding values",side=2,line=2,adj=-1)
+# 	legend(gens*-0.05,y=0,c("Host optimum","Microbe optimum","Midpoint"), lty = c(2,2,3),lwd=2, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0)), bty="n")
+# windowplot(1,gens+1, 3,test.4eff,ylim=c(-3,6),"",xlabs="",ylabs="")#"titles[4]")
+# 	abline(h=2,col=rgb(0,0.5,0),lty=2,lwd=3); abline(h=3,col=rgb(0.5,0,0.5),lty=2,lwd=3); abline(h=2.5,col=rgb(0,0,0),lty=2,lwd=3) 
+# 	abline(h=0)
+# 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+# 	legend(gens*-0.05,y=0,c("Host","Microbe","Expressed"), fill=c(rgb(0,0.5,0,alpha=0.5),rgb(0.5,0,0.5,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#fill=c(rgb(0,0,1,alpha=0.5),rgb(1,0,0,alpha=0.5),rgb(0,0,0,alpha=0.5)),  bty="n")#"Holobiont"	
+# 	mtext("generations",side=1,line=2)
+# plot(VmVp4e$Vp ~ c(1:length(VmVp4e$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
+# 	lines( 1:length(VmVp4e$Vp),VmVp4e$Vp,col=rgb(0,0.5,0)) 
+# 	lines(1:length(VmVp4e$Vm),VmVp4e$Vm , col=rgb(0.5,0,0.5)) 
+# 	lines(1:length(VmVp4e$Vb),VmVp4e$Vb , col=rgb(0.5,0.5,0.5)) 
+# 	abline(v=which(win4e$dM==min(win4e$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
+# #  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+# # 	mtext("No direct link to host fitness",side=3,line=0.5)
+# 	mtext("genetic variance",side=2,line=2,adj=-1.25)
+# plot(VmVp4eff$Vp ~ c(1:length(VmVp4eff$Vp)),pch=NA,ylim=c(0,0.1),ylab="",xlab="")
+# 	lines( 1:length(VmVp4eff$Vp),VmVp4eff$Vp,col=rgb(0,0.5,0)) 
+# 	lines(1:length(VmVp4eff$Vm),VmVp4eff$Vm , col=rgb(0.5,0,0.5)) 
+# 	lines(1:length(VmVp4eff$Vb),VmVp4eff$Vb , col=rgb(0.5,0.5,0.5)) 
+# 	abline(v=which(win4eff$dM==min(win4eff$dM)),col=rgb(0.5,0,0.5,alpha=0.5),lwd=5) #first generation does microbe mean reach its optima or beyond
+# # 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+# 	mtext("generations",side=1,line=2)
+# 	legend(gens*0.4,y=0.10,c(expression(V[H]),expression(V[M]),expression(V[A])),lty=1, col = c(rgb(0,0.5,0),rgb(0.5,0,0.5),rgb(0,0,0,alpha=0.5)), bty="n")
+# plot( unlist(soj4eM$effs)[unlist(soj4eM$effs)!=0 & is.na(unlist(soj4eM$soj))] ~
+# 	unlist(soj4eM$finalfrq) [ unlist(soj4eM$effs)!=0 & is.na(unlist(soj4eM$soj))],
+# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
+# 	col = rgb( (unlist(soj4eM$origingen))[unlist(soj4eM$effs)!=0 & is.na(unlist(soj4eM$soj))]/gens,0,0),
+# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
+# 	abline(h=0)
+# #  	mtext("No fitness feedback",side=2, line=3.5,cex=1.25)
+# # 	mtext("No direct link to host fitness",side=3,line=0.5)
+# 	mtext("effect size",side=2,line=2,adj=-0.5)
+# plot( unlist(soj4effM$effs)[unlist(soj4effM$effs)!=0 & is.na(unlist(soj4effM$soj))] ~
+# 	unlist(soj4effM$finalfrq) [ unlist(soj4effM$effs)!=0 & is.na(unlist(soj4effM$soj))],
+# 	  pch=1, #col=rgb(0,0.5,0,alpha=0.5),
+# 	col = rgb( (unlist(soj4effM$origingen))[unlist(soj4effM$effs)!=0 & is.na(unlist(soj4effM$soj))]/gens,0,0),
+# 		ylim=c(-0.3,0.7),xlim=c(0,1), ylab="",xlab="")
+# 	abline(h=0)
+# # 	mtext("+ fitness feedback",side=2, line=3.5,cex=1.25)
+#  	mtext("Derived allele frequency",side=1,line=2)
+# dev.off()
 
 # 
 # 
