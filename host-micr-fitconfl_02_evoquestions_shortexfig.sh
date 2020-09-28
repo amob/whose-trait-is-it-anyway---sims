@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH --time=01:40:00
+#SBATCH --time=00:20:00
 #SBATCH --job-name=simdemofigs2
 #SBATCH --nodes=2
 #SBATCH --ntasks-per-node=40
