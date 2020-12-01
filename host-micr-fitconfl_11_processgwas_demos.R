@@ -1,6 +1,11 @@
+##
+#goal of this script is
+#process output of 10 series r scripts (GEMMA outputs) into figures for GWAS results
+##
 
 addcols <- function(outfile, k=NULL){
-	outfile$recodebeta <- sapply(1:nrow(outfile), function(z) ifelse(outfile$allele1[z]==2, outfile$beta[z],-1*outfile$beta[z]) )#allele1 is the minor allele, but states 1 and 2 are derived and ancestral (0)
+	outfile$recodebeta <- sapply(1:nrow(outfile), function(z) ifelse(outfile$allele1[z]==2, outfile$beta[z],-1*outfile$beta[z]) )
+	#allele1 is the minor allele, but states 1 and 2 are derived and ancestral (0)
 #	#the other thing that messes with beta estimation is the linkage to another negative allele, especially if the others are more negative, because then the effect of the focal allele must be *relatively* positive. 
 	outfile$known_pos <- sapply(outfile$rs, function(z) length(grep("c",z))==1)
 	outfile$known_neg <- !outfile$known_pos
@@ -119,8 +124,6 @@ table(micrLinfo4aff$zerostate)
 table(micrLinfo4f$zerostate)
 table(micrLinfo4fff$zerostate)
 
-
-
 CIGp_4b <- connectIG(plantLinfo4b,plantout4b)
 CIGp_4bff <- connectIG(plantLinfo4bff,plantout4bff)
 CIGp_4a <- connectIG(plantLinfo4a,plantout4a)
@@ -134,41 +137,6 @@ CIGm_4aff <- connectIG(micrLinfo4aff,microut4aff)
 CIGm_4f <- connectIG(micrLinfo4f,microut4f)
 CIGm_4fff <- connectIG(micrLinfo4fff,microut4fff)
 
-
-#visualize what is lost, it is the small effect size loci
-pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/dens_loci_tossed_sixdemos.pdf",height=4,width=12)
-par(mfrow=c(2,6))
-par(oma=c(3,3,2,0))
-par(mar=c(2,2,1,1))
-hist(plantLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(plantLinfo4b$reststate[!is.na(CIGp_4b$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-	mtext("Frequency",side=2, line=3)
-	mtext("Host estimated",side=2, line=2)
-hist(plantLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(plantLinfo4bff$reststate[!is.na(CIGp_4bff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(plantLinfo4a$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(plantLinfo4a$reststate[!is.na(CIGp_4a$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(plantLinfo4aff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(plantLinfo4aff$reststate[!is.na(CIGp_4aff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(plantLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(plantLinfo4f$reststate[!is.na(CIGp_4f$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(plantLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(plantLinfo4fff$reststate[!is.na(CIGp_4fff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(micrLinfo4b$reststate[!is.na(CIGm_4b$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-	mtext("Frequency",side=2, line=3)
-	mtext("Microbe estimated",side=2, line=2)
-hist(micrLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(micrLinfo4bff$reststate[!is.na(CIGm_4bff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4a$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(micrLinfo4a$reststate[!is.na(CIGm_4a$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4aff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(micrLinfo4aff$reststate[!is.na(CIGm_4aff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(micrLinfo4f$reststate[!is.na(CIGm_4f$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-hist(micrLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
-	hist(micrLinfo4fff$reststate[!is.na(CIGm_4fff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
-dev.off()
 
 #to adjust figure ranges if needed
 range( c(plantLinfo4b$reststate,plantLinfo4bff$reststate,plantLinfo4a$reststate,plantLinfo4aff$reststate,plantLinfo4f$reststate,plantLinfo4fff$reststate))
@@ -387,3 +355,40 @@ image(t(matrix( (summarizem4fff$cattots/summarizem4fff$catshouldbesums)[1:4],nro
 		round(  (summarizem4fff$cattots/summarizem4fff$catshouldbesums)[1:4],digits=2), sep="" ))
 dev.off()
 
+
+
+#this figure is not in the manuscript, but may be of interest
+#visualize what is lost, it is the small effect size loci
+pdf("~/Dropbox/host microbe trait evo and gwas/whose-trait-is-it-anyway---sims/dens_loci_tossed_sixdemos.pdf",height=4,width=12)
+par(mfrow=c(2,6))
+par(oma=c(3,3,2,0))
+par(mar=c(2,2,1,1))
+hist(plantLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4b$reststate[!is.na(CIGp_4b$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+	mtext("Frequency",side=2, line=3)
+	mtext("Host estimated",side=2, line=2)
+hist(plantLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4bff$reststate[!is.na(CIGp_4bff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(plantLinfo4a$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4a$reststate[!is.na(CIGp_4a$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(plantLinfo4aff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4aff$reststate[!is.na(CIGp_4aff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(plantLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4f$reststate[!is.na(CIGp_4f$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(plantLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(plantLinfo4fff$reststate[!is.na(CIGp_4fff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(micrLinfo4b$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4b$reststate[!is.na(CIGm_4b$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+	mtext("Frequency",side=2, line=3)
+	mtext("Microbe estimated",side=2, line=2)
+hist(micrLinfo4bff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4bff$reststate[!is.na(CIGm_4bff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(micrLinfo4a$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4a$reststate[!is.na(CIGm_4a$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(micrLinfo4aff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4aff$reststate[!is.na(CIGm_4aff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(micrLinfo4f$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4f$reststate[!is.na(CIGm_4f$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+hist(micrLinfo4fff$reststate,freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),col=rgb(0.9,0.75,0,alpha=0.5),ylim=c(0,60),main="") #ylim=c(0,200))#
+	hist(micrLinfo4fff$reststate[!is.na(CIGm_4fff$recodebeta)],freq=T,breaks=seq(from=-2.5,to=2.5,by=0.1),add=T,col=rgb(0,0,0,alpha=0.25))
+dev.off()

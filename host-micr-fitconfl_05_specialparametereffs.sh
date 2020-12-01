@@ -9,7 +9,7 @@
 #SBATCH --array=1-280
 
 # we want array to be 1-280, since that is how many rows in parameters
-export REP=5
+export REP=5 #this shell script should be run 5 times, updating the replicate number here, and in the job name
 
 module load r/3.4.3-anaconda5.1.0
 R CMD BATCH --no-restore --no-save $HOME/whosetrait/host-micr-fitconfl_05_specialparametereffs.R $SCRATCH/feedback_routs/specialparams_${SLURM_ARRAY_TASK_ID}_${REP}.Rout

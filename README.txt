@@ -9,7 +9,7 @@ Script and final figure files (pdfs) are included. Some intermediate files (.txt
 In general, R scripts do the work, shell scripts are examples of how to run on a cluster, as some take a long time to run. 
   When R scripts have a paired shell script, they have matching names, differing only in ending.
 
-Explanation of scripts
+EXPLANATION OF SCRIPTS
 
 FitnessAlignmentConceptFig.R
   Produces panels for figure 1.
@@ -40,16 +40,15 @@ Scripts in series 03 and 06 process simulation results
 
 Scripts 04 and 07 make figures for the exploration of results across parameter space.  
   Names link them to either exploration of all parameters ("testparamE"), or evolutionary scenario parameters ("specialparamE").
-
-Scripts in series 08 may be of interest to some readers, but are beyond the scope of the manuscript
-  These make use of host-micr-fitconfl_01_simmultipopwithmigrate.R and likewise remain a work in progress
  
 Scripts in series 10 write the functions, and run analyses associated with GWAS results in manuscript
   host-micr-fitconfl_10_gwasfunctionsonly.R sets out the functions used in host-micr-fitconfl_10_gwasdemos.R
   host-micr-fitconfl_10_gwasdemos.R processeses simulation output from "02_shortexfig" and prepares for GWAS run in host-micr-fitconfl_10_gwasdemos.sh
+  The output files from gemma are included in this directory ("assoc.txt" and .csv files named with pattern "micrloci" or "plantloci"), so that these very last steps can be run by interested parties, without having to re-run simulations (as these take awhile on a personal computer)
 
-Script in secies 11 processes GWAS output and makes associated figures in manuscript
+Script in series 11 processes GWAS output and makes associated figures in manuscript
 
-Script FitnessAlignmnetConceptFig.R produces panels B-E in figure 1 in the manuscript
-	Uses dataset from Haney et. al. 2015 (full citation in associated manuscript)
+
+ADDITIONAL FILES
+The output files from gemma (10 series .R scripts) are included in this directory ("assoc.txt" and .csv files named with pattern "micrloci" or "plantloci")
 
