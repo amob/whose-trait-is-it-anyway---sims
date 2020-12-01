@@ -1,46 +1,8 @@
 #######
 #Quantitative trait evolution and fitness conflict or not in plant-microbe interactions
+##This script is the simulation function, or the workhorse. 
+##Contains code for procedures described in "Simulation Details" of manuscript
 #######
-
-######what of the questions we discussed can the current simulator accomplish?
-	###how much conflict does there have to be for us to measure/map it?
-		#Not tested.
-	##variation in link between how much of trait is controlled by one plant/micr or the other
-		#YES (sort of, with number of loci,), but I think fewer loci can eventually accumulate strong effects per locus over time
-	##if link of trait to fitness for one partner is stronger , does this affect which genome will accumulate heritability?
-		#YES, and answer is yes
-	##what if there are subtle conflicts at some loci, but overall fitness alignment at most? i.e. mutations at loci in either genome same sign eff on fitness of both
-		#Not tested, I think this requires multiple traits? or a portion of fitness that is dependent on your partner having good fitness? -- i.e. the fitness of your partner impacts your own fitness
-		#I this might be similar to just turning down the strength of the link between the trait and fitness. but not sure.
-
-#flexibility allowed
-	#pop size of micr and plant can differ? 
-			##yes, but new questions about what to do with the extra microbes. 
-	#diploid plant stage under selection, rather than haploid 
-	#some proportion of focal fitness comes from partner fitness, and some percentage from having the right phenotype, with error on top
-	#exponenetial distribution of effect sizes of mutations? #ALLOWED.
-
-##flexibility for further consideration:
-	## Dominance?
-	#Mapping issue: keep track of alleles? -- maybe I can just use unique effect size values within loci? although there might be similar ways to arrive at the same effect sizes....
-		# could say that each mutational change in an allele's history is a new site (inf sites) but that all within a locus are non-recombining?
-	#more than one microbe species?
-	#is exponential really the right DFE?
-	#a lande-arnold multivariate traits perspective: different beta vectors for plant microbe fitness....what about a mutational inputs mv matrix too?
-			#so this is two part: 1, multiple traits and a mv phenotypic optima. 
-			# and 2, trait covariance -- main way this will occur is if mutational inputs have a correlated (?what about just also but independent) effect on other traits
-	#microbes faster generation time?
-
-####################
-###priority goals
-	##neutral loci
-	##simulate several populations
-	##draw individuals from those populations to genotype and run experiments on. -- calculate trait values
-################	
-
-
-#must install on scratch node first. can't be done from within script, or write over existing install?
-#install.packages("abind")
 library(abind)
 
 range01=function(x){
@@ -48,7 +10,6 @@ newnums=(x-min(x,na.rm=T))/(max(x,na.rm=T)-min(x,na.rm=T))
 return(newnums)
 }
 
-###The current code.
 
 #fitness function for trait, zopt
 #based on normal distribution, but instead of pdf summing to one, fitness is 1 at the optimum, just remove the 1/sqrt(2*pi*sd) in the normal P.D.F., 
@@ -57,7 +18,7 @@ univar.fit <- function(z, zopt, sd.fit) {
 										adjfit <- rawfit /sum(rawfit)
 										return(adjfit)
 										} 
-#see lecorre and kramer 2012, for example, but from Haldane 1954
+#see lecorre and kramer 2012, for example, but from Haldane 1954 (full citations in manuscript)
 
 
 mutate.exp <- function(nL,N,lambda, prbmut) { sapply( 1:N , function(z)
@@ -75,17 +36,6 @@ horizontal <- function(nL,N,prb,genomat) {  #genomat is row are loci, cols are i
 			  return(NewGenomat)
 			  }
 #requires and provides ind. in colums, loci in rows
-
-#this one is more like conjugation. where some are randomly on plasmids			
-# horizontal <- function(nL,N,prb,genomat) {  #genomat is row are loci, cols are individuals
-# 			 transfer <- matrix( rbinom(nL*N, size=1, prob = prb) * rep(sample( 1:N , N, replace =T),each=nL ), ncol=N, nrow=nL,byrow=F)# with probability prb, sample a single locus from another individual, so rate of locus transfer proportional to prevalence in pop 
-# 			 NewGenomat <- matrix( sapply(1:N, function(ind) sapply(1:nL, function(loc) 
-# 			  				ifelse(transfer[loc,ind] > 0, genomat[loc, transfer[loc,ind] ] , genomat[loc, ind] ) 
-# 			  				) ), ncol = N,  , byrow=F )
-# 			  return(NewGenomat)
-# 			  }
-
-
 
 sim.cotrait <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,mutprb ,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n"){  #-- 
 #popsize, number loci, optimal phenotype, shallowness of fitness decline away from trait opt, timesteps, average effect of mutation, 
