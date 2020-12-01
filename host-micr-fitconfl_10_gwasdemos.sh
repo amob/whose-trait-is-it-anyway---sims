@@ -34,13 +34,8 @@ plink --file $SCRATCH/MICR4f_ABO --out MICR4fABO --make-bed
 plink --file $SCRATCH/MICR4fff_ABO --out MICR4fffABO --make-bed
 
 ##PASS to GEMMA to run models.
-#get kinship; currently not using
-# $HOME/gemma-0.98.1-linux-static -bfile PLANTevosimsABO  -gk 2 -o plantkinABO
-# $HOME/gemma-0.98.1-linux-static -bfile MICRevosimsABO  -gk 2 -o micrkinABO
-#given manual text, might actually prefer -gk 2, since the larger effect alleles will be low frequency (depends somewhat on simulation parameters)
-#however, they say -gk 1 usually performs better.
 
-#run models without K
+#note, we run models without K, but including kinship matrices could improve performance
 $HOME/gemma-0.98.1-linux-static -bfile PLANT4bABO -lm 4 -o PLANTgemmaABO4b -maf 0.00375
 $HOME/gemma-0.98.1-linux-static -bfile PLANT4bffABO -lm 4 -o PLANTgemmaABO4bff -maf 0.00375
 $HOME/gemma-0.98.1-linux-static -bfile PLANT4aABO -lm 4 -o PLANTgemmaABO4a -maf 0.00375

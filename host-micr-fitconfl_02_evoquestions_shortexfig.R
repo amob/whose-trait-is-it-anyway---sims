@@ -16,17 +16,17 @@ source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_01_simfunction.R
 gens <- 300
 # #4 scenarios
 # #micr direct very weak 
-# test.4b <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# test.4b <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1)
 # # micr direct very weak, indirect stronger
-# test.4bff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# test.4bff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=10,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6)
 # # conflict, links =,  direct only
-# test.4f <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# test.4f <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1)
 # #conflict, links =,  direct and indirect links
-# test.4fff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1) 
+# test.4fff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=2,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6)
 # #matched optima, no ff
-# test.4a <-		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)#
+# test.4a <-		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1)
 # #mattched optima, ff
-# test.4aff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# test.4aff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6)
 # # sixdemosims <- list(test.4b,test.4bff,test.4a,test.4aff,test.4f,test.4fff)
 # # save(sixdemosims,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_sixdemos.RData',sep=""))
 # 
@@ -41,18 +41,18 @@ test.4fff <- sixdemosims[[6]]
 
 #additional simulation for supplement, again, commented out due to time length required, just uncomment to run, save() and load() functions exist as we recommend saving these outputs if running once
 #host direct very weak
-# test.4c <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=10,wM=0.75,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# test.4c <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=10,wM=0.75,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1)
 # host direct very weak, indirect stronger
 # save(test.4c,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4c.RData',sep=""))
-# test.4cff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=10,wM=0.75,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1)
+# test.4cff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=3,zoM=3,wP=10,wM=0.75,  timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6)
 # save(test.4cff,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4cff.RData',sep=""))
 load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4c.RData',sep=""))
 load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4cff.RData',sep=""))
 # # conflict, links =,  direct only, swap zopt
-# test.4e <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=2,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1,FLFC=0.1)
+# test.4e <- 		sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=2,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 1, pfM=1)
 # save(test.4e,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData',sep=""))
 # #conflict, links =,  direct and indirect links
-# test.4eff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=2,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6,FLFC=0.1) 
+# test.4eff <- 	sim.cotrait(NP=2000,NM=2000,nlP=20,nlM=40,nlnP=400,nlnM=800,zoP=2,zoM=3,wP=0.75,wM=0.75,timesteps=gens,Lambda=25,mutprb=0.0001,prbHorz = 0.2,pfP = 0.6, pfM=0.6)
 # save(test.4eff,file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4eff.RData',sep=""))
 load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4e.RData',sep=""))
 load(file=paste(Sys.getenv("SCRATCH"),'/Simulation_Results_hostweaksims4eff.RData',sep=""))

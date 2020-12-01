@@ -1,10 +1,6 @@
-#######
-#Quantitative trait evolution and fitness conflict or not in plant-microbe interactions
-#######
-
 ##
 #goal of this script is
-#for 6 scenarios, run in silico simulations and prep for gwas
+#for 6 scenarios, run in silico "experiments" and prep for gwas
 ##
 
 source(paste(Sys.getenv("HOME"),'/whosetrait/host-micr-fitconfl_10_gwasfunctionsonly.R',sep="")) 

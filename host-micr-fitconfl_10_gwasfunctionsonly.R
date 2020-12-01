@@ -1,7 +1,3 @@
-#######
-#Quantitative trait evolution and fitness conflict or not in plant-microbe interactions
-#######
-
 ##
 #goals of this script are
 	#1. functions to simulate experiments from simulated pops 
@@ -117,7 +113,7 @@ run.exp.allbyone<- function(popsetobj,numperpop,numsites,exp.err,nreps=1) {
 }
 
 
-##A FUNCTION TO GET GENOTYPES TO USE IN GEMMA (called in experiment function above)
+##A FUNCTION TO GET BIALLELIC GENOTYPES (called in experiment function above)
 ###Get genotypes for gemma. Simulations assumed infinite alleles, need to translate this to biallelic loci
 		# (depending on loci, time and # pops) possibly many unique allele values per locus
 		#the below reinterprets these as different locations (e.g. different base pairs) within non-recombining regions

@@ -1,6 +1,5 @@
 #######
-#Quantitative trait evolution and fitness conflict or not in plant-microbe interactions
-##This script is the simulation function, or the workhorse. 
+##This script is the simulation function, and simulation processing functions, these function are called and used in many other scripts
 ##Contains code for procedures described in "Simulation Details" of manuscript
 #######
 library(abind)
@@ -13,9 +12,9 @@ return(newnums)
 
 #fitness function for trait, zopt
 #based on normal distribution, but instead of pdf summing to one, fitness is 1 at the optimum, just remove the 1/sqrt(2*pi*sd) in the normal P.D.F., 
-univar.fit <- function(z, zopt, sd.fit) {   
+univar.fit <- function(z, zopt, sd.fit) {   #note that sd.fit is "omega" when this function is used in the simulation
 										rawfit <-   exp( -1* ((z-zopt)^2) / (2 * (sd.fit^2)) )  
-										adjfit <- rawfit /sum(rawfit)
+										adjfit <- rawfit /sum(rawfit) #relativise depending on other trait values in population
 										return(adjfit)
 										} 
 #see lecorre and kramer 2012, for example, but from Haldane 1954 (full citations in manuscript)
@@ -37,12 +36,13 @@ horizontal <- function(nL,N,prb,genomat) {  #genomat is row are loci, cols are i
 			  }
 #requires and provides ind. in colums, loci in rows
 
+
 sim.cotrait <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,mutprb ,prbHorz, pfP, pfM,FLFC,startmats = "n",zoptvects = "n"){  #-- 
-#popsize, number loci, optimal phenotype, shallowness of fitness decline away from trait opt, timesteps, average effect of mutation, 
+#popsize, number loci, optimal phenotype, shallowness of fitness decline away from trait opt (this is omega, note that w in code is represents either omega or fitness),
+    # timesteps, average effect of mutation, 
 	#exponential rate of mutation effect distribution, prb of mutation, prb of horizontal transfer,freeliving fitness cost
 	#startmats, if not "n", must be a list of matrices NAMED: Pa.mat, Ma.mat, Pneut.mat, Mneut.mat
 	#zoptvects, if not "n", must be a list of vectors NAMED: PlantZ and MicrZ
-#note plant and
  
 	#initialize
 	Pa.mat <- array(0, dim= c(nlP,NP,2,timesteps+1) ) #store mutations on genotypes, rows have genotypes, columns have individuals, timesteps in sep matrices
@@ -70,26 +70,18 @@ sim.cotrait <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,m
 				zoP = zoptvects$PlantZ[i-1]
 				zoM = zoptvects$MicrZ[i-1]
 				}
-# 		if(NP<NM) #{ print("unequal pop sizes currently not allowed")
-# 			symbiotic <- 1:NP # should be no reason to further randomize 
-# 			freeliving <- !((1:NM)%in%symbiotic) #this may not be the easiest solution.
-# 		} else if(NP==NM){
-# 		symbiotic <- 1:NM
-# 			freeliving <- !((1:NM)%in%symbiotic)
-# 		} #else{print("pop of microbes, NM, must be >= NP, pop of plants")}	
 		
 		#interact! since Pa.mat[,,i-1] and Ma.mat[,,i-1] are randomly arranged from reproduction the previous time, just pair up columns / symbiotic columns
 		#joint trait value is evaluated with respect to distance from host optima and microbe optima -- then relative fitness is calculated based on the distance to both own trait optima
 		 ### and how well the partner can do based on its optima, with some proportion -- i.e. assumption is that if this is a mutualism, when your partner is unfit it isn't as beneficial
-		hostfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoP, sd.fit=wP) #, fiterr=fiterrP) 
-		micrfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoM, sd.fit=wM)# fiterr=fiterrM)#, freeliving = freeliving,FLCL=FLCL) 
-		wH.e <-     pfP*hostfit + (1-pfP)*micrfit
-		wM.e <- (1-pfM)*hostfit +     pfM*micrfit
-	##NOTE: if wanted to do antagonistic interactions, base on: pfP*hostfit + (1-pfP)*((1-micrfit)/sum(1-micrfit))  #e.g. direct impact of trait on fitness, and impact passed through the inverse (e.g. perfectly negatively correlated) of impact on antagonists fitness
+		hostfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoP, sd.fit=wP) #individual trait-based fitness components
+		micrfit <-     univar.fit(rowSums(colSums(Pa.mat[,,,i-1])) + colSums(Ma.mat[,,i-1]), zopt = zoM, sd.fit=wM) #individual trait-based fitness components
+		wH.e <-     pfP*hostfit + (1-pfP)*micrfit #relative fitness
+		wM.e <- (1-pfM)*hostfit +     pfM*micrfit #relative fitness
 		#Plant reproductions
 		#reproduce: random mating with respect to relative fitness, and unlinked loci, but finite popsize.
-		seedP <- sample( 1:NP , NP ,replace=T , prob=  wH.e) # (wH.e)/ sum((wH.e)) ) # 
-		pollP <- sample( 1:NP , NP ,replace=T , prob=  wH.e)#(wH.e)/ sum((wH.e)) ) #selfing is allowed.
+		seedP <- sample( 1:NP , NP ,replace=T , prob=  wH.e) # 
+		pollP <- sample( 1:NP , NP ,replace=T , prob=  wH.e)# #selfing is allowed.
  		#reproduce proportional to fitness and add next generation mutations in pollen, then seed donor genomes, paste together, 	
 		pollPs <- sapply(1:NP, function(n) 
 						sapply(1:nlP, function(l) 
@@ -111,7 +103,7 @@ sim.cotrait <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,m
 		Pa.mat[,,,i] <- abind(pollPs,seedPs,along=3) 
 		Pneut.mat[,,,i] <- abind(pollneut,seedneut,along=3) 
 		#microbial reproduction is clonal, have horizontal gene exchange after selection at probability prbHorz (per nL*N).
-		micrPs <- sample( 1:NM , NM ,replace=T , prob= wM.e)#(wM.e)/ sum((wM.e)) )
+		micrPs <- sample( 1:NM , NM ,replace=T , prob= wM.e)
 		Ma.mat[,,i]    <- horizontal(nL = nlM, N=NM,prb=prbHorz, genomat = Ma.mat[,,i-1][,micrPs]  + mutate.exp(nL=nlM,N=NM,lambda=Lambda,prbmut=mutprb) ) # 	
 		Mneut.mat[,,i] <- horizontal(nL = nlnM, N=NM,prb=prbHorz, genomat = Mneut.mat[,,i-1][,micrPs]  + mutate.exp(nL=nlnM,N=NM,lambda=Lambda,prbmut=mutprb) ) # 			
 	}
@@ -120,6 +112,8 @@ sim.cotrait <- function(NP,NM,nlP,nlM,nlnP,nlnM,zoP,zoM,wP,wM,timesteps,Lambda,m
 	return(result)
 }
 
+
+####Functions for describing the results of a run of the simulation function above
 
 windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding values",xlabs="generations") {
 	twindows <- seq(from=first, to = last,by=thinsize)
@@ -147,8 +141,7 @@ windowplot <- function(first, last, thinsize, simdat,ylim,main,ylabs="breeding v
 
 
 
-#one question: when plant and microbes are unevenly sized in pop, what does this do?
-#now it discards unpartnered microbes. before, unclear what it did
+# when plant and microbes are unevenly sized in pop, this discards unpartnered microbes. 
 getfitcon <- function(first, last, thinsize, simdat,zoP,zoM, wP, wM,pfP,pfM) {
 	twindows <- seq(from=first, to = last,by=thinsize)
 	if(dim(simdat$Plant)[2]<(dim(simdat$Microbe)[2])){
@@ -195,20 +188,14 @@ extractVmVp <- function(simdat,first,last,eachNth){
 	twindows <- seq(from=first, to = last,by=eachNth)
 	Vp <- sapply(twindows, function(t) var( rowSums(colSums(simdat$Plant[,,,t])) )  )
 	mup <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) )  )
-#	sVp <- sapply(twindows, function(t)  var( rowSums(colSums(simdat$Plant[,,,t]))/ mean( rowSums(colSums(simdat$Plant[,,,t])) ) ) )
 	Vm <- sapply(twindows, function(t) var( colSums(simdat$Microbe[,,t]) )  )
 	mum <- sapply(twindows, function(t) mean( colSums(simdat$Microbe[,,t]) )  )
-#	sVm <- sapply(twindows, function(t)   var(colSums(simdat$Microbe[,,t])/mean( colSums(simdat$Microbe[,,t])) )  )
 	Vb <- sapply(twindows, function(t) var( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
 	mub <- sapply(twindows, function(t) mean( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  )
-#	sVb <- sapply(twindows, function(t) var(   (rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t])) / mean( rowSums(colSums(simdat$Plant[,,,t])) + colSums(simdat$Microbe[,,t]) )  ) )
 	return(list(Vp=Vp, Vm = Vm,Vb=Vb,mup = mup, mum=mum, mub=mub,
 				cVp = abs(sqrt(Vp)/mub), cVm = abs(sqrt(Vm)/mub), cVb = abs(sqrt(Vb)/mub), 
-#				cVp = abs(sqrt(Vp)/mup), cVm = abs(sqrt(Vm)/mum), cVb = abs(sqrt(Vb)/mub), 
-	#			sVp = abs((Vp)/mup), sVm = abs((Vm)/mum), sVb = abs((Vb)/mub), 
-		#		sVp = sVp, sVm = sVm, sVb = sVb, 
 				PVp=Vp / (Vp+Vm), PVm = Vm/(Vp+Vm)))
-}#currently pVx is a ratio of each to the sum, but not to the breeding value variance. sum var and bv var should be apprx equal in theory, but smaller sample sizes make them deviate
+}#
 
 #short-term questions
 #equilibrium?
@@ -323,28 +310,3 @@ getrelfitandtrait <- function(simdat,gen,zoP,zoM,wP,wM,pfP,pfM){
 	return(data.frame(traitexp = traitexp,rfitplnt=rHfit,rfitmicr=rMfit))
 }
 
-#considerations for possible multivariate extension
-# multivar.fit <- function(z, zopt, sd.fit,fiterr) { 
-# 
-#  dmvnorm(z,means=zopt  ,sigma = diag(sd.fit))
-# #   sapply(1:length(z), function(k) exp( -1* ((z[k]-zopt[k])^2) / (2 * (sd.fit[k]^2)) ) 
-#    
-#    + rnorm(length(z), mean=0,sd=fiterr) ) 
-# 
-# }
-# #the same function, sort of, but vectorized,
-# # 
-# # zdiff <- (z - zopt)^2
-# #exp( -(1/2) * t(zdiff)*inv(V)*zdiff  )
-# # Evolution. 2003 Aug;57(8):1761-75.
-# #Multivariate stabilizing selection and pleiotropy in the maintenance of quantitative genetic variation.
-# #Zhang XS1, Hill WG.
-# 
-# #from Zhang 2012: this one has a bit more info,,
-# 
-# #zeta^2 = 1/(2VS) and VS is the variance of the fitness profile on each trait
-# #and from turelli 1984, which is cited. Vs = w2 + Ve; with the note : For convenience, it will be assumed hereafter that all measurements are scaled so that Ve = 1
-# ##so I gues zeta is a vector?? but then from Zhang: Individuals are subject to real stabilizing selection, with independent and identical strength of selection on each trait, characterized by S = ζ^2 I
-# # exp( -(1/2) * sum(1:ntraits,  (z[i]-zopt[i])^2 * (zeta^2)    ) )
-# 
-#
