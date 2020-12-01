@@ -1,35 +1,10 @@
 #######
 #Quantitative trait evolution and fitness conflict or not in plant-microbe interactions
+##THIS SCRIPT IS A WORK IN PROGRESS TO ALLOW MULTIPLE POPULATIONS AND SPATIAL STRUCTURE
+##WE DO NOT RECOMMEND THAT THIS SCRIPT BE RUN WITHOUT CAREFUL THOUGHT, AS RESULTS MAY STILL BE UNTRUSTWORTHY
+##we have included it only for the very curious reader.
 #######
 
-######what of the questions we discussed can the current simulator accomplish?
-	###how much conflict does there have to be for us to measure/map it?
-		#Not tested.
-	##variation in link between how much of trait is controlled by one plant/micr or the other
-		#YES (sort of, with number of loci,), but I think fewer loci can eventually accumulate strong effects per locus over time
-	##if link of trait to fitness for one partner is stronger , does this affect which genome will accumulate heritability?
-		#YES, and answer is yes
-	##what if there are subtle conflicts at some loci, but overall fitness alignment at most? i.e. mutations at loci in either genome same sign eff on fitness of both
-		#Not tested, I think this requires multiple traits? or a portion of fitness that is dependent on your partner having good fitness? -- i.e. the fitness of your partner impacts your own fitness
-		#I this might be similar to just turning down the strength of the link between the trait and fitness. but not sure.
-
-#flexibility allowed
-	#pop size of micr and plant can differ? 
-			##yes, but new questions about what to do with the extra microbes. 
-	#diploid plant stage under selection, rather than haploid 
-	#some proportion of focal fitness comes from partner fitness, and some percentage from having the right phenotype, with error on top
-	#exponenetial distribution of effect sizes of mutations? #ALLOWED.
-
-##flexibility for further consideration:
-	## Dominance?
-	#Mapping issue: keep track of alleles? -- maybe I can just use unique effect size values within loci? although there might be similar ways to arrive at the same effect sizes....
-		# could say that each mutational change in an allele's history is a new site (inf sites) but that all within a locus are non-recombining?
-	#more than one microbe species?
-	#is exponential really the right DFE?
-	#a lande-arnold multivariate traits perspective: different beta vectors for plant microbe fitness....what about a mutational inputs mv matrix too?
-			#so this is two part: 1, multiple traits and a mv phenotypic optima. 
-			# and 2, trait covariance -- main way this will occur is if mutational inputs have a correlated (?what about just also but independent) effect on other traits
-	#microbes faster generation time?
 
 ####################
 ###priority goals

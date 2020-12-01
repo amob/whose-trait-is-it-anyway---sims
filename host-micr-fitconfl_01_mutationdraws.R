@@ -1,7 +1,8 @@
+#This script produces the mutation distribution figure
 
 #mutate function copied from simulation function
 mutate.exp <- function(nL,N,lambda, prbmut) { sapply( 1:N , function(z)
-			abs(rexp(nL,rate=lambda)) * ifelse(rbinom(nL,size=1,prob=0.5), 1 , -1 ) * rbinom(nL, size=1, prob = prbmut) ) #size = 1 in the last argument implies haploid?
+			abs(rexp(nL,rate=lambda)) * ifelse(rbinom(nL,size=1,prob=0.5), 1 , -1 ) * rbinom(nL, size=1, prob = prbmut) ) 
 			  }# DistofAbsValueofTraitEff * ProbofPosvNegMutation * ProbMutOccurs(u*loci) 
 #high values of lambda give LOWER effect sizes of mutations on average.
 

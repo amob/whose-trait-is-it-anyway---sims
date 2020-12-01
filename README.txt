@@ -11,6 +11,20 @@ In general, R scripts do the work, shell scripts are examples of how to run on a
 
 Explanation of scripts
 
+FitnessAlignmentConceptFig.R
+  Produces panels for figure 1.
+  Uses data extracted from Haney et al 2015 (please see manuscript for full citation), and available in fit_align.csv
+
+
+Numbered scripts pertain to the simulations. 
+**IMPORTANT EXPLANATION OF PARAMETER NOTATION. Some notation differs from manuscript to code
+  - "theta" is written in the code as "Zopt" or "Zo" or similar
+  - Code subscript for "host" is often "p" or "plant"; these should be read as equivalent to "host" or subscript "H"
+  - "L" is "nL" for number of loci
+  - greek letters are often written out by name (e.g. "Lambda") or substituted with a visually similar english alphabet letter
+  - further abbreviations exist and are defined/described in code
+
+
 Scripts in series 01 provide simulation functions.
   Only host-micr-fitconfl_01_simfunction.R is used for analyses
   host-micr-fitconfl_01_simmultipopwithmigrate.R may be of interest to some readers, but is beyond the scope of the manuscript and remains a work in progress
