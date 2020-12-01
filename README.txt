@@ -1,6 +1,10 @@
 # whose-trait-is-it-anyway---sims
 
-This repository includes scripts associated with a manuscript. Detailed explanation of goals and output is available there. 
+This repository includes scripts associated with the following article:
+
+O’Brien, AM, C Jack, ML Friesen, and ME Frederickson.  Whose trait is it anyways?: Coevolution of joint phenotypes and genetic architecture in mutualisms. Proceedings of the Royal Society B: Biological Sciences. DOI: 10.1098/rspb.2020.2483 
+
+Detailed explanation of goals and output is available therein. 
 Script and final figure files (pdfs) are included. Some intermediate files (.txt, .csv) are included, but scripts will have to be re-run fully if changing any parameters.
 In general, R scripts do the work, shell scripts are examples of how to run on a cluster, as some take a long time to run. 
   When R scripts have a paired shell script, they have matching names, differing only in ending.
